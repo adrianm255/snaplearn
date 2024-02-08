@@ -5,5 +5,8 @@ class HelloWorldController < ApplicationController
 
   def index
     @hello_world_props = { name: "Stranger" }
+
+    #TODO remove
+    TestJob.perform_async
   end
 end
