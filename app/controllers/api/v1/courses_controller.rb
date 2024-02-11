@@ -1,6 +1,7 @@
 class Api::V1::CoursesController < ApplicationController
   before_action :set_course, only: %i[ show update destroy ]
-  # skip_before_action :verify_authenticity_token
+  before_action :authenticate_user!
+  before_action :authorize_user!, only: [:update, :destroy]
 
   # GET /courses
   def index
@@ -16,6 +17,7 @@ class Api::V1::CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
+    @course.author = current_user
 
     if @course.save
       render json: @course.as_json(include: :course_sections), status: :created
@@ -49,7 +51,13 @@ class Api::V1::CoursesController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:title, :description, :published, course_sections_attributes: [:id, :title, :description, :content, :section_type, :order, :file, :_destroy])
+    params.require(:course).permit(:title, :description, course_sections_attributes: [:id, :title, :description, :content, :section_type, :order, :file, :_destroy])
+  end
+
+  def authorize_user!
+    unless @course.authored_by?(current_user)
+      render json: {error: "Not authorized to perform this action"}, status: :forbidden
+    end
   end
 
   def process_course_sections(course_sections_attributes)
