@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Snaplearn Dashboard</title>
+    <%= csrf_meta_tags %>
+    <%= javascript_pack_tag 'dashboard-bundle' %>
+    <%= stylesheet_link_tag 'application' %>
+  </head>
+
+  <body>
+    <%= react_component("SidebarNav", props: @navbar_items, prerender: true) %>
+    <main>
+      <%= yield %>
+    </main>
+  </body>
+</html>

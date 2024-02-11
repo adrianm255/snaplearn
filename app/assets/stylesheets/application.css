@@ -13,3 +13,65 @@
  *= require_tree .
  *= require_self
  */
+
+ body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+nav {
+  background-color: black;
+  width: 12rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+nav > header {
+  padding: 3rem 1.5rem;
+  border-bottom: 0.0625rem solid white;
+}
+
+nav > header .logo {
+  color: white;
+  font-size: 2em;
+}
+
+nav > a {
+  color: white;
+  padding: 1rem 1.5rem;
+  border-bottom: 0.0625rem solid white;
+}
+
+nav > a:hover {
+  color: pink;
+}
+
+main {
+  flex-grow: 1;
+  background-color: #fff;
+}
+
+main header {
+  padding: 3rem 1.5rem;
+  border-bottom: 0.0625rem solid grey;
+}
+
+main header > h1 {
+  margin: 0;
+}
+
+main .content {
+  padding: 1rem 1.5rem;
+}

@@ -42,6 +42,8 @@
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
     "react-refresh": "^0.14.0",
-    "webpack-dev-server": "4"
+    "webpack-dev-server": "4",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0"
   }
 }
