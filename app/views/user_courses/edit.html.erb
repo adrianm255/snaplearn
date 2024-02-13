@@ -1,5 +1,1 @@
-<h1>Course Editor page</h1>
-<p>Course Editor component here</p>
-
-<h1><%= @course.title %></h1>
-<p><%= @course.description %></p>
+<%= react_component("CourseEditorPage", props: { course: @course.as_json(include: :course_sections) }, prerender: true, html_options: { class: "react-rendered-component dashboard-page" }) %>

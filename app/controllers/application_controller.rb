@@ -7,20 +7,28 @@ class ApplicationController < ActionController::Base
     @navbar_items = {
       items: [
         {
-          title: 'Home',
-          url: '/'
+          title: t('dashboard.title'),
+          url: dashboard_path,
+          active: request.path == dashboard_path,
+          section: 'home-section'
         },
         {
-          title: 'Courses',
-          url: courses_path
+          title: t('courses.title'),
+          url: courses_path,
+          active: request.path == courses_path || request.path.start_with?('/course'),
+          section: 'home-section'
         },
         {
-          title: 'Discover',
-          url: discover_path
+          title: t('discover.title'),
+          url: discover_path,
+          active: request.path == discover_path,
+          section: 'discover-section'
         },
         {
-          title: 'Library',
-          url: library_path
+          title: t('library.title'),
+          url: library_path,
+          active: request.path == library_path,
+          section: 'discover-section'
         },
       ]
     }

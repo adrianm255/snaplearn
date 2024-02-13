@@ -28,4 +28,18 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  cancel: "Cancel"
+  create: "Create"
+  dashboard:
+    title: "Home"
+  courses:
+    title: "Courses"
+    new_course_label: "New course"
+    create_course_title: "Create course"
+  discover:
+    title: "Discover"
+  library:
+    title: "Library"
+  course_editor:
+    course_tab_label: "Course"
+    content_tab_label: "Content"

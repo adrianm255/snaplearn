@@ -1,8 +1,10 @@
 import ReactOnRails from 'react-on-rails';
 import SidebarNav from '../bundles/Dashboard/components/SidebarNav/SidebarNav';
-import UserCourses from '../bundles/Dashboard/components/UserCourses/UserCourses';
+import CourseEditorPage from '../bundles/Dashboard/pages/CourseEditorPage';
+import UserCoursesPage from '../bundles/Dashboard/pages/UserCoursesPage';
 
 ReactOnRails.register({
   SidebarNav,
-  UserCourses,
+  UserCoursesPage,
+  CourseEditorPage,
 });

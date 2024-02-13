@@ -9,6 +9,8 @@ ReactOnRails.configure do |config|
   # If nil, then the standard shakacode/shakapacker assets:precompile will run
   # config.build_production_command = nil
 
+  config.i18n_dir = Rails.root.join("client", "app", "libs", "i18n")
+
   ################################################################################
   ################################################################################
   # TEST CONFIGURATION OPTIONS

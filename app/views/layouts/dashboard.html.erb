@@ -7,10 +7,8 @@
     <%= stylesheet_link_tag 'application' %>
   </head>
 
-  <body>
-    <%= react_component("SidebarNav", props: @navbar_items, prerender: true) %>
-    <main>
-      <%= yield %>
-    </main>
+  <body class="sidebar-nav">
+    <%= react_component("SidebarNav", props: @navbar_items, prerender: true, html_options: { class: "react-rendered-component" }) %>
+    <%= yield %>
   </body>
 </html>

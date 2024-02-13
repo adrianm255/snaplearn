@@ -42,3 +42,8 @@ yarn-debug.log*
 .yarn-integrity
 
 dump.rdb
+
+.DS_Store
+
+/client/app/libs/i18n/default.json
+/client/app/libs/i18n/translations.json

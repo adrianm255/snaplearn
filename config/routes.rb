@@ -11,7 +11,10 @@ Rails.application.routes.draw do
 
   # User courses
   get 'courses', to: 'user_courses#index'
-  get 'course/:id/edit', to: 'user_courses#edit'
+  get 'course/:id/edit', to: 'user_courses#edit', as: :course_edit
+
+  # Dashboard
+  get 'dashboard', to: 'dashboard#index'
 
   # Courses
   get 'course/:id', to: 'courses#show'
@@ -28,7 +31,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root :to => redirect('/dashboard')
 
   mount Sidekiq::Web => '/sidekiq'
 end
