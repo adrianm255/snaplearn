@@ -2343,7 +2343,7 @@ aside .close {
   background-color: rgb(var(--filled));
   color: rgb(var(--contrast-filled));
   --active-bg: var(--body-bg);
-  margin-top: .5rem;
+  /* margin-top: .5rem; */
   max-width: calc(100vw - 2rem)
 }
 
@@ -2388,7 +2388,7 @@ aside .close {
 .popover .dropdown {
   position: absolute;
   top: calc(100% - .0625rem);
-  min-width: 100%;
+  /* min-width: 100%; */
   width: -moz-max-content;
   width: max-content;
   box-shadow: .25rem .25rem 0rem rgb(var(--color));
@@ -2742,9 +2742,9 @@ input[role=switch]:checked::after {
   background-color: rgb(var(--contrast-accent))
 }
 
-input[type=file] {
+/* input[type=file] {
   display: none
-}
+} */
 
 .quantity>input[type=number] {
   -moz-appearance: textfield
@@ -2830,7 +2830,7 @@ form>section:not(form+form section):first-of-type {
   border-top: none
 }
 
-@media(min-width: 1024px) {
+/* @media(min-width: 1024px) {
   form>section:not(.squished form>section) {
       gap:0 4rem;
       padding-bottom: 1rem;
@@ -2846,7 +2846,7 @@ form>section:not(form+form section):first-of-type {
       grid-column: 1/2;
       grid-row: 1/10
   }
-}
+} */
 
 .combobox {
   position: relative

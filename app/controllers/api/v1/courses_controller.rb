@@ -12,7 +12,7 @@ class Api::V1::CoursesController < ApplicationController
 
   # GET /courses/1
   def show
-    render json: @course.as_json(include: :course_sections)
+    render json: @course.as_json
   end
 
   def create
@@ -20,7 +20,7 @@ class Api::V1::CoursesController < ApplicationController
     @course.author = current_user
 
     if @course.save
-      render json: @course.as_json(include: :course_sections), status: :created
+      render json: @course.as_json, status: :created
     else
       render json: @course.errors, status: :unprocessable_entity
     end
@@ -31,7 +31,7 @@ class Api::V1::CoursesController < ApplicationController
     process_course_sections(params[:course][:course_sections_attributes]) unless !params[:course][:course_sections_attributes]
 
     if @course.update(course_params)
-      render json: @course.as_json(include: :course_sections)
+      render json: @course.as_json
     else
       render json: @course.errors, status: :unprocessable_entity
     end
@@ -61,18 +61,16 @@ class Api::V1::CoursesController < ApplicationController
   end
 
   def process_course_sections(course_sections_attributes)
-    #TODO handle form data type too
     current_section_ids = @course.course_sections.pluck(:id)
     new_section_ids = []
-    course_sections_attributes.each do |cs|
+    course_sections_attributes.each do |_, cs|
       new_section_ids << cs['id']
     end
-    # max_key = course_sections_attributes.keys.map(&:to_i).max || -1
+    max_key = course_sections_attributes.keys.map(&:to_i).max || -1
     section_ids_to_delete = current_section_ids.difference(new_section_ids)
     section_ids_to_delete.each do |id|
-      # max_key += 1
-      # course_sections_attributes[max_key.to_s] = { id: id, _destroy: '1' }
-      course_sections_attributes << { id: id, _destroy: '1' }
+      max_key += 1
+      course_sections_attributes[max_key.to_s] = { id: id, _destroy: '1' }
     end
   end
 end

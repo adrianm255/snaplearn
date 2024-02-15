@@ -3,14 +3,15 @@ import { Course } from '../../../../types/course';
 import AddCourseButton from './AddCourseButton/AddCourseButton';
 import { createCourse } from '../../../../services/courseService';
 import useTranslation from '../../../../libs/i18n/useTranslation';
+import { convertToFormData } from '../../../../helpers/formDataHelper';
 
 const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
   const { t } = useTranslation();
 
   const handleNewCourseFormSubmit = async (title: string) => {
     try {
-      const payload = { title };
-      const response = await createCourse(JSON.stringify(payload));
+      const payload = convertToFormData({ course: { title } });
+      const response = await createCourse(payload);
       console.log('RESPONSE');
       console.log(response);
       window.location.href = `/course/${response.id}/edit`;

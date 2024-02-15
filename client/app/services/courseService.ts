@@ -19,15 +19,10 @@ const fetchCourse = async (id) => {
 }
 
 const createCourse = async (postData) => {
-  // TODO any
   const response = await fetch(`${COURSES_API_URL}`, {
     method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
-    },
     body: postData,
-  } as any);
+  });
 
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -59,6 +54,13 @@ const deleteCourse = async (id) => {
 
   throw new Error(response.statusText);
 }
+
+const getHeaders = () => {
+  return {
+    'Content-Type': 'application/json',
+    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+  };
+};
 
 export {
   createCourse,

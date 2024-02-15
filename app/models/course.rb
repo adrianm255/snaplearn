@@ -7,4 +7,12 @@ class Course < ApplicationRecord
   def authored_by?(user)
     self.author_id == user.id
   end
+
+  def as_json(options = nil)
+    super(include: {
+      course_sections: {
+        methods: :file_data
+      }
+    })
+  end
 end
