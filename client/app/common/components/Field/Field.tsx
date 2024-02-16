@@ -7,6 +7,7 @@ interface FieldProps {
   placeholder?: string;
   value?: string | number;
   onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  [ propName: string ]: any;
 };
 
 export enum FieldType {

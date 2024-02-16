@@ -45,9 +45,9 @@ const updateCourse = async (id, postData) => {
 const deleteCourse = async (id) => {
   const response = await fetch(`${COURSES_API_URL}/${id}`, {
     method: "DELETE",
-  });
+    headers: getHeaders()
+  } as any);
 
-  // 204 is No Content status
   if (response.status === 204) {
     return null;
   }
@@ -57,7 +57,6 @@ const deleteCourse = async (id) => {
 
 const getHeaders = () => {
   return {
-    'Content-Type': 'application/json',
     'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
   };
 };

@@ -19,6 +19,7 @@ const CourseEditorCourseDetails: React.FC = () => {
           placeholder={t('course.title_label')}
           value={course.title}
           onChange={e => dispatch(CourseStoreAction.UpdateCourseAttribute, 'title', e.target.value)}
+          required
         />
 
         <Field

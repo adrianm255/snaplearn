@@ -3,6 +3,8 @@ export type Course = {
   title: string;
   description: string;
   courseSections: CourseSection[];
+  published: boolean;
+  embeddedStatus: string; // TODO
 };
 
 export type CourseSection = {

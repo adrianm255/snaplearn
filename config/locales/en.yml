@@ -30,12 +30,15 @@
 en:
   cancel: "Cancel"
   create: "Create"
+  confirm: "Confirm"
+  view: "View"
+  edit: "Edit"
+  delete: "Delete"
+  delete_warning: "Are you sure you want to delete \"%{name}\"? This action cannot be undone."
   dashboard:
     title: "Home"
   courses:
     title: "Courses"
-    new_course_label: "New course"
-    create_course_title: "Create course"
   discover:
     title: "Discover"
   library:
@@ -57,3 +60,12 @@ en:
     description_label: "Description"
     content_label: "Content"
     new_section_title: "New section"
+  user_courses:
+    new_course_label: "New course"
+    create_course_title: "Create course"
+    delete_course_title: "Delete course"
+    table:
+      title_header: "Title"
+      published_header: "Published status"
+      embedded_header: "Embedded status"
+

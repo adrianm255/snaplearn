@@ -18,6 +18,10 @@ const CourseSection: React.FC<{ courseSectionId: string, expanded?: boolean }> =
     dispatch(CourseStoreAction.UpdateCourseSectionAttribute, courseSection.id, attrName, value);
   };
 
+  const getFileInputAcceptTypes = (): string => {
+    return courseSection.sectionType === CourseSectionType.Pdf ? 'application/pdf' : 'video/mp4, video/webm, video/ogg';
+  };
+
   return (
     <div className="course-section">
       <div className="content">
@@ -48,6 +52,7 @@ const CourseSection: React.FC<{ courseSectionId: string, expanded?: boolean }> =
               placeholder={t('course_section.title_label')}
               value={courseSection.title}
               onChange={e => handleSectionAttributeChange('title', e.target.value)}
+              required
             />
 
             <Field
@@ -74,7 +79,9 @@ const CourseSection: React.FC<{ courseSectionId: string, expanded?: boolean }> =
               type={FieldType.File}
               name="course_section_file"
               label={t('course_section.content_label')}
+              accept={getFileInputAcceptTypes()}
               onChange={e => handleSectionAttributeChange('file', (e.target as HTMLInputElement)!.files?.[0])}
+              required
             />}
 
             {courseSection.sectionType !== CourseSectionType.RichText && courseSection.fileData && (<>

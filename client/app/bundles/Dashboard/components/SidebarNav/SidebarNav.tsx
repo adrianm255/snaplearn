@@ -5,9 +5,10 @@ type SidebarNavItem = {
   url: string;
   section: string;
   active: boolean;
+  iconClass: string;
 };
 
-const SidebarNav: React.FC<{ items: SidebarNavItem[] }> = ({ items }) => {
+const SidebarNav: React.FC<{ items: SidebarNavItem[], title: string }> = ({ items, title }) => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
   const getSections = (): SidebarNavItem[][] => {
@@ -27,13 +28,13 @@ const SidebarNav: React.FC<{ items: SidebarNavItem[] }> = ({ items }) => {
 
   const sections = getSections();
 
-  // TODO title and mobile logo
+  // TODO mobile logo
   return <nav className={isNavbarOpen ? 'open' : ''}>
     <div className="navbar">
       <a href="/">
         <span className="logo-g">&nbsp;</span>
       </a>
-      <h1>Products</h1>
+      <h1>{title}</h1>
       <span className="toggle" role="button" tabIndex={0} onClick={toggleNavbar}></span>
     </div>
     <header>
@@ -42,7 +43,10 @@ const SidebarNav: React.FC<{ items: SidebarNavItem[] }> = ({ items }) => {
     {sections.map((section, index) => (
       <section key={index}>
         {section.map(item => (
-          <a key={item.title} href={item.url} aria-current={item.active ? 'page' : undefined} title={item.title}>{item.title}</a>
+          <a key={item.title} href={item.url} aria-current={item.active ? 'page' : undefined} title={item.title}>
+            <span className={'icon ' + item.iconClass}></span>
+            {item.title}
+          </a>
         ))}
       </section>
     ))}

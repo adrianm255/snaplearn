@@ -91,9 +91,9 @@ main.course-editor .course-section form > .input-group:first-of-type {
   --line-height: 1.95rem;
 }
 
-/* .quill > * {
-  --color: var(--contrast-primary);
-} */
+.quill > * {
+  font-size: 1rem !important;
+}
 
 .ql-toolbar.ql-snow {
   position: sticky;

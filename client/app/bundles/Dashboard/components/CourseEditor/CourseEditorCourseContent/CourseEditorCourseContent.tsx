@@ -31,10 +31,10 @@ const CourseEditorCourseContent: React.FC = () => {
       <DropdownButton.Dropdown>
         <div className="tab-buttons small" role="tablist">
           {Object.values(CourseSectionType).map(csType => (
-            <button role="tab" onClick={() => handleAddSection(csType)}>
+            <button key={csType} role="tab" onClick={() => handleAddSection(csType)}>
               <span className={"icon " + getSectionIconClass(csType)}></span>
               {t(`course_section.type.${csType}_label`)}
-          </button>
+            </button>
           ))}
         </div>
       </DropdownButton.Dropdown>
