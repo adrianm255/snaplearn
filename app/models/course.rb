@@ -13,6 +13,9 @@ class Course < ApplicationRecord
     super(include: {
       course_sections: {
         methods: :file_data
+      },
+      author: {
+        only: [:id, :email]
       }
     })
   end

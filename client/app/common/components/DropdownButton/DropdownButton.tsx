@@ -12,8 +12,8 @@ interface DropdownButtonProps {
 }
 
 const DropdownButton: React.FC<DropdownButtonProps> & {
-  Button: React.FC<{ children: ReactNode }>;
-  Dropdown: React.FC<{ children: ReactNode }>;
+  Button: React.FC<{ buttonClass?: string, children: ReactNode }>;
+  Dropdown: React.FC<{ customClass?: string, children: ReactNode }>;
 } = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,14 +34,14 @@ const useDropdownButtonContext = () => {
   return context;
 }
 
-DropdownButton.Button = ({ children }) => {
+DropdownButton.Button = ({ buttonClass = '', children }) => {
   const { toggle } = useDropdownButtonContext();
-  return <button onClick={toggle}>{children}</button>;
+  return <button className={buttonClass} onClick={toggle}>{children}</button>;
 };
 
-DropdownButton.Dropdown = ({ children }) => {
+DropdownButton.Dropdown = ({ customClass = '', children }) => {
   const { isOpen } = useDropdownButtonContext();
-  return isOpen ? <div className="dropdown">{children}</div> : null;
+  return isOpen ? <div className={'dropdown ' + customClass}>{children}</div> : null;
 };
 
 export default DropdownButton;

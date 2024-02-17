@@ -5,6 +5,11 @@ export type Course = {
   courseSections: CourseSection[];
   published: boolean;
   embeddedStatus: string; // TODO
+  author: {
+    id: string;
+    name: string; // TODO
+    email: string;
+  }
 };
 
 export type CourseSection = {
@@ -15,7 +20,7 @@ export type CourseSection = {
   sectionType: CourseSectionType;
   order: number;
   courseId: string;
-  fileDaata?: {
+  fileData?: {
     contentType: string;
     filename: string;
     size: number;

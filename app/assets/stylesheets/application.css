@@ -143,3 +143,25 @@ main.course-editor .course-section form > .input-group:first-of-type {
   border-radius: 0 0 0.25rem 0.25rem;
   min-height: 80px;
 }
+
+.product-detail-nav {
+  padding:var(--spacer-4);
+  font-size:1rem;
+}
+
+.product-detail-nav a {
+  text-decoration: none;
+}
+
+.ask-question-container {
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+}
+
+.dropdown.right {
+  bottom: 0;
+  left: 100%;
+  margin-left: 0.5rem;
+  top: initial;
+}

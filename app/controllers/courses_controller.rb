@@ -1,4 +1,6 @@
 class CoursesController < ApplicationController
+  layout 'courses'
+  
   before_action :set_course, only: %i[ show ]
   before_action :set_navbar_title
   
