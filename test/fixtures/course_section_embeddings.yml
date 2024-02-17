@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyText
+  embedding: 
+  order: 1
+  course_section: one
+  details: 
+
+two:
+  content: MyText
+  embedding: 
+  order: 1
+  course_section: two
+  details: 

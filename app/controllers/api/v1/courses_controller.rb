@@ -64,7 +64,7 @@ class Api::V1::CoursesController < ApplicationController
     current_section_ids = @course.course_sections.pluck(:id)
     new_section_ids = []
     course_sections_attributes.each do |_, cs|
-      new_section_ids << cs['id']
+      new_section_ids << cs['id'] if cs['id']
     end
     max_key = course_sections_attributes.keys.map(&:to_i).max || -1
     section_ids_to_delete = current_section_ids.difference(new_section_ids)

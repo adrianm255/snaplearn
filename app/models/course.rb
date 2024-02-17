@@ -1,5 +1,6 @@
 class Course < ApplicationRecord
   has_many :course_sections, dependent: :destroy
+  has_many :embeddings, through: :course_sections
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
   accepts_nested_attributes_for :course_sections, allow_destroy: true
 

@@ -3,5 +3,5 @@
 rails: bundle exec rails s -p 3000
 wp-client: bin/shakapacker-dev-server
 wp-server: bundle exec rails react_on_rails:locale && SERVER_BUNDLE_ONLY=yes bin/shakapacker --watch
-sidekiq: bundle exec sidekiq -c 2
+sidekiq: bundle exec sidekiq
 queue: redis-server

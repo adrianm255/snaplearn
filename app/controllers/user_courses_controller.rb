@@ -9,8 +9,6 @@ class UserCoursesController < ApplicationController
 
   def index
     @courses = current_user.courses.order(created_at: :desc)
-    
-    puts "COURSES CTRL"
   end
 
   # GET /course/1/edit

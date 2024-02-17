@@ -64,3 +64,9 @@ gem "shakapacker", "= 7.2"
 gem "sidekiq", "~> 7.2"
 
 gem "devise", "~> 4.9"
+
+gem "ruby-openai", "~> 6.3"
+
+gem "nokogiri", "~> 1.16"
+
+gem "pdf-reader", "~> 2.12"
