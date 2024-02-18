@@ -61,7 +61,7 @@ const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
               <td className="icon-cell"><span className="icon icon-card-image-fill"></span></td>
               <td>{course.title}</td>
               <td>{course.published ? 'Published' : 'Unpublished'}</td>
-              <td>{course.embeddedStatus ?? 'Not embedded'}</td>
+              <td>{course.embeddedStatus === 'processing' ? 'Processing' : 'Embedded'}</td>
 
               <td>
                 <div className="actions">

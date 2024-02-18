@@ -14,6 +14,7 @@ class ProcessCourseSectionJob
     if decrement_and_check(redis_key)
       EmbedCourseJob.perform_async(course_id)
     end
+    @redis.del(redis_key)
     @redis.close
   end
 

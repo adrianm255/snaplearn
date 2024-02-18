@@ -8,7 +8,12 @@ class UserCoursesController < ApplicationController
   before_action :authorize_user!, only: [ :edit ]
 
   def index
-    @courses = current_user.courses.order(created_at: :desc)
+    redis = Redis.new
+    @courses = current_user.courses.order(created_at: :desc).as_json.map do |course|
+      course["embedded_status"] = redis.exists("course:#{course["id"]}:content_chunks") == 1 || redis.exists("course:#{course["id"]}:sections_processing_count") == 1 ? "processing" : "embedded"
+      course
+    end
+    redis.close
   end
 
   # GET /course/1/edit
