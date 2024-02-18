@@ -30,7 +30,7 @@ services:
     runtime: ruby
     region: ohio
     buildCommand: "./bin/render-build.sh"
-    startCommand: "bundle exec puma -C config/puma.rb"
+    startCommand: "bundle exec rails s"
     envVars:
       - key: REDIS_URL
         fromService:
