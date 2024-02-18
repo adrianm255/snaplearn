@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :courses
+      
+      # Question streaming
+      get 'question_stream/:session_id', to: 'course_question_streaming#stream', as: :stream_question
+
+      # Questions
+      post 'questions', to: 'course_questions#create'
     end
   end
 
@@ -24,7 +30,6 @@ Rails.application.routes.draw do
   
   # Discover
   get 'discover', to: 'discover#index'
-
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

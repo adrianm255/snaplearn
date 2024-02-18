@@ -3,7 +3,7 @@ import React, { Suspense, lazy } from 'react';
 interface FieldProps {
   type: FieldType;
   name: string;
-  label: string;
+  label?: string;
   placeholder?: string;
   value?: string | number;
   onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -39,9 +39,9 @@ const Field: React.FC<FieldProps> = ({ type, name, label, placeholder, value, on
 
   return (
     <fieldset>
-      <legend>
+      {label && <legend>
         <label className="top-level-label" htmlFor={name}>{label}</label>
-      </legend>
+      </legend>}
 
       {isInputField() && <input type={type} { ...commonProps } />}
 

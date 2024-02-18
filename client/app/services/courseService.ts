@@ -1,6 +1,7 @@
 import { API_URL } from "../constants";
 
 const COURSES_API_URL = `${API_URL}/courses`;
+const COURSE_QUESTIONS_API_URL = `${API_URL}/questions`;
 
 const fetchAllCourses = async (page = 1) => {
   const response = await fetch(`${COURSES_API_URL}?page=${page}`);
@@ -55,6 +56,19 @@ const deleteCourse = async (id) => {
   throw new Error(response.statusText);
 }
 
+const createCourseQuestion = async (postData) => {
+  const response = await fetch(`${COURSE_QUESTIONS_API_URL}`, {
+    method: "POST",
+    body: postData,
+  });
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  return response.json();
+};
+
 const getHeaders = () => {
   return {
     'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
@@ -67,4 +81,5 @@ export {
   fetchAllCourses,
   fetchCourse,
   updateCourse,
+  createCourseQuestion,
 };

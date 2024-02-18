@@ -3,23 +3,15 @@ import { Course, CourseSectionType } from "../../../../types/course";
 import { getSectionIconClass } from "../../../../helpers/courseHelper";
 import useTranslation from "../../../../libs/i18n/useTranslation";
 import DropdownButton from "../../../../common/components/DropdownButton/DropdownButton";
+import CourseQuestionForm from "../CourseQuestion/CourseQuestionForm";
+import CourseQuestionButton from "../CourseQuestion/CourseQuestionButton";
 
 const CourseDetail: React.FC<{ course: Course }> = ({ course }) => {
   const { t } = useTranslation();
   
   return (
     <main className="product-content">
-      <div className="ask-question-container">
-        <DropdownButton>
-          <DropdownButton.Button buttonClass="primary">
-            <span className="icon icon-plus-circle"></span>
-            <span className="content">Ask a question</span>
-          </DropdownButton.Button>
-          <DropdownButton.Dropdown customClass="right">
-            <div style={{ width: '500px', height: '500px' }}></div>
-          </DropdownButton.Dropdown>
-        </DropdownButton>
-      </div>
+      <CourseQuestionButton courseId={course.id} />
       <div className="product-detail-nav">
         <a href="/library" title="Back to Library">
           <span className="icon icon-arrow-left-short"></span>

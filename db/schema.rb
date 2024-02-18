@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_16_195329) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_17_215204) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -41,6 +41,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_195329) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "course_questions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "body"
+    t.text "answer"
+    t.uuid "course_id", null: false
+    t.uuid "user_id", null: false
+    t.json "relevant_sections"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_course_questions_on_course_id"
+    t.index ["user_id"], name: "index_course_questions_on_user_id"
   end
 
   create_table "course_section_embeddings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -90,6 +102,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_195329) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "course_questions", "courses"
+  add_foreign_key "course_questions", "users"
   add_foreign_key "course_section_embeddings", "course_sections"
   add_foreign_key "course_sections", "courses"
   add_foreign_key "courses", "users", column: "author_id"

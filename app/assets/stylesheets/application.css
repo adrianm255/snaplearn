@@ -153,10 +153,31 @@ main.course-editor .course-section form > .input-group:first-of-type {
   text-decoration: none;
 }
 
-.ask-question-container {
+.ask-question-button {
   position: fixed;
   bottom: 0;
   z-index: 10;
+}
+
+.course-question-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.course-question-box > *:first-child {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.course-question-box > form {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.course-question-box > form fieldset {
+  flex-grow: 1;
 }
 
 .dropdown.right {
