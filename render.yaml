@@ -29,7 +29,7 @@ services:
     name: snaplearn-web
     runtime: ruby
     region: ohio
-    buildCommand: "./render-build.sh"
+    buildCommand: "./bin/render-build.sh"
     startCommand: bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-development}
     envVars:
       - key: REDIS_URL
