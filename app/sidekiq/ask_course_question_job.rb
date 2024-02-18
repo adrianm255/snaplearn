@@ -26,6 +26,7 @@ class AskCourseQuestionJob
       stream.publish(stream_key, final_message)
       stream.close
 
+      # TODO save relevant sections to question
       question.save!
     end
 

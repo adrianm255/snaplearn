@@ -11,7 +11,7 @@ const CourseDetail: React.FC<{ course: Course }> = ({ course }) => {
   
   return (
     <main className="product-content">
-      <CourseQuestionButton courseId={course.id} />
+      <CourseQuestionButton course={course} />
       <div className="product-detail-nav">
         <a href="/library" title="Back to Library">
           <span className="icon icon-arrow-left-short"></span>

@@ -9,7 +9,8 @@ export type Course = {
     id: string;
     name: string; // TODO
     email: string;
-  }
+  },
+  courseQuestions: CourseQuestion[];
 };
 
 export type CourseSection = {
@@ -32,6 +33,13 @@ export enum CourseSectionType {
   RichText = 'rich_text',
   Pdf = 'pdf',
   Video = 'video'
+};
+
+export type CourseQuestion = {
+  id: string;
+  body: string;
+  answer: string;
+  courseId: string;
 };
 
 export type CourseRaw = {

@@ -9,15 +9,22 @@ const DropdownButtonContext = createContext<DropdownButtonContextValue | undefin
 
 interface DropdownButtonProps {
   children: ReactNode;
+  onOpen?: () => void;
 }
 
 const DropdownButton: React.FC<DropdownButtonProps> & {
   Button: React.FC<{ buttonClass?: string, children: ReactNode }>;
   Dropdown: React.FC<{ customClass?: string, children: ReactNode }>;
-} = ({ children }) => {
+} = ({ onOpen, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = () => setIsOpen(!isOpen);
+  const toggle = () => {
+    const nextState = !isOpen;
+    setIsOpen(nextState);
+    if (nextState && onOpen) {
+      onOpen();
+    }
+  };
 
   return (
     <DropdownButtonContext.Provider value={{ isOpen, toggle }}>
