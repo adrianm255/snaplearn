@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   
   namespace :api do
     namespace :v1 do
+      post 'course/:id/publish', to: 'courses#publish', as: :publish_course
+      post 'course/:id/unpublish', to: 'courses#unpublish', as: :unpublish_course
+
       resources :courses
       
       # Question streaming

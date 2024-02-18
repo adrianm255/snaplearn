@@ -48,6 +48,8 @@ en:
     content_tab_label: "Content"
     save_changes_label: "Save changes"
     add_section_label: "Add section"
+    unpublish_label: "Unpublish"
+    publish_label: "Publish"
   course:  
     title_label: "Title"
     description_label: "Description"

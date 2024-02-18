@@ -2,8 +2,6 @@ import React from "react";
 import { Course, CourseSectionType } from "../../../../types/course";
 import { getSectionIconClass } from "../../../../helpers/courseHelper";
 import useTranslation from "../../../../libs/i18n/useTranslation";
-import DropdownButton from "../../../../common/components/DropdownButton/DropdownButton";
-import CourseQuestionForm from "../CourseQuestion/CourseQuestionForm";
 import CourseQuestionButton from "../CourseQuestion/CourseQuestionButton";
 
 const CourseDetail: React.FC<{ course: Course }> = ({ course }) => {

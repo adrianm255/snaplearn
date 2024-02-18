@@ -5,7 +5,7 @@ import useTranslation from '../../../../libs/i18n/useTranslation';
 import CourseEditorCourseDetails from './CourseEditorCourseDetails/CourseEditorCourseDetails';
 import CourseEditorCourseContent from './CourseEditorCourseContent/CourseEditorCourseContent';
 import { useStore } from '../../../../hooks-store/store';
-import { updateCourse } from '../../../../services/courseService';
+import { publishCourse, unpublishCourse, updateCourse } from '../../../../services/courseService';
 import { clientFormatToServerFormat, serverFormatToClientFormat } from '../../../../helpers/dataMapper';
 import { convertToFormData } from '../../../../helpers/formDataHelper';
 import { CourseStoreAction } from '../../../../hooks-store/courseStore';
@@ -17,7 +17,6 @@ const CourseEditor: React.FC = () => {
 
   const saveCourseChanges = async () => {
     try {
-      // TODO move this somewhere else?
       course.courseSections?.forEach(section => {
         if (section.isNew) delete section.id;
       });
@@ -33,13 +32,33 @@ const CourseEditor: React.FC = () => {
       // TODO
     }
   };
+
+  const handleCoursePublish = async () => {
+    try {
+      const response = await publishCourse(course.id);
+      dispatch(CourseStoreAction.UpdateCourse, serverFormatToClientFormat(response));
+    } catch (e) {
+      // TODO
+    }
+  };
+
+  const handleCourseUnpublish = async () => {
+    try {
+      const response = await unpublishCourse(course.id);
+      dispatch(CourseStoreAction.UpdateCourse, serverFormatToClientFormat(response));
+    } catch (e) {
+      // TODO
+    }
+  };
   
   return <Tabs>
     <header className="dashboard-header sticky">
       <h1>{course.title}</h1>
       <div className="actions">
         <button type="button" onClick={saveCourseChanges}>{t('course_editor.save_changes_label')}</button>
-        <button type="button" className="accent">Test 2</button>
+        <button type="button" className="accent" onClick={course.published ? handleCourseUnpublish : handleCoursePublish}>
+          {course.published ? t('course_editor.unpublish_label') : t('course_editor.publish_label')}
+        </button>
       </div>
       <TabList>
         <Tab tabId="courseTab">{t('course_editor.course_tab_label')}</Tab>

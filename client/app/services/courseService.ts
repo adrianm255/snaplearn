@@ -56,6 +56,32 @@ const deleteCourse = async (id) => {
   throw new Error(response.statusText);
 }
 
+const publishCourse = async (id) => {
+  const response = await fetch(`${API_URL}/course/${id}/publish`, {
+    method: "POST",
+    headers: getHeaders()
+  } as any);
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  return response.json();
+};
+
+const unpublishCourse = async (id) => {
+  const response = await fetch(`${API_URL}/course/${id}/unpublish`, {
+    method: "POST",
+    headers: getHeaders()
+  } as any);
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  return response.json();
+};
+
 const createCourseQuestion = async (postData) => {
   const response = await fetch(`${COURSE_QUESTIONS_API_URL}`, {
     method: "POST",
@@ -82,4 +108,6 @@ export {
   fetchCourse,
   updateCourse,
   createCourseQuestion,
+  publishCourse,
+  unpublishCourse,
 };

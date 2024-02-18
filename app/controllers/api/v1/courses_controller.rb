@@ -1,7 +1,7 @@
 class Api::V1::CoursesController < ApplicationController
-  before_action :set_course, only: %i[ show update destroy ]
+  before_action :set_course, only: %i[ show update destroy publish unpublish ]
   before_action :authenticate_user!
-  before_action :authorize_user!, only: [:update, :destroy]
+  before_action :authorize_user!, only: [:update, :destroy, :publish, :unpublish]
 
   # GET /courses
   def index
@@ -40,6 +40,24 @@ class Api::V1::CoursesController < ApplicationController
   # DELETE /courses/1
   def destroy
     @course.destroy!
+  end
+
+  def publish
+    @course.published = true
+    if @course.save
+      render json: @course.as_json
+    else
+      render json: @course.errors, status: :unprocessable_entity
+    end
+  end
+
+  def unpublish
+    @course.published = false
+    if @course.save
+      render json: @course.as_json
+    else
+      render json: @course.errors, status: :unprocessable_entity
+    end
   end
 
   private
