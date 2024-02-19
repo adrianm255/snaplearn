@@ -12,9 +12,13 @@ class Api::V1::CourseQuestionStreamingController < ApplicationController
         on.message do |channel, message|
           parsed_message = JSON.parse(message) rescue {}
           if parsed_message.is_a?(Hash) && parsed_message['type'] == 'shutdown'
-            stream.unsubscribe
-          else
+              response.stream.write "data: #{ { type: 'shutdown' }.to_json }\n\n"
+              stream.unsubscribe
+              response.stream.close
+          elsif parsed_message.is_a?(Hash) && parsed_message['type'] == 'relevant_sections'
             response.stream.write "data: #{message}\n\n"
+          else
+            response.stream.write "data: #{{ type: 'answer_chunk', message: message }.to_json}\n\n"
           end
         end
       end

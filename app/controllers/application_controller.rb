@@ -34,5 +34,7 @@ class ApplicationController < ActionController::Base
         iconClass: 'icon-bookmark-heart-fill'
       },
     ]
+
+    @user_info = current_user
   end
 end

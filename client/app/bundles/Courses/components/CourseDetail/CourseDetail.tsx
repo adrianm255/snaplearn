@@ -3,6 +3,7 @@ import { Course, CourseSectionType } from "../../../../types/course";
 import { getSectionIconClass } from "../../../../helpers/courseHelper";
 import useTranslation from "../../../../libs/i18n/useTranslation";
 import CourseQuestionButton from "../CourseQuestion/CourseQuestionButton";
+import CourseSectionSummary from "../CourseSectionSummary/CourseSectionSummary";
 
 const CourseDetail: React.FC<{ course: Course }> = ({ course }) => {
   const { t } = useTranslation();
@@ -11,12 +12,13 @@ const CourseDetail: React.FC<{ course: Course }> = ({ course }) => {
     <main className="product-content">
       <CourseQuestionButton course={course} />
       <div className="product-detail-nav">
-        <a href="/library" title="Back to Library">
+        <a href="/discover" title="Back">
           <span className="icon icon-arrow-left-short"></span>
-          Back to Library
+          Back
         </a>
       </div>
       <header>
+        {!course.published && <div role="status" className="warning">This course is not currently published. Only you can see this page until the course is published.</div>}
         <h1>{course.title}</h1>
       </header>
       <div className="has-sidebar">
@@ -33,21 +35,7 @@ const CourseDetail: React.FC<{ course: Course }> = ({ course }) => {
           <div role="tree">
             {course.courseSections?.map(courseSection => (
               <div key={courseSection.id} role="treeitem">
-                <div className="content">
-                  <span className={"icon section-type-icon " + getSectionIconClass(courseSection.sectionType)}></span>
-                  <div>
-                    <h3>{courseSection.title}</h3>
-                    <ul className="inline">
-                      <li>{t(`course_section.type.${courseSection.sectionType}_label`)}</li>
-                      {courseSection.fileData && <li>{courseSection.fileData.size}</li>}
-                    </ul>
-                  </div>
-                </div>
-                <div className="actions">
-                  <a role="button" className="button primary">
-                    {(courseSection.sectionType === CourseSectionType.Pdf || courseSection.sectionType === CourseSectionType.RichText) ? "Read" : "Watch"}
-                  </a>
-                </div>
+                <CourseSectionSummary courseSection={courseSection}/>
               </div>
             ))}
           </div>

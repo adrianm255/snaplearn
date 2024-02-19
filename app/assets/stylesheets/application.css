@@ -57,6 +57,24 @@ nav .logo {
   width: 100%;
 }
 
+nav > footer .user-info {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.5rem;
+  border-top: 0.0625rem solid rgb(var(--color)/0.5);
+}
+
+nav > footer .user-info > * {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+main.login-form form {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
 
 main.course-editor .course-sections {
   display: grid;

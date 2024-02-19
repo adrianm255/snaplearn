@@ -8,7 +8,7 @@
   </head>
 
   <body class="sidebar-nav">
-    <%= react_component("SidebarNav", props: { items: @navbar_items, title: @navbar_title }, prerender: true, html_options: { class: "react-rendered-component" }) %>
+    <%= react_component("SidebarNav", props: { items: @navbar_items, title: @navbar_title, userInfo: @user_info }, prerender: true, html_options: { class: "react-rendered-component" }) %>
     <%= yield %>
   </body>
 </html>

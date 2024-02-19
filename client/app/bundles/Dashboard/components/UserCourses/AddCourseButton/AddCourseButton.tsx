@@ -27,7 +27,10 @@ const AddCourseButton: React.FC<{ onAddCourse: (title: string) => Promise<void> 
   const closeDialog = () => setIsDialogOpen(false);
 
   return <>
-    <button className="action accent" onClick={openDialog}>{t('user_courses.new_course_label')}</button>
+    <button className="action accent" onClick={openDialog}>
+      <span className="icon icon-plus-circle"></span>
+      {t('user_courses.new_course_label')}
+    </button>
     <Dialog isOpen={isDialogOpen} onClose={closeDialog}>
       <header>
         <h2>{t('user_courses.create_course_title')}</h2>

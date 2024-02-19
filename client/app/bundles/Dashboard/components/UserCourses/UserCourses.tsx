@@ -15,8 +15,7 @@ const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
     try {
       const payload = convertToFormData({ course: { title } });
       const response = await createCourse(payload);
-      console.log('RESPONSE');
-      console.log(response);
+
       window.location.href = `/course/${response.id}/edit`;
     } catch (e) {
       // TODO
@@ -46,7 +45,8 @@ const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
       </div>
     </header >
     <main className="content">
-      <table>
+      {userCourses.length === 0 && <h3>You have no courses yet.</h3>}
+      {userCourses.length > 0 && <table>
         <thead>
           <tr>
             <th></th>
@@ -79,7 +79,7 @@ const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table>}
 
       {courseToDelete && <div><Dialog isOpen={true} onClose={closeDeleteDialog}>
         <header>

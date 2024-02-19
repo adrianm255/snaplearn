@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { logout } from '../../../../services/sessionService';
 
 type SidebarNavItem = {
   title: string;
@@ -8,7 +9,7 @@ type SidebarNavItem = {
   iconClass: string;
 };
 
-const SidebarNav: React.FC<{ items: SidebarNavItem[], title: string }> = ({ items, title }) => {
+const SidebarNav: React.FC<{ items: SidebarNavItem[], title: string, userInfo: any }> = ({ items, title, userInfo }) => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
   const getSections = (): SidebarNavItem[][] => {
@@ -28,11 +29,10 @@ const SidebarNav: React.FC<{ items: SidebarNavItem[], title: string }> = ({ item
 
   const sections = getSections();
 
-  // TODO mobile logo
   return <nav className={isNavbarOpen ? 'open' : ''}>
     <div className="navbar">
       <a href="/">
-        <span className="logo-g">&nbsp;</span>
+        <span>Snaplearn</span>
       </a>
       <h1>{title}</h1>
       <span className="toggle" role="button" tabIndex={0} onClick={toggleNavbar}></span>
@@ -50,6 +50,12 @@ const SidebarNav: React.FC<{ items: SidebarNavItem[], title: string }> = ({ item
         ))}
       </section>
     ))}
+    {userInfo && <footer>
+      <div className="user-info">
+        <span>{userInfo.email}</span>
+        <a role="button" onClick={() => logout()}>Logout</a>
+      </div>
+    </footer>}
   </nav>;
 };
 

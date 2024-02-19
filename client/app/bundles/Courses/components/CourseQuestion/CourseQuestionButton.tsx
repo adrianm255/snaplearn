@@ -4,7 +4,9 @@ import CourseQuestionForm from "./CourseQuestionForm";
 import { convertToFormData } from "../../../../helpers/formDataHelper";
 import { createCourseQuestion } from "../../../../services/courseService";
 import { serverFormatToClientFormat } from "../../../../helpers/dataMapper";
-import { Course, CourseQuestion } from "../../../../types/course";
+import { Course, CourseQuestion, CourseSection } from "../../../../types/course";
+import { getSectionIconClass } from "../../../../helpers/courseHelper";
+import CourseSectionSummary from "../CourseSectionSummary/CourseSectionSummary";
 
 const CourseQuestionButton: React.FC<{ course: Course }> = ({ course }) => {
   const [questions, setQuestions] = React.useState<CourseQuestion[]>(course.courseQuestions || []);
@@ -31,26 +33,59 @@ const CourseQuestionButton: React.FC<{ course: Course }> = ({ course }) => {
     const questionData = serverFormatToClientFormat(response);
     setQuestions(prevQuestions => [...prevQuestions, { ...questionData, answer: '' }]);
 
+    const updateAnswer = (newAnswerChunk: string) => {
+      setQuestions(prevQuestions => {
+        const updatedQuestions = prevQuestions.map(question => {
+          if (question.id === questionData.id) {
+            return { ...question, answer: question.answer + newAnswerChunk };
+          }
+          return question;
+        });
+        return updatedQuestions;
+      });
+    };
+
+    const addRelevantSections = (relevantSections: string[]) => {
+      setQuestions(prevQuestions => {
+        const updatedQuestions = prevQuestions.map(question => {
+          if (question.id === questionData.id) {
+            return { ...question, relevantSections };
+          }
+          return question;
+        });
+        return updatedQuestions;
+      });
+    }
+
     if (questionData.sessionId) {
       const eventSource = new EventSource(`/api/v1/question_stream/${questionData.sessionId}`);
+      let relevantSectionIds: string[] = [];
+
       eventSource.onmessage = (event) => {
-        console.log('New message:', event.data);
         if (!event.data) return;
 
-        setQuestions(prevQuestions => {
-          const updatedQuestions = prevQuestions.map(question => {
-            if (question.id === questionData.id) {
-              return { ...question, answer: question.answer + event.data };
-            }
-            return question;
-          });
-          return updatedQuestions;
-        });
+        try {
+          const parsedData = JSON.parse(event.data);
+
+          if (parsedData?.type === 'answer_chunk' && parsedData.message) {
+            updateAnswer(parsedData.message);
+          } else if (parsedData?.type === 'relevant_sections') {
+            relevantSectionIds = parsedData.message;
+          } else if (parsedData?.type === 'shutdown') {
+            if (relevantSectionIds.length) {
+              addRelevantSections(relevantSectionIds);
+            } 
+          }
+        } catch (e) {}
       };
       eventSource.onerror = () => {
         eventSource.close();
       };
     }
+  };
+
+  const getCourseSection = (courseSectionId: string): CourseSection | undefined => {
+    return course.courseSections?.find(section => section.id === courseSectionId);
   };
 
   return (<div className="ask-question-button">
@@ -71,12 +106,28 @@ const CourseQuestionButton: React.FC<{ course: Course }> = ({ course }) => {
                 </div>
                 <div className="question-answer">
                   <div>A:</div>
-                  <div><div dangerouslySetInnerHTML={{ __html: question.answer }}></div></div>
+                  <div>
+                    <div dangerouslySetInnerHTML={{ __html: question.answer }}></div>
+                    {question.relevantSections?.length && (
+                      <div style={{ marginTop: '0.5rem' }}>
+                        <h4 style={{ marginBottom: '0.5rem' }}><strong>Relevant course material</strong></h4>
+                        <div role="tree">
+                          {question.relevantSections?.map(relevantSectionId => (
+                            <div key={relevantSectionId} className="relevant-section" role="treeitem" style={{ fontSize: '0.875rem' }}>
+                              {getCourseSection(relevantSectionId) && (
+                                <CourseSectionSummary courseSection={getCourseSection(relevantSectionId)!} includeDescription={false} />
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
           </div>}
-          <CourseQuestionForm courseId={course.id} onAskQuestion={handleAskQuestion} />
+          <CourseQuestionForm key={questions.length} onAskQuestion={handleAskQuestion} />
         </div>
       </DropdownButton.Dropdown>
     </DropdownButton>
