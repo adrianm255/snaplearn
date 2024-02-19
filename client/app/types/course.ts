@@ -41,6 +41,7 @@ export type CourseQuestion = {
   body: string;
   answer: string;
   courseId: string;
+  relevantSections?: string[];
 };
 
 export type CourseRaw = {

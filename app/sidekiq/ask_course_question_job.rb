@@ -9,10 +9,14 @@ class AskCourseQuestionJob
     question_embeddings = openai.get_embeddings(question.body)
 
     course_embeddings = course.course_section_embeddings
-    relevant_sections = rank_course_sections(question_embeddings.dig(0, 'embedding'), course_embeddings)
+    relevant_sections = rank_course_sections(question_embeddings.dig(0, 'embedding'), course_embeddings).take(5)
 
     stream_key = "question_stream_#{stream_session_id}"
     stream = Redis.new
+
+    relevant_section_ids = relevant_sections.map { |section| section[:course_section_id] }.uniq().take(2)
+    relevant_sections_message = {type: 'relevant_sections', message: relevant_section_ids}.to_json
+    stream.publish(stream_key, relevant_sections_message)
 
     question.answer = ""
     stream_proc = proc do |chunk, _bytesize|
@@ -21,12 +25,12 @@ class AskCourseQuestionJob
       question.answer += new_content.to_s unless new_content.blank?
     end
 
-    answer = openai.ask_question(question.body, relevant_sections.map { |section| section[:content] }.take(5), stream_session_id, stream_proc) do
+    answer = openai.ask_question(question.body, relevant_sections.map { |section| section[:content] }, stream_session_id, stream_proc) do
       final_message = {type: 'shutdown'}.to_json
       stream.publish(stream_key, final_message)
       stream.close
 
-      # TODO save relevant sections to question
+      question.relevant_sections = relevant_section_ids
       question.save!
     end
 
