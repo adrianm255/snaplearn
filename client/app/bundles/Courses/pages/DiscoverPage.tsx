@@ -9,6 +9,9 @@ const DiscoverPage: React.FC<{ courses: CourseRaw[] }> = ({ courses }) => {
     <main>
       <header>
         <h1>Snaplearn</h1>
+        <div className="actions">
+          <a className="button" href="/dashboard">Dashboard</a>
+        </div>
       </header>
       <div style={{ display: 'grid', gap: 'var(--spacer-6)' }}>
         <div className="paragraphs">

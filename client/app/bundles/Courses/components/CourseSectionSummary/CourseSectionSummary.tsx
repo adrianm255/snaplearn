@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { CourseSection, CourseSectionType } from "../../../../types/course";
 import { getSectionIconClass } from "../../../../helpers/courseHelper";
 import useTranslation from "../../../../libs/i18n/useTranslation";
+import Tooltip from "../../../../common/components/Tooltip/Tooltip";
 
 const CourseSectionSummary: React.FC<{ courseSection: CourseSection, includeDescription?: boolean }> = ({ courseSection, includeDescription = true }) => {
   const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const isFileSection = courseSection.sectionType === CourseSectionType.Pdf || courseSection.sectionType === CourseSectionType.Video;
 
   return (<>
     <div className="content">
@@ -19,15 +22,19 @@ const CourseSectionSummary: React.FC<{ courseSection: CourseSection, includeDesc
       </div>
     </div>
     <div className="actions">
-      {includeDescription && courseSection.description && <button type="button" onClick={() => setIsExpanded(!isExpanded)}>
+      {includeDescription && (courseSection.description || courseSection.content) && <button type="button" onClick={() => setIsExpanded(!isExpanded)}>
         <span className={"icon " + (isExpanded ? "icon-outline-cheveron-up" : "icon-outline-cheveron-down")}></span>
       </button>}
-      <a role="button" className="button primary">
-        {(courseSection.sectionType === CourseSectionType.Pdf || courseSection.sectionType === CourseSectionType.RichText) ? "Read" : "Watch"}
-      </a>
+      {isFileSection && <a role="button" className="button" href={courseSection.fileData?.url}>Download</a>}
+      <Tooltip content="Coming soon! For now, please use the download button for PDF/Video sections and the expand button for Text sections. For certain Video sections you can use the YouTube link in the section description." placement="bottom">
+        <a role="button" className="button primary">
+          {(courseSection.sectionType === CourseSectionType.Video) ? "Watch" : "Read"}
+        </a>
+      </Tooltip>
     </div>
     {isExpanded && (<div className="drawer">
-      <p>{courseSection.description}</p>
+      {courseSection.description && <p style={courseSection.content ? { marginBottom: '1rem' } : {}}>{courseSection.description}</p>}
+      {courseSection.content && <div style={{ fontSize: '1rem', borderTop: '0.0625rem solid rgb(var(--color)/0.5)', paddingTop: '1rem' }} dangerouslySetInnerHTML={{ __html: courseSection.content }}></div>}
     </div>)}
   </>);
 };
