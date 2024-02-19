@@ -4,7 +4,7 @@ import { getSectionIconClass } from "../../../../helpers/courseHelper";
 import useTranslation from "../../../../libs/i18n/useTranslation";
 import Tooltip from "../../../../common/components/Tooltip/Tooltip";
 
-const CourseSectionSummary: React.FC<{ courseSection: CourseSection, includeDescription?: boolean }> = ({ courseSection, includeDescription = true }) => {
+const CourseSectionSummary: React.FC<{ courseSection: CourseSection, allowExpand?: boolean }> = ({ courseSection, allowExpand = true }) => {
   const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -22,12 +22,12 @@ const CourseSectionSummary: React.FC<{ courseSection: CourseSection, includeDesc
       </div>
     </div>
     <div className="actions">
-      {includeDescription && (courseSection.description || courseSection.content) && <button type="button" onClick={() => setIsExpanded(!isExpanded)}>
+      {allowExpand && (courseSection.description || courseSection.content) && <button type="button" onClick={() => setIsExpanded(!isExpanded)}>
         <span className={"icon " + (isExpanded ? "icon-outline-cheveron-up" : "icon-outline-cheveron-down")}></span>
       </button>}
       {isFileSection && <a role="button" className="button" href={courseSection.fileData?.url}>Download</a>}
-      <Tooltip content="Coming soon! For now, please use the download button for PDF/Video sections and the expand button for Text sections. For certain Video sections you can use the YouTube link in the section description." placement="bottom">
-        <a role="button" className="button primary">
+      <Tooltip content="Coming soon! For now, please use the download button for PDF/Video sections and the expand button (or this button) for Text sections. For certain Video sections you can use the YouTube link in the section description." placement="bottom">
+        <a role="button" className="button primary" onClick={() => allowExpand && courseSection.sectionType === CourseSectionType.RichText && setIsExpanded(true)}>
           {(courseSection.sectionType === CourseSectionType.Video) ? "Watch" : "Read"}
         </a>
       </Tooltip>
