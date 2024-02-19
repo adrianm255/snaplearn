@@ -2,6 +2,7 @@ class LibraryController < ApplicationController
   layout 'dashboard'
 
   before_action :set_navbar_title
+  before_action :authenticate_user!
 
   def index
     

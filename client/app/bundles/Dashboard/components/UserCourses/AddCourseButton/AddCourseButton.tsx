@@ -2,20 +2,29 @@ import React, { useState } from "react";
 import Dialog from "../../../../../common/components/Dialog/Dialog";
 import useTranslation from "../../../../../libs/i18n/useTranslation";
 import Field, { FieldType } from "../../../../../common/components/Field/Field";
+import Button from "../../../../../common/components/Button/Button";
 
-const AddCourseButton: React.FC<{ onAddCourse: (title: string) => void }> = ({ onAddCourse }) => {
-  const [isDialogOpen, setDialogOpen] = useState(false);
+const AddCourseButton: React.FC<{ onAddCourse: (title: string) => Promise<void> }> = ({ onAddCourse }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
   const { t } = useTranslation();
 
-  const handleNewCourseFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleNewCourseFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsButtonLoading(true);
     const formData = new FormData(e.currentTarget);
     const title = formData.get('course_title') as string;
-    onAddCourse(title);
+
+    try {
+      await onAddCourse(title);
+      setIsDialogOpen(false);
+    } catch {
+      setIsButtonLoading(false);
+    }
   };
 
-  const openDialog = () => setDialogOpen(true);
-  const closeDialog = () => setDialogOpen(false);
+  const openDialog = () => setIsDialogOpen(true);
+  const closeDialog = () => setIsDialogOpen(false);
 
   return <>
     <button className="action accent" onClick={openDialog}>{t('user_courses.new_course_label')}</button>
@@ -34,7 +43,8 @@ const AddCourseButton: React.FC<{ onAddCourse: (title: string) => void }> = ({ o
         />
         <footer>
           <button type="button" onClick={closeDialog}>{t('cancel')}</button>
-          <button className="accent">{t('create')}</button>
+          {/* <button className="accent">{t('create')}</button> */}
+          <Button type="submit" buttonClass="accent" isLoading={isButtonLoading}>{t('create')}</Button>
         </footer>
       </form>
     </Dialog>
