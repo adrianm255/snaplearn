@@ -28,11 +28,10 @@ const SidebarNav: React.FC<{ items: SidebarNavItem[], title: string }> = ({ item
 
   const sections = getSections();
 
-  // TODO mobile logo
   return <nav className={isNavbarOpen ? 'open' : ''}>
     <div className="navbar">
       <a href="/">
-        <span className="logo-g">&nbsp;</span>
+        <span>Snaplearn</span>
       </a>
       <h1>{title}</h1>
       <span className="toggle" role="button" tabIndex={0} onClick={toggleNavbar}></span>

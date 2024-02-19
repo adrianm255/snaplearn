@@ -6,8 +6,6 @@ const TabsContext = React.createContext({
 });
 
 const Tabs: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log('TABS');
-
   const getInitialActiveTab = () => {
     let activeTabId = '';
   
