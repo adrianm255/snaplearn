@@ -5,7 +5,7 @@ import useTranslation from "../../../../libs/i18n/useTranslation";
 import CourseQuestionButton from "../CourseQuestion/CourseQuestionButton";
 import CourseSectionSummary from "../CourseSectionSummary/CourseSectionSummary";
 
-const CourseDetail: React.FC<{ course: Course }> = ({ course }) => {
+const CourseDetail: React.FC<{ course: Course, currentUserIsAuthor: boolean }> = ({ course, currentUserIsAuthor }) => {
   const { t } = useTranslation();
   
   return (
@@ -20,6 +20,11 @@ const CourseDetail: React.FC<{ course: Course }> = ({ course }) => {
       <header>
         {!course.published && <div role="status" className="warning">This course is not currently published. Only you can see this page until the course is published.</div>}
         <h1>{course.title}</h1>
+        {currentUserIsAuthor && <div className="actions">
+          <a href={`/course/${course.id}/edit`} className="filled button">
+            <span className="icon icon-pencil"></span>
+          </a>
+        </div>}
       </header>
       <div className="has-sidebar">
         <div className="paragraphs">

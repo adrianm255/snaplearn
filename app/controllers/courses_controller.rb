@@ -11,6 +11,7 @@ class CoursesController < ApplicationController
     # TODO order by default
     course_questions = current_user.course_questions.where(course: @course).order(:created_at).last(5)
     @course_data = @course.as_json.merge(course_questions: course_questions)
+    @current_user_is_author = @course.authored_by?(current_user)
   end
 
   private

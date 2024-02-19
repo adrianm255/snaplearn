@@ -1,1 +1,1 @@
-<%= react_component("CourseDetailPage", props: { course: @course_data.as_json }, prerender: true, html_options: { class: "react-rendered-component" }) %>
+<%= react_component("CourseDetailPage", props: { course: @course_data.as_json, currentUserIsAuthor: @current_user_is_author }, prerender: true, html_options: { class: "react-rendered-component" }) %>
