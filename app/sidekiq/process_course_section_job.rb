@@ -46,7 +46,7 @@ class ProcessCourseSectionJob
       pdf_parser = PdfParser.new(file_path)
       sections = pdf_parser.extract_content
     when 'video'
-      video_parser = VideoParser.new(file_path, course_section.file.blob.filename.extension)
+      video_parser = VideoParser.new(file_path, file_path.split('.').last)
       sections = video_parser.get_video_transcription
     end
 
