@@ -1,5 +1,6 @@
 class DashboardController < ApplicationController
   before_action :set_navbar_title
+  before_action :authenticate_user!
 
   def index
   end

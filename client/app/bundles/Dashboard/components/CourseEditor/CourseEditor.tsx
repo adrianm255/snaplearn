@@ -9,11 +9,14 @@ import { publishCourse, unpublishCourse, updateCourse } from '../../../../servic
 import { clientFormatToServerFormat, serverFormatToClientFormat } from '../../../../helpers/dataMapper';
 import { convertToFormData } from '../../../../helpers/formDataHelper';
 import { CourseStoreAction } from '../../../../hooks-store/courseStore';
+import Button from '../../../../common/components/Button/Button';
 
 const CourseEditor: React.FC = () => {
   const { t } = useTranslation();
   const [ state, dispatch ] = useStore();
-  const course = state.course;
+  const [isSaveButtonLoading, setIsSaveButtonLoading] = React.useState(false);
+  const [isPublishButtonLoading, setIsPublishButtonLoading] = React.useState(false);
+  const course: Course = state.course;
 
   const saveCourseChanges = async () => {
     try {
@@ -23,31 +26,37 @@ const CourseEditor: React.FC = () => {
       const formattedCourse = clientFormatToServerFormat(course);
       const payload = convertToFormData({ course: formattedCourse });
 
+      setIsSaveButtonLoading(true);
       const response = await updateCourse(course.id, payload);
-      console.log('RESPONSE');
-      console.log(response);
-
-      dispatch(CourseStoreAction.UpdateCourse, serverFormatToClientFormat(response));
+      await dispatch(CourseStoreAction.UpdateCourse, serverFormatToClientFormat(response));
     } catch (e) {
       // TODO
+    } finally {
+      setIsSaveButtonLoading(false);
     }
   };
 
   const handleCoursePublish = async () => {
     try {
+      setIsPublishButtonLoading(true);
       const response = await publishCourse(course.id);
-      dispatch(CourseStoreAction.UpdateCourse, serverFormatToClientFormat(response));
+      await dispatch(CourseStoreAction.UpdateCourse, serverFormatToClientFormat(response));
     } catch (e) {
       // TODO
+    } finally {
+      setIsPublishButtonLoading(false);
     }
   };
 
   const handleCourseUnpublish = async () => {
     try {
+      setIsPublishButtonLoading(true);
       const response = await unpublishCourse(course.id);
-      dispatch(CourseStoreAction.UpdateCourse, serverFormatToClientFormat(response));
+      await dispatch(CourseStoreAction.UpdateCourse, serverFormatToClientFormat(response));
     } catch (e) {
       // TODO
+    } finally {
+      setIsPublishButtonLoading(false);
     }
   };
   
@@ -55,10 +64,10 @@ const CourseEditor: React.FC = () => {
     <header className="dashboard-header sticky">
       <h1>{course.title}</h1>
       <div className="actions">
-        <button type="button" onClick={saveCourseChanges}>{t('course_editor.save_changes_label')}</button>
-        <button type="button" className="accent" onClick={course.published ? handleCourseUnpublish : handleCoursePublish}>
+        <Button type="button" isLoading={isSaveButtonLoading} disabled={isSaveButtonLoading || isPublishButtonLoading} onClick={saveCourseChanges}>{t('course_editor.save_changes_label')}</Button>
+        <Button type="button" isLoading={isPublishButtonLoading} disabled={isSaveButtonLoading || isPublishButtonLoading} buttonClass="accent" onClick={course.published ? handleCourseUnpublish : handleCoursePublish}>
           {course.published ? t('course_editor.unpublish_label') : t('course_editor.publish_label')}
-        </button>
+        </Button>
       </div>
       <TabList>
         <Tab tabId="courseTab">{t('course_editor.course_tab_label')}</Tab>

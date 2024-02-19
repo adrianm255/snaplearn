@@ -14,13 +14,14 @@ export type Course = {
 };
 
 export type CourseSection = {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   content?: string;
   sectionType: CourseSectionType;
   order: number;
   courseId: string;
+  isNew?: boolean;
   fileData?: {
     contentType: string;
     filename: string;
