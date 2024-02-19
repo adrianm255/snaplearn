@@ -115,7 +115,7 @@ const CourseQuestionButton: React.FC<{ course: Course }> = ({ course }) => {
                           {question.relevantSections?.map(relevantSectionId => (
                             <div key={relevantSectionId} className="relevant-section" role="treeitem" style={{ fontSize: '0.875rem' }}>
                               {getCourseSection(relevantSectionId) && (
-                                <CourseSectionSummary courseSection={getCourseSection(relevantSectionId)!} />
+                                <CourseSectionSummary courseSection={getCourseSection(relevantSectionId)!} includeDescription={false} />
                               )}
                             </div>
                           ))}

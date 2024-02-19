@@ -18,6 +18,7 @@ const CourseDetail: React.FC<{ course: Course }> = ({ course }) => {
         </a>
       </div>
       <header>
+        {!course.published && <div role="status" className="warning">This course is not currently published. Only you can see this page until the course is published.</div>}
         <h1>{course.title}</h1>
       </header>
       <div className="has-sidebar">
