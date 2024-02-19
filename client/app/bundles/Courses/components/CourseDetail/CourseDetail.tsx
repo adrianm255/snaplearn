@@ -12,9 +12,9 @@ const CourseDetail: React.FC<{ course: Course }> = ({ course }) => {
     <main className="product-content">
       <CourseQuestionButton course={course} />
       <div className="product-detail-nav">
-        <a href="/library" title="Back to Library">
+        <a href="/discover" title="Back">
           <span className="icon icon-arrow-left-short"></span>
-          Back to Library
+          Back
         </a>
       </div>
       <header>

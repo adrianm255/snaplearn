@@ -1,4 +1,5 @@
 import { API_URL } from "../constants";
+import { getHeaders } from "./sessionService";
 
 const COURSES_API_URL = `${API_URL}/courses`;
 const COURSE_QUESTIONS_API_URL = `${API_URL}/questions`;
@@ -93,12 +94,6 @@ const createCourseQuestion = async (postData) => {
   }
 
   return response.json();
-};
-
-const getHeaders = () => {
-  return {
-    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
-  };
 };
 
 export {

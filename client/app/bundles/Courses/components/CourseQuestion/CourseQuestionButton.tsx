@@ -96,7 +96,7 @@ const CourseQuestionButton: React.FC<{ course: Course }> = ({ course }) => {
       </DropdownButton.Button>
       <DropdownButton.Dropdown customClass="right">
         <div className="course-question-box">
-          {questions.length === 0 && <h4>You have no questions about this course yet.</h4>}
+          {questions.length === 0 && <h4>You have no questions for this course yet.</h4>}
           {questions.length > 0 && <div ref={questionsContainer}>
             {questions?.map(question => (
               <div key={question.id} className="question">

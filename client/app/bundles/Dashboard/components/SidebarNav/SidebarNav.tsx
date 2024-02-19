@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { logout } from '../../../../services/sessionService';
 
 type SidebarNavItem = {
   title: string;
@@ -8,7 +9,7 @@ type SidebarNavItem = {
   iconClass: string;
 };
 
-const SidebarNav: React.FC<{ items: SidebarNavItem[], title: string }> = ({ items, title }) => {
+const SidebarNav: React.FC<{ items: SidebarNavItem[], title: string, userInfo: any }> = ({ items, title, userInfo }) => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
   const getSections = (): SidebarNavItem[][] => {
@@ -49,6 +50,12 @@ const SidebarNav: React.FC<{ items: SidebarNavItem[], title: string }> = ({ item
         ))}
       </section>
     ))}
+    {userInfo && <footer>
+      <div className="user-info">
+        <span>{userInfo.email}</span>
+        <a role="button" onClick={() => logout()}>Logout</a>
+      </div>
+    </footer>}
   </nav>;
 };
 
