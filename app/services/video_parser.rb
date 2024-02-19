@@ -1,21 +1,30 @@
 require 'open3'
+require 'uri'
+require 'tempfile'
 
 class VideoParser
   MAX_CHUNK_SIZE_MB = 24.8
 
-  def initialize(video)
-    @video = video
+  def initialize(video_url, video_extension)
+    @video_url = video_url
+    @video_extension = video_extension
     @openai = OpenaiService.new
   end
 
   def get_video_transcription
     audio_transcripts = []
-    video_file_extension = @video.blob.filename.extension
 
     # Temporary file to save the video for conversion
-    Tempfile.create(['video', ".#{video_file_extension}"]) do |video_tempfile|
+    Tempfile.create(['video', ".#{@video_extension}"]) do |video_tempfile|
       video_tempfile.binmode
-      video_tempfile.write(@video.download)
+
+      uri = URI(@video_url)
+      response = HttpFetcher.fetch(uri)
+      if response.is_a?(Net::HTTPSuccess)
+        video_tempfile.write(response.body)
+      else
+        puts "Failed to download video: #{response.code} #{response.message}"
+      end
       video_tempfile.rewind
 
       # Temporary file to save the converted audio

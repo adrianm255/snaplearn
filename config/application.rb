@@ -13,6 +13,8 @@ module Snaplearn
 
     config.active_job.queue_adapter = :sidekiq
 
+    config.autoload_paths += %W(#{config.root}/app/lib)
+
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.

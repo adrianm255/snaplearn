@@ -1,9 +1,10 @@
+require 'uri'
 require 'pdf-reader'
 require 'stringio'
 
 class PdfParser
-  def initialize(file)
-    @pdf_file = file
+  def initialize(file_url)
+    @pdf_file_url = file_url
   end
 
   def extract_content
@@ -14,8 +15,16 @@ class PdfParser
   private
 
   def download_pdf
-    pdf_data = @pdf_file.download
-    StringIO.new(pdf_data)
+    file_io = nil
+    uri = URI(@pdf_file_url)
+    response = HttpFetcher.fetch(uri)
+    if response.is_a?(Net::HTTPSuccess)
+      file_data = response.body
+      file_io = StringIO.new(file_data)
+    else
+      puts "Failed to download file: #{response.code} #{response.message}"
+    end
+    file_io
   end
 
   def ends_mid_sentence(text)
@@ -23,6 +32,8 @@ class PdfParser
   end
 
   def extract_pdf_content(pdf_io)
+    return [] if pdf_io.nil?
+
     reader = PDF::Reader.new(pdf_io)
     content = []
 
@@ -40,5 +51,7 @@ class PdfParser
     end
 
     content
+  ensure
+    pdf_io.close if pdf_io
   end
 end

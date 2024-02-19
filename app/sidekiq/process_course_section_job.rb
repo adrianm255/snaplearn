@@ -35,16 +35,18 @@ class ProcessCourseSectionJob
 
   def process_course_section(course_section)
     sections = []
+    hostname = ENV["RAILS_ENV"] == 'production' ? 'https://snaplearn-web.onrender.com' : 'http://127.0.0.1:3000'
+    file_path = course_section.file&.attached? ?  hostname + Rails.application.routes.url_helpers.rails_blob_url(course_section.file, only_path: true).to_s : nil
 
     case course_section.section_type
     when 'rich_text'
       rich_text_parser = RichTextParser.new(course_section.content)
       sections = rich_text_parser.chunk_by_sections
     when 'pdf'
-      pdf_parser = PdfParser.new(course_section.file)
+      pdf_parser = PdfParser.new(file_path)
       sections = pdf_parser.extract_content
     when 'video'
-      video_parser = VideoParser.new(course_section.file)
+      video_parser = VideoParser.new(file_path, course_section.file.blob.filename.extension)
       sections = video_parser.get_video_transcription
     end
 
