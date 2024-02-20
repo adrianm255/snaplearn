@@ -23,8 +23,9 @@ class UserCoursesController < ApplicationController
   private
 
   def set_course
-    #TODO rescue
-    @course = Course.find(params[:id])
+    @course = Course.includes(course_sections: { file_attachment: :blob }).find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: "Course not found" }, status: :not_found
   end
 
   def authorize_user!
