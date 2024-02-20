@@ -22,10 +22,10 @@ class Course < ApplicationRecord
       }
     }
 
-    if options&.key?(:include) && options[:include].empty?
+    if options&.key?(:include)
       super(options)
     else
-      super(default_options.deep_merge(options || {}))
+      super(default_options)
     end
   end
 end
