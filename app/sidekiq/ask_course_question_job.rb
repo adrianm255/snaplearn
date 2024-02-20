@@ -20,9 +20,11 @@ class AskCourseQuestionJob
 
     question.answer = ""
     stream_proc = proc do |chunk, _bytesize|
-      new_content = chunk.dig("choices", 0, "delta", "content")
-      stream.publish(stream_key, new_content) unless new_content.blank?
-      question.answer += new_content.to_s unless new_content.blank?
+      new_content = chunk.dig("choices", 0, "delta", "content")&.to_s
+      if new_content && !new_content.empty?
+        stream.publish(stream_key, new_content)
+        question.answer += new_content
+      end
     end
 
     answer = openai.ask_question(question.body, relevant_sections.map { |section| section[:content] }, stream_session_id, stream_proc) do
@@ -33,7 +35,6 @@ class AskCourseQuestionJob
       question.relevant_sections = relevant_section_ids
       question.save!
     end
-
   ensure
     stream.close
   end
