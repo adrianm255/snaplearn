@@ -17,7 +17,6 @@ class Api::V1::CourseQuestionsController < ApplicationController
     if @course_question.save
       stream_session_id = SecureRandom.hex(10)
       AskCourseQuestionJob.perform_async(@course_question.id, stream_session_id)
-      # render json: { session_id: session_id, status: :accepted }
       render json: @course_question.as_json.merge(session_id: stream_session_id), status: :created
     else
       render json: @course_question.errors, status: :unprocessable_entity

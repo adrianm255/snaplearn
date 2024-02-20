@@ -11,13 +11,21 @@ class Course < ApplicationRecord
   end
 
   def as_json(options = nil)
-    super(include: {
-      course_sections: {
-        methods: :file_data
-      },
-      author: {
-        only: [:id, :email]
+    default_options = {
+      include: {
+        course_sections: {
+          methods: :file_data
+        },
+        author: {
+          only: [:id, :email]
+        }
       }
-    })
+    }
+
+    if options&.key?(:include) && options[:include].empty?
+      super(options)
+    else
+      super(default_options.deep_merge(options || {}))
+    end
   end
 end

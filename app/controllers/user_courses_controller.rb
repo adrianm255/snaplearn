@@ -9,7 +9,7 @@ class UserCoursesController < ApplicationController
 
   def index
     redis = Redis.new
-    @courses = current_user.courses.order(created_at: :desc).as_json.map do |course|
+    @courses = current_user.courses.order(created_at: :desc).as_json(include: {}).map do |course|
       course["embedded_status"] = redis.exists("course:#{course["id"]}:content_chunks") == 1 || redis.exists("course:#{course["id"]}:sections_processing_count") == 1 ? "processing" : "embedded"
       course
     end
