@@ -27,11 +27,14 @@ const CourseQuestionButton: React.FC<{ course: Course }> = ({ course }) => {
     const formData = new FormData(e.currentTarget);
     const question = formData.get('question') as string;
 
+    const tempQuestion = { body: question, answer: '', id: Date.now().toString() } as CourseQuestion;
+    setQuestions(prevQuestions => [...prevQuestions, tempQuestion]);
+
     const payload = convertToFormData({ course_question: { body: question, course_id: course.id } });
     const response = await createCourseQuestion(payload);
 
     const questionData = serverFormatToClientFormat(response);
-    setQuestions(prevQuestions => [...prevQuestions, { ...questionData, answer: '' }]);
+    setQuestions(prevQuestions => [...prevQuestions.filter(q => q.id !== tempQuestion.id), { ...questionData, answer: '' }]);
 
     const updateAnswer = (newAnswerChunk: string) => {
       setQuestions(prevQuestions => {
@@ -127,7 +130,7 @@ const CourseQuestionButton: React.FC<{ course: Course }> = ({ course }) => {
               </div>
             ))}
           </div>}
-          <CourseQuestionForm key={questions.length} onAskQuestion={handleAskQuestion} />
+          <CourseQuestionForm onAskQuestion={handleAskQuestion} />
         </div>
       </DropdownButton.Dropdown>
     </DropdownButton>
