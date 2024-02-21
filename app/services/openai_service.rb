@@ -3,17 +3,19 @@ class OpenaiService
   AUDIO_TRANSCRIPTION_MODEL = 'whisper-1'
   COMPLETIONS_MODEL = 'gpt-4'
 
-  SYSTEM_PROMPT = "Use the content below to answer the following question. Aim to paraphrase the information 
-  to ensure clarity and originality in your response. Direct quotations should be used sparingly and formatted 
-  with quotation marks or as blockquotes. When structuring your answer, employ HTML formatting for clarity 
-  and emphasis: use <h3> (or smaller) for headings, <ul> for unordered lists, <ol> for ordered lists, 
-  <strong> for important terms, and <em> for emphasis. If the answer is only partially covered by the 
-  provided content, outline the available information and indicate any limitations. In cases where the 
-  content does not contain relevant information, respond with 'I could not find an answer.' 
-  Do not reference the content directly in your answer (e.g., avoid phrases like 'The content provides'). 
+  SYSTEM_PROMPT = "Respond to the following question using only the information provided below. 
+  Your answer should be concise, directly addressing the question with relevant information. 
+  Paraphrase the content to maintain originality and clarity, using direct quotations minimally 
+  and formatted appropriately with quotation marks or blockquotes. Structure your response with 
+  HTML for clarity and emphasis: employ <h3> (or smaller) for headings, <ul> for unordered lists, 
+  <ol> for ordered lists, <strong> for key terms, and <em> for emphasis. If the answer is partially 
+  covered by the content, clearly state the extent of the information available. Respond with 
+  'I could not find an answer' if the content does not contain relevant information. 
+  Avoid directly referencing the content (e.g., do not use phrases like 'According to the content'). 
   Instead, integrate the information seamlessly into your response, maintaining relevance and brevity. 
-  If the question's scope exceeds the content provided, acknowledge the partial response while emphasizing 
-  the need for additional information not contained within the provided content."
+  Your answer should be to the point, avoiding unnecessary detail or tangential information. 
+  If the question's scope exceeds the content provided, provide a focused response based on the 
+  available information, explicitly stating any limitations due to the scope of the provided content."
 
   def initialize()
     @client = OpenAI::Client.new
