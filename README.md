@@ -2,7 +2,7 @@
 Snaplearn is a dynamic platform designed to revolutionize the way educational content is created, published, and accessed. It empowers creators by providing them with the tools needed to build and publish comprehensive courses on a variety of subjects. For learners, Snaplearn offers an accessible library of these courses, enhanced by AI. This AI integration not only facilitates a personalized learning experience but also enables users to receive instant answers to their queries, directly based on the course content.
 
 ## Motivation
-I built this app with Rails + React as a proof-of-concept of how current AI technology can be used to enhance a narrow portion of the Gumroad app's functionality. I focused on "course" type products where this AI enhancement would work best and I also included a stripped-down version of a course editor for building courses. The app was built to resemble Gumroad's *look and feel* as much as possible (by *literally copy-pasting the gumroad CSS file* and structuring the layout to work with it).
+I built this app with Rails + React as a proof-of-concept/prototype of how current AI technology can be used to enhance a narrow portion of the Gumroad app's functionality. I focused on "course" type products where this AI enhancement would work best and I also included a stripped-down version of a course editor for building courses. The app was built to resemble Gumroad's *look and feel* as much as possible (by *literally copy-pasting the gumroad CSS file* and structuring the layout to work with it).
 
 ## Live demo
 https://snaplearn-web.onrender.com/
@@ -25,14 +25,14 @@ but feel free to create any new accounts.
 
 **Notes**
 
-The hosted app is fairly slow because of limitations with the hosting provider (render) coupled with the fact that it uses Server-Side Rendering and it was not particularly optimized for this POC.
+The hosted app is fairly slow because of limitations with the hosting provider (the database was set up in a different region from the other services).
 
 The app is nowhere near being completely polished - I rushed development over the last few days so I could get it ready in time. There are some minor (and bigger) things that could and should be improved and there are some UX and functional features missing that I initially planned to include, but didn't get around to implementing them yet - I will continue working on these over the next few days so by the time you see this some of them might have been fixed/implemented. These include:
 
  - Server-side validation and data sanitization
  - Proper error-handling
- - Optimization of bundle size and of React code to avoid unnecessary re-renders
- - UX stuff like user toaster success/error messages, profile page, pagination, infinite scroll, sorting of course sections etc.
+ - Optimization of React code to avoid unnecessary re-renders
+ - UX stuff like toaster success/error messages, user profile page, pagination, infinite scroll, sorting of course sections etc.
 
 Also, since this was built as a POC, accessibility (especially around ARIA attributes) and proper usage of HTML semantic elements were not focused on. The code itself is not as clean as it could be and the Typescript code is not typed everywhere. Some bigger React components could also benefit from better encapsulation.
 
@@ -92,3 +92,4 @@ A `ProcessCourseJob` works in the following way:
  3. Running intensive content processing operations in Sidekiq jobs for obvious reasons such as better performance, concurrency and scalability. 
  4. Batching jobs to minimize OpenAI API calls and database updates. The batching mechanism is currently pretty simple and limited, but it can be significantly improved.
  5. Storing the embedding vectors in the postgreSQL databse in JSON columns. This works well for the purpose of this POC and in most cases, but a specialized vector database might be more suitable for very large amounts of data.
+ 6. File storage is handled by Rails Active Storage, but a better approach would be to use a third-party service like amazon S3 or similar.
