@@ -14,6 +14,16 @@
  *= require_self
  */
 
+.icon-expand {
+  mask-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPg0KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xNCAxMEwyMSAzTTIxIDNIMTYuNU0yMSAzVjcuNU0xMCAxNEwzIDIxTTMgMjFINy41TTMgMjFMMyAxNi41IiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+DQo8L3N2Zz4=);
+  -webkit-mask-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPg0KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xNCAxMEwyMSAzTTIxIDNIMTYuNU0yMSAzVjcuNU0xMCAxNEwzIDIxTTMgMjFINy41TTMgMjFMMyAxNi41IiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+DQo8L3N2Zz4=);
+}
+
+.icon-collapse {
+  mask-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KDTwhLS0gVXBsb2FkZWQgdG86IFNWRyBSZXBvLCB3d3cuc3ZncmVwby5jb20sIEdlbmVyYXRvcjogU1ZHIFJlcG8gTWl4ZXIgVG9vbHMgLS0+Cjxzdmcgd2lkdGg9IjgwMHB4IiBoZWlnaHQ9IjgwMHB4IiB2aWV3Qm94PSIwIDAgNDggNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQogIDx0aXRsZT5jb2xsYXBzZS1mdWxsc2NyZWVuPC90aXRsZT4NCiAgPGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+DQogICAgPGcgaWQ9ImludmlzaWJsZV9ib3giIGRhdGEtbmFtZT0iaW52aXNpYmxlIGJveCI+DQogICAgICA8cmVjdCB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIGZpbGw9Im5vbmUiLz4NCiAgICA8L2c+DQogICAgPGcgaWQ9Imljb25zX1EyIiBkYXRhLW5hbWU9Imljb25zIFEyIj4NCiAgICAgIDxnPg0KICAgICAgICA8cGF0aCBkPSJNOCwyNmEyLDIsMCwwLDAtMiwyLjNBMi4xLDIuMSwwLDAsMCw4LjEsMzBoNy4xTDQuNyw0MC41YTIsMiwwLDAsMC0uMiwyLjhBMS44LDEuOCwwLDAsMCw2LDQ0YTIsMiwwLDAsMCwxLjQtLjZMMTgsMzIuOHY3LjFBMi4xLDIuMSwwLDAsMCwxOS43LDQyLDIsMiwwLDAsMCwyMiw0MFYyOGEyLDIsMCwwLDAtMi0yWiIvPg0KICAgICAgICA8cGF0aCBkPSJNNDMuNyw0LjhhMiwyLDAsMCwwLTMuMS0uMkwzMCwxNS4yVjguMUEyLjEsMi4xLDAsMCwwLDI4LjMsNiwyLDIsMCwwLDAsMjYsOFYyMGEyLDIsMCwwLDAsMiwySDM5LjlBMi4xLDIuMSwwLDAsMCw0MiwyMC4zLDIsMiwwLDAsMCw0MCwxOEgzMi44TDQzLjQsNy41QTIuMywyLjMsMCwwLDAsNDMuNyw0LjhaIi8+DQogICAgICA8L2c+DQogICAgPC9nPg0KICA8L2c+DQo8L3N2Zz4=);
+  -webkit-mask-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KDTwhLS0gVXBsb2FkZWQgdG86IFNWRyBSZXBvLCB3d3cuc3ZncmVwby5jb20sIEdlbmVyYXRvcjogU1ZHIFJlcG8gTWl4ZXIgVG9vbHMgLS0+Cjxzdmcgd2lkdGg9IjgwMHB4IiBoZWlnaHQ9IjgwMHB4IiB2aWV3Qm94PSIwIDAgNDggNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQogIDx0aXRsZT5jb2xsYXBzZS1mdWxsc2NyZWVuPC90aXRsZT4NCiAgPGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+DQogICAgPGcgaWQ9ImludmlzaWJsZV9ib3giIGRhdGEtbmFtZT0iaW52aXNpYmxlIGJveCI+DQogICAgICA8cmVjdCB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIGZpbGw9Im5vbmUiLz4NCiAgICA8L2c+DQogICAgPGcgaWQ9Imljb25zX1EyIiBkYXRhLW5hbWU9Imljb25zIFEyIj4NCiAgICAgIDxnPg0KICAgICAgICA8cGF0aCBkPSJNOCwyNmEyLDIsMCwwLDAtMiwyLjNBMi4xLDIuMSwwLDAsMCw4LjEsMzBoNy4xTDQuNyw0MC41YTIsMiwwLDAsMC0uMiwyLjhBMS44LDEuOCwwLDAsMCw2LDQ0YTIsMiwwLDAsMCwxLjQtLjZMMTgsMzIuOHY3LjFBMi4xLDIuMSwwLDAsMCwxOS43LDQyLDIsMiwwLDAsMCwyMiw0MFYyOGEyLDIsMCwwLDAtMi0yWiIvPg0KICAgICAgICA8cGF0aCBkPSJNNDMuNyw0LjhhMiwyLDAsMCwwLTMuMS0uMkwzMCwxNS4yVjguMUEyLjEsMi4xLDAsMCwwLDI4LjMsNiwyLDIsMCwwLDAsMjYsOFYyMGEyLDIsMCwwLDAsMiwySDM5LjlBMi4xLDIuMSwwLDAsMCw0MiwyMC4zLDIsMiwwLDAsMCw0MCwxOEgzMi44TDQzLjQsNy41QTIuMywyLjMsMCwwLDAsNDMuNyw0LjhaIi8+DQogICAgICA8L2c+DQogICAgPC9nPg0KICA8L2c+DQo8L3N2Zz4=);
+}
+
 .react-rendered-component {
   display: contents;
 }
@@ -219,6 +229,13 @@ main.course-editor .course-section form > .input-group:first-of-type {
   height: 500px;
 }
 
+.dropdown.expanded .course-question-box {
+  width: 650px;
+  height: 800px;
+  max-width: calc(100vw - 4rem);
+  max-height: calc(100vh - 6rem);
+}
+
 .course-question-box > *:first-child {
   display: flex;
   flex-direction: column;
@@ -257,4 +274,28 @@ main.course-editor .course-section form > .input-group:first-of-type {
   left: 100%;
   margin-left: 0.5rem;
   top: initial;
+}
+
+.dropdown.top {
+  bottom: 100%;
+  left: 0;
+  margin-left: 0;
+  margin-bottom: 0.5rem;
+  top: initial;
+}
+
+.dropdown > header {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: var(--spacer-2);
+}
+
+.dropdown > header > .actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
 }

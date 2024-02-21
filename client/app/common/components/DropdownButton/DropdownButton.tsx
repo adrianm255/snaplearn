@@ -1,8 +1,11 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { useMediaQuery } from 'react-responsive'
 
 interface DropdownButtonContextValue {
   isOpen: boolean;
+  options?: object;
   toggle: () => void;
+  setOptions?: (newOptions: object) => void;
 }
 
 const DropdownButtonContext = createContext<DropdownButtonContextValue | undefined>(undefined);
@@ -12,9 +15,17 @@ interface DropdownButtonProps {
   onOpen?: () => void;
 }
 
+interface DropdownProps {
+  placement?: string;
+  children: ReactNode;
+  closable?: boolean;
+  expandable?: boolean;
+  options?: object;
+};
+
 const DropdownButton: React.FC<DropdownButtonProps> & {
   Button: React.FC<{ buttonClass?: string, children: ReactNode }>;
-  Dropdown: React.FC<{ customClass?: string, children: ReactNode }>;
+  Dropdown: React.FC<DropdownProps>;
 } = ({ onOpen, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -46,9 +57,33 @@ DropdownButton.Button = ({ buttonClass = '', children }) => {
   return <button className={buttonClass} onClick={toggle}>{children}</button>;
 };
 
-DropdownButton.Dropdown = ({ customClass = '', children }) => {
-  const { isOpen } = useDropdownButtonContext();
-  return isOpen ? <div className={'dropdown ' + customClass}>{children}</div> : null;
+DropdownButton.Dropdown = ({ placement = '', closable = false, expandable = false, children }) => {
+  const { isOpen, toggle } = useDropdownButtonContext();
+  const isSmallScreen = useMediaQuery({
+    query: '(max-width: 1023px)'
+  })
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpanded = () => setIsExpanded(!isExpanded);
+  const expandButtonClass = isExpanded ? 'icon icon-collapse' : 'icon icon-expand';
+  // TODO this is mostly hardcoded for now
+  const dropdownPlacement = isSmallScreen ? 'top' : placement;
+
+  return isOpen
+    ? ( closable || expandable
+      ? <div className={`dropdown ${dropdownPlacement} ${isExpanded ? 'expanded' : ''}`}>
+          <header>
+            <div></div>
+            <div className='actions'>
+              {expandable && <div role="button" className={expandButtonClass} onClick={toggleExpanded}></div>}
+              {closable && <div role="button" className="icon icon-solid-x" aria-label="Close" onClick={toggle}></div>}
+            </div>
+          </header>
+          {children}
+        </div>
+      : <div className={'dropdown ' + dropdownPlacement}>{children}</div>
+    )
+    : null;
 };
 
 export default DropdownButton;
