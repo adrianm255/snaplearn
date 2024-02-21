@@ -5,8 +5,7 @@ import { convertToFormData } from "../../../../helpers/formDataHelper";
 import { createCourseQuestion } from "../../../../services/courseService";
 import { serverFormatToClientFormat } from "../../../../helpers/dataMapper";
 import { Course, CourseQuestion, CourseSection } from "../../../../types/course";
-import { getSectionIconClass } from "../../../../helpers/courseHelper";
-import CourseSectionSummary from "../CourseSectionSummary/CourseSectionSummary";
+import Question from "./Question";
 
 const CourseQuestionButton: React.FC<{ course: Course }> = ({ course }) => {
   const [questions, setQuestions] = React.useState<CourseQuestion[]>(course.courseQuestions || []);
@@ -87,47 +86,18 @@ const CourseQuestionButton: React.FC<{ course: Course }> = ({ course }) => {
     }
   };
 
-  const getCourseSection = (courseSectionId: string): CourseSection | undefined => {
-    return course.courseSections?.find(section => section.id === courseSectionId);
-  };
-
   return (<div className="ask-question-button">
     <DropdownButton onOpen={() => setTimeout(scrollToBottom)}>
       <DropdownButton.Button buttonClass="primary">
         <span className="icon icon-plus-circle"></span>
         <span className="content">Ask a question</span>
       </DropdownButton.Button>
-      <DropdownButton.Dropdown customClass="right">
+      <DropdownButton.Dropdown placement="right" closable={true} expandable={true}>
         <div className="course-question-box">
           {questions.length === 0 && <h4>You have no questions for this course yet.</h4>}
           {questions.length > 0 && <div ref={questionsContainer}>
             {questions?.map(question => (
-              <div key={question.id} className="question">
-                <div className="question-body">
-                  <div>Q:</div>
-                  <div>{question.body}</div>
-                </div>
-                <div className="question-answer">
-                  <div>A:</div>
-                  <div>
-                    <div dangerouslySetInnerHTML={{ __html: question.answer }}></div>
-                    {question.relevantSections?.length && (
-                      <div style={{ marginTop: '0.5rem' }}>
-                        <h4 style={{ marginBottom: '0.5rem' }}><strong>Relevant course material</strong></h4>
-                        <div role="tree">
-                          {question.relevantSections?.map(relevantSectionId => (
-                            <div key={relevantSectionId} className="relevant-section" role="treeitem" style={{ fontSize: '0.875rem' }}>
-                              {getCourseSection(relevantSectionId) && (
-                                <CourseSectionSummary courseSection={getCourseSection(relevantSectionId)!} allowExpand={false} />
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <Question key={question.id} question={question} course={course} />
             ))}
           </div>}
           <CourseQuestionForm onAskQuestion={handleAskQuestion} />
