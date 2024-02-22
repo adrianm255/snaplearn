@@ -1,16 +1,19 @@
 import React from "react";
-import { Course, CourseSectionType } from "../../../../types/course";
-import { getSectionIconClass } from "../../../../helpers/courseHelper";
+import { Course } from "../../../../types/course";
 import useTranslation from "../../../../libs/i18n/useTranslation";
 import CourseQuestionButton from "../CourseQuestion/CourseQuestionButton";
 import CourseSectionSummary from "../CourseSectionSummary/CourseSectionSummary";
+import { useStore } from "../../../../hooks-store/store";
 
-const CourseDetail: React.FC<{ course: Course, currentUserIsAuthor: boolean, courseQuestionsCount: number }> = ({ course, currentUserIsAuthor, courseQuestionsCount }) => {
+const CourseDetail: React.FC = () => {
   const { t } = useTranslation();
+  const [ state, dispatch ] = useStore();
+  const course: Course = state.course;
+  const currentUserIsAuthor = state.currentUserIsAuthor;
   
   return (
     <main className="product-content">
-      <CourseQuestionButton course={course} courseQuestionsCount={courseQuestionsCount} />
+      <CourseQuestionButton />
       <div className="product-detail-nav">
         <a href="/discover" title="Back">
           <span className="icon icon-arrow-left-short"></span>
@@ -40,7 +43,11 @@ const CourseDetail: React.FC<{ course: Course, currentUserIsAuthor: boolean, cou
           <div role="tree">
             {course.courseSections?.map(courseSection => (
               <div key={courseSection.id} role="treeitem">
-                <CourseSectionSummary courseSection={courseSection}/>
+                <CourseSectionSummary
+                  courseSection={courseSection}
+                  expanded={courseSection.isExpanded}
+                  highlighted={courseSection.isHighlighted}
+                />
               </div>
             ))}
           </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Field, { FieldType } from '../../../../../common/components/Field/Field';
 import { useStore } from '../../../../../hooks-store/store';
-import { CourseStoreAction } from '../../../../../hooks-store/courseStore';
+import { CourseEditorStoreAction } from '../../../../../hooks-store/courseEditorStore';
 import useTranslation from '../../../../../libs/i18n/useTranslation';
 
 const CourseEditorCourseDetails: React.FC = () => {
@@ -18,7 +18,7 @@ const CourseEditorCourseDetails: React.FC = () => {
           label={t('course.title_label')}
           placeholder={t('course.title_label')}
           value={course.title}
-          onChange={e => dispatch(CourseStoreAction.UpdateCourseAttribute, 'title', e.target.value)}
+          onChange={e => dispatch(CourseEditorStoreAction.UpdateCourseAttribute, 'title', e.target.value)}
           required
         />
 
@@ -28,7 +28,7 @@ const CourseEditorCourseDetails: React.FC = () => {
           label={t('course.description_label')}
           placeholder={t('course.description_label')}
           value={course.description}
-          onChange={e => dispatch(CourseStoreAction.UpdateCourseAttribute, 'description', e.target.value)}
+          onChange={e => dispatch(CourseEditorStoreAction.UpdateCourseAttribute, 'description', e.target.value)}
         />
       </section>
     </form>

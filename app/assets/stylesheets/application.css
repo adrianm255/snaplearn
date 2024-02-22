@@ -308,3 +308,7 @@ main.course-editor .course-section form > .input-group:first-of-type {
   align-items: center;
   gap: 0.75rem;
 }
+
+.drawer:focus {
+  outline: 0.0625rem solid rgb(var(--accent));
+}

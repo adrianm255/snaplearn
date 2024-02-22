@@ -8,7 +8,7 @@ import { useStore } from '../../../../hooks-store/store';
 import { publishCourse, unpublishCourse, updateCourse } from '../../../../services/courseService';
 import { clientFormatToServerFormat, serverFormatToClientFormat } from '../../../../helpers/dataMapper';
 import { convertToFormData } from '../../../../helpers/formDataHelper';
-import { CourseStoreAction } from '../../../../hooks-store/courseStore';
+import { CourseEditorStoreAction } from '../../../../hooks-store/courseEditorStore';
 import Button from '../../../../common/components/Button/Button';
 
 const CourseEditor: React.FC = () => {
@@ -28,7 +28,7 @@ const CourseEditor: React.FC = () => {
 
       setIsSaveButtonLoading(true);
       const response = await updateCourse(course.id, payload);
-      await dispatch(CourseStoreAction.UpdateCourse, serverFormatToClientFormat(response));
+      await dispatch(CourseEditorStoreAction.UpdateCourse, serverFormatToClientFormat(response));
     } catch (e) {
       // TODO
     } finally {
@@ -40,7 +40,7 @@ const CourseEditor: React.FC = () => {
     try {
       setIsPublishButtonLoading(true);
       const response = await publishCourse(course.id);
-      await dispatch(CourseStoreAction.UpdateCourse, serverFormatToClientFormat(response));
+      await dispatch(CourseEditorStoreAction.UpdateCourse, serverFormatToClientFormat(response));
     } catch (e) {
       // TODO
     } finally {
@@ -52,7 +52,7 @@ const CourseEditor: React.FC = () => {
     try {
       setIsPublishButtonLoading(true);
       const response = await unpublishCourse(course.id);
-      await dispatch(CourseStoreAction.UpdateCourse, serverFormatToClientFormat(response));
+      await dispatch(CourseEditorStoreAction.UpdateCourse, serverFormatToClientFormat(response));
     } catch (e) {
       // TODO
     } finally {

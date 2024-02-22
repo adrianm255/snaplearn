@@ -4,11 +4,16 @@ import CourseQuestionForm from "./CourseQuestionForm";
 import { convertToFormData } from "../../../../helpers/formDataHelper";
 import { createCourseQuestion, getCourseQuestions } from "../../../../services/courseService";
 import { serverFormatToClientFormat } from "../../../../helpers/dataMapper";
-import { Course, CourseQuestion, CourseSection } from "../../../../types/course";
+import { Course, CourseQuestion } from "../../../../types/course";
 import Question from "./Question";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useStore } from "../../../../hooks-store/store";
 
-const CourseQuestionButton: React.FC<{ course: Course, courseQuestionsCount: number }> = ({ course, courseQuestionsCount }) => {
+const CourseQuestionButton: React.FC = () => {
+  const state = useStore()[0];
+  const course: Course = state.course;
+  const courseQuestionsCount: number = state.courseQuestionsCount;
+
   const [questions, setQuestions] = React.useState<CourseQuestion[]>(course.courseQuestions || []);
   const [totalQuestionsCount, setTotalQuestionsCount] = React.useState<number>(courseQuestionsCount);
 
