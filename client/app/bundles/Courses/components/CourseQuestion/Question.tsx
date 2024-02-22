@@ -3,9 +3,12 @@ import { Course, CourseQuestion, CourseSection } from "../../../../types/course"
 import CourseSectionSummary from "../CourseSectionSummary/CourseSectionSummary";
 import { useStore } from "../../../../hooks-store/store";
 import { CourseDetailStoreAction } from "../../../../hooks-store/courseDetailStore";
+import { useDropdownButtonContext } from "../../../../common/components/DropdownButton/DropdownButton";
 
 const Question: React.FC<{ question: CourseQuestion, course: Course }> = ({ question, course }) => {
   const dispatch = useStore()[1];
+
+  const { close } = useDropdownButtonContext();
   
   const getCourseSection = (courseSectionId: string): CourseSection | undefined => {
     return course.courseSections?.find(section => section.id === courseSectionId);
@@ -31,7 +34,7 @@ const Question: React.FC<{ question: CourseQuestion, course: Course }> = ({ ques
                       <CourseSectionSummary
                         courseSection={getCourseSection(relevantSectionId)!}
                         allowExpand={false}
-                        onCourseSectionAction={() => dispatch(CourseDetailStoreAction.ExpandAndHighlight, relevantSectionId)}
+                        onCourseSectionAction={() => {close(); dispatch(CourseDetailStoreAction.ExpandAndHighlight, relevantSectionId)}}
                       />
                     )}
                   </div>

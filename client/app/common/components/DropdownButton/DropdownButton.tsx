@@ -5,6 +5,7 @@ interface DropdownButtonContextValue {
   isOpen: boolean;
   options?: object;
   toggle: () => void;
+  close: () => void;
   setOptions?: (newOptions: object) => void;
 }
 
@@ -37,14 +38,16 @@ const DropdownButton: React.FC<DropdownButtonProps> & {
     }
   };
 
+  const close = () => setIsOpen(false);
+
   return (
-    <DropdownButtonContext.Provider value={{ isOpen, toggle }}>
+    <DropdownButtonContext.Provider value={{ isOpen, toggle, close }}>
       <div className="popover toggle">{children}</div>
     </DropdownButtonContext.Provider>
   );
 };
 
-const useDropdownButtonContext = () => {
+export const useDropdownButtonContext = () => {
   const context = useContext(DropdownButtonContext);
   if (!context) {
     throw new Error('This component must be used within a <DropdownButton> component.');
