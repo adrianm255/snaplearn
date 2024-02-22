@@ -23,6 +23,24 @@ but feel free to create any new accounts.
 
 <br /> 
 
+**Screenshots**
+<br />
+Discover page:\
+<img width="1196" alt="Screenshot 2024-02-22 at 18 33 00" src="https://github.com/adrianm255/snaplearn/assets/95966222/5d376f15-c67c-4dc5-bf58-04bf8bc8579f">
+<br />
+
+Course page:\
+<img width="1221" alt="Screenshot 2024-02-22 at 18 24 19" src="https://github.com/adrianm255/snaplearn/assets/95966222/ed9b385f-4278-4f8b-a6e4-15e179b1c988">
+<br />
+
+Questions box:\
+<img width="893" alt="Screenshot 2024-02-22 at 18 24 49" src="https://github.com/adrianm255/snaplearn/assets/95966222/f096ab22-cf12-47f1-b633-7d881fdccb22">
+<br />
+
+Course editor:\
+<img width="1437" alt="Screenshot 2024-02-22 at 18 25 37" src="https://github.com/adrianm255/snaplearn/assets/95966222/1a4b208e-6109-4fd1-92ea-9d2b2e88fbd5">
+<br />
+
 **Notes**
 
 The hosted app is fairly slow because of limitations with the hosting provider (the database was set up in a different region from the other services).
@@ -32,7 +50,7 @@ The app is nowhere near being completely polished - I rushed development over th
  - Server-side validation and data sanitization
  - Proper error-handling
  - Optimization of React code to avoid unnecessary re-renders
- - UX stuff like toaster success/error messages, user profile page, pagination, infinite scroll, sorting of course sections etc.
+ - UX stuff like toaster success/error messages, user profile page, pagination, :white_check_mark: <del>infinite scroll</del>, sorting of course sections etc.
 
 Also, since this was built as a POC, accessibility (especially around ARIA attributes) and proper usage of HTML semantic elements were not focused on. The code itself is not as clean as it could be and the Typescript code is not typed everywhere. Some bigger React components could also benefit from better encapsulation.
 
@@ -92,4 +110,4 @@ A `ProcessCourseJob` works in the following way:
  3. Running intensive content processing operations in Sidekiq jobs for obvious reasons such as better performance, concurrency and scalability. 
  4. Batching jobs to minimize OpenAI API calls and database updates. The batching mechanism is currently pretty simple and limited, but it can be significantly improved.
  5. Storing the embedding vectors in the postgreSQL databse in JSON columns. This works well for the purpose of this POC and in most cases, but a specialized vector database might be more suitable for very large amounts of data.
- 6. File storage is handled by Rails Active Storage, but a better approach would be to use a third-party service like amazon S3 or similar.
+ 6. File storage is handled by Rails Active Storage, but a better approach would be to use a third-party service like AWS or similar.
