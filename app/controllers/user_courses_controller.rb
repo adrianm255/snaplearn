@@ -1,4 +1,6 @@
 class UserCoursesController < ApplicationController
+  include NavbarSetup
+  
   layout "dashboard"
 
   before_action :set_course, only: %i[ edit ]

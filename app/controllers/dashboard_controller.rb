@@ -1,4 +1,6 @@
 class DashboardController < ApplicationController
+  include NavbarSetup
+  
   before_action :set_navbar_title
   before_action :authenticate_user!
 
