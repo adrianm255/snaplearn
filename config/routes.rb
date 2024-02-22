@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       get 'question_stream/:session_id', to: 'course_question_streaming#stream', as: :stream_question
 
       # Questions
-      post 'questions', to: 'course_questions#create'
+      resources :course_questions, path: 'questions', only: %i[ index create ]
     end
   end
 

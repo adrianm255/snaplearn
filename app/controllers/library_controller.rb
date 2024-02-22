@@ -1,4 +1,6 @@
 class LibraryController < ApplicationController
+  include NavbarSetup
+  
   layout 'dashboard'
 
   before_action :set_navbar_title

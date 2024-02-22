@@ -1,12 +1,19 @@
 class Api::V1::CourseQuestionsController < ApplicationController
-  before_action :set_course_question, only: %i[ show ]
+  include Paginatable
+
   before_action :set_course, only: %i[ create ]
   before_action :authenticate_user!
   before_action :authorize_user!, only: [ :create ]
 
-  # GET /questions/1
-  def show
-    render json: @course_question.as_json
+  # GET /questions
+  def index
+    course_questions = current_user.course_questions.where(course_id: params[:course_id]).order(created_at: :desc)
+    paginated_questions, total_count = paginate(course_questions)
+
+    render json: {
+      questions: paginated_questions.as_json,
+      total_count: total_count
+    }
   end
 
   # POST /questions

@@ -238,10 +238,19 @@ main.course-editor .course-section form > .input-group:first-of-type {
 
 .course-question-box > *:first-child {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   flex-grow: 1;
-  gap: 2rem;
   overflow-y: auto;
+}
+
+.course-question-box > h4:first-child {
+  flex-direction: column;
+}
+
+.course-question-box .questions-container {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2rem;
   padding: 0 1rem 1rem 0;
 }
 

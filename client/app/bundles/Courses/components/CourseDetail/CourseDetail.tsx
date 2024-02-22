@@ -5,12 +5,12 @@ import useTranslation from "../../../../libs/i18n/useTranslation";
 import CourseQuestionButton from "../CourseQuestion/CourseQuestionButton";
 import CourseSectionSummary from "../CourseSectionSummary/CourseSectionSummary";
 
-const CourseDetail: React.FC<{ course: Course, currentUserIsAuthor: boolean }> = ({ course, currentUserIsAuthor }) => {
+const CourseDetail: React.FC<{ course: Course, currentUserIsAuthor: boolean, courseQuestionsCount: number }> = ({ course, currentUserIsAuthor, courseQuestionsCount }) => {
   const { t } = useTranslation();
   
   return (
     <main className="product-content">
-      <CourseQuestionButton course={course} />
+      <CourseQuestionButton course={course} courseQuestionsCount={courseQuestionsCount} />
       <div className="product-detail-nav">
         <a href="/discover" title="Back">
           <span className="icon icon-arrow-left-short"></span>

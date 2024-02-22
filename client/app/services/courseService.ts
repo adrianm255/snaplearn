@@ -96,6 +96,14 @@ const createCourseQuestion = async (postData) => {
   return response.json();
 };
 
+const getCourseQuestions = async (courseId, start) => {
+  const response = await fetch(`/api/v1/questions?course_id=${courseId}&start=${start}&limit=5`);
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response.json();
+};
+
 export {
   createCourse,
   deleteCourse,
@@ -105,4 +113,5 @@ export {
   createCourseQuestion,
   publishCourse,
   unpublishCourse,
+  getCourseQuestions,
 };
