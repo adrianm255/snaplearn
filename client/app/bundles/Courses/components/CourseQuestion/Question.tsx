@@ -17,7 +17,7 @@ const Question: React.FC<{ question: CourseQuestion, course: Course }> = ({ ques
         <div>A:</div>
         <div>
           <div dangerouslySetInnerHTML={{ __html: question.answer }}></div>
-          {question.relevantSections?.length && (
+          {(question.relevantSections || []).length > 0 && (
             <div style={{ marginTop: '0.5rem' }}>
               <h4 style={{ marginBottom: '0.5rem' }}><strong>Relevant course material</strong></h4>
               <div role="tree">

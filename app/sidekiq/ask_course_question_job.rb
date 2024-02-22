@@ -1,6 +1,8 @@
 class AskCourseQuestionJob
   include Sidekiq::Job
 
+  RELEVANT_SECTION_SCORE_THRESHOLD = 0.2
+
   def perform(question_id, stream_session_id)
     question = CourseQuestion.find(question_id)
     course = question.course
@@ -14,7 +16,7 @@ class AskCourseQuestionJob
     stream_key = "question_stream_#{stream_session_id}"
     stream = Redis.new
 
-    relevant_section_ids = relevant_sections.map { |section| section[:course_section_id] }.uniq().take(2)
+    relevant_section_ids = relevant_sections.select { |section| section[:score] >= RELEVANT_SECTION_SCORE_THRESHOLD }.map { |section| section[:course_section_id] }.uniq().take(2)
     relevant_sections_message = {type: 'relevant_sections', message: relevant_section_ids}.to_json
     stream.publish(stream_key, relevant_sections_message)
 
@@ -47,9 +49,9 @@ class AskCourseQuestionJob
       {
         course_section_id: section.course_section_id,
         content: section[:content],
-        score: 1 - cosine_similarity(query_embedding, section[:embedding])
+        score: cosine_similarity(query_embedding, section[:embedding])
       }
-    }.sort_by { |section| section[:score] }
+    }.sort_by { |section| 1 - section[:score] }
   end
 
   def cosine_similarity(vec1, vec2)
