@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Field, { FieldType } from "../../../../../common/components/Field/Field";
 import { useStore } from "../../../../../hooks-store/store";
-import { CourseStoreAction } from "../../../../../hooks-store/courseStore";
+import { CourseEditorStoreAction } from "../../../../../hooks-store/courseEditorStore";
 import { CourseSectionType } from "../../../../../types/course";
 import { getSectionIconClass } from "../../../../../helpers/courseHelper";
 import useTranslation from "../../../../../libs/i18n/useTranslation";
@@ -15,7 +15,7 @@ const CourseSection: React.FC<{ courseSectionId: string, expanded?: boolean }> =
   const courseSectionIconClass = getSectionIconClass(courseSection.sectionType);
 
   const handleSectionAttributeChange = (attrName: string, value: any) => {
-    dispatch(CourseStoreAction.UpdateCourseSectionAttribute, courseSection.id, attrName, value);
+    dispatch(CourseEditorStoreAction.UpdateCourseSectionAttribute, courseSection.id, attrName, value);
   };
 
   const getFileInputAcceptTypes = (): string => {
@@ -38,7 +38,7 @@ const CourseSection: React.FC<{ courseSectionId: string, expanded?: boolean }> =
         <button type="button" onClick={() => setIsExpanded(!isExpanded)}>
           <span className={"icon " + (isExpanded ? "icon-outline-cheveron-up" : "icon-outline-cheveron-down")}></span>
         </button>
-        <button className="outline-danger" type="button" aria-label="Remove" onClick={() => dispatch(CourseStoreAction.DeleteCourseSection, courseSection.id)}>
+        <button className="outline-danger" type="button" aria-label="Remove" onClick={() => dispatch(CourseEditorStoreAction.DeleteCourseSection, courseSection.id)}>
           <span className="icon icon-trash2"></span>
         </button>
       </div>

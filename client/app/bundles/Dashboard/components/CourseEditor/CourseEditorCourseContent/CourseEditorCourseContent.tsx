@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useStore } from '../../../../../hooks-store/store';
-import { CourseStoreAction } from '../../../../../hooks-store/courseStore';
+import { CourseEditorStoreAction } from '../../../../../hooks-store/courseEditorStore';
 import Field, { FieldType } from '../../../../../common/components/Field/Field';
 import CourseSection from '../CourseSection/CourseSection';
 import DropdownButton from '../../../../../common/components/DropdownButton/DropdownButton'
@@ -15,7 +15,7 @@ const CourseEditorCourseContent: React.FC = () => {
   course.courseSections?.sort((a, b) => a.order - b.order);
 
   const handleAddSection = (sectionType: CourseSectionType) => {
-    dispatch(CourseStoreAction.AddCourseSection, sectionType, t('course_section.new_section_title'));
+    dispatch(CourseEditorStoreAction.AddCourseSection, sectionType, t('course_section.new_section_title'));
   };
 
   return (<div className="course-sections">

@@ -1,8 +1,12 @@
 import React from "react";
 import { Course, CourseQuestion, CourseSection } from "../../../../types/course";
 import CourseSectionSummary from "../CourseSectionSummary/CourseSectionSummary";
+import { useStore } from "../../../../hooks-store/store";
+import { CourseDetailStoreAction } from "../../../../hooks-store/courseDetailStore";
 
 const Question: React.FC<{ question: CourseQuestion, course: Course }> = ({ question, course }) => {
+  const dispatch = useStore()[1];
+  
   const getCourseSection = (courseSectionId: string): CourseSection | undefined => {
     return course.courseSections?.find(section => section.id === courseSectionId);
   };
@@ -24,7 +28,11 @@ const Question: React.FC<{ question: CourseQuestion, course: Course }> = ({ ques
                 {question.relevantSections?.map(relevantSectionId => (
                   <div key={relevantSectionId} className="relevant-section" role="treeitem" style={{ fontSize: '0.875rem' }}>
                     {getCourseSection(relevantSectionId) && (
-                      <CourseSectionSummary courseSection={getCourseSection(relevantSectionId)!} allowExpand={false} />
+                      <CourseSectionSummary
+                        courseSection={getCourseSection(relevantSectionId)!}
+                        allowExpand={false}
+                        onCourseSectionAction={() => dispatch(CourseDetailStoreAction.ExpandAndHighlight, relevantSectionId)}
+                      />
                     )}
                   </div>
                 ))}

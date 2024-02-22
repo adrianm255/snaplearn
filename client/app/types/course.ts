@@ -27,7 +27,9 @@ export type CourseSection = {
     filename: string;
     size: number;
     url: string;
-  }
+  };
+  isExpanded?: boolean;
+  isHighlighted?: boolean;
 };
 
 export enum CourseSectionType {

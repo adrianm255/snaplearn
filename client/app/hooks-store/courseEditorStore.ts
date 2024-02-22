@@ -1,7 +1,7 @@
 import { Course, CourseSectionType } from "../types/course";
 import { initStore } from "./store";
 
-export enum CourseStoreAction {
+export enum CourseEditorStoreAction {
   UpdateCourse = 'UPDATE_COURSE',
   UpdateCourseAttribute = 'UPDATE_COURSE_ATTRIBUTE',
   UpdateCourseSectionAttribute = 'UPDATE_COURSE_SECTION_ATTRIBUTE',
@@ -11,21 +11,21 @@ export enum CourseStoreAction {
 
 const configureStore = (initialState: Course) => {
   const actions = {
-    [CourseStoreAction.UpdateCourse]: (curState: any, newState: any) => {
+    [CourseEditorStoreAction.UpdateCourse]: (curState: any, newState: any) => {
       return { course: newState };
     },
-    [CourseStoreAction.UpdateCourseAttribute]: (curState: any, attrName: string, attrValue: any) => {
+    [CourseEditorStoreAction.UpdateCourseAttribute]: (curState: any, attrName: string, attrValue: any) => {
       const newCourseState = { ...curState.course, [attrName]: attrValue };
       return { course: newCourseState };
     },
-    [CourseStoreAction.UpdateCourseSectionAttribute]: (curState: any, sectionId: string, attrName: string, attrValue: any) => {
+    [CourseEditorStoreAction.UpdateCourseSectionAttribute]: (curState: any, sectionId: string, attrName: string, attrValue: any) => {
       const updatedSections = curState.course.courseSections.map(section =>
         section.id === sectionId ? { ...section, [attrName]: attrValue } : section
       );
       const newCourseState = { ...curState.course, courseSections: updatedSections };
       return { course: newCourseState };
     },
-    [CourseStoreAction.AddCourseSection]: (curState: any, sectionType: CourseSectionType = CourseSectionType.RichText, title: string) => {
+    [CourseEditorStoreAction.AddCourseSection]: (curState: any, sectionType: CourseSectionType = CourseSectionType.RichText, title: string) => {
       const curCourseState = curState.course;
       const newSection = {
         title: title || '',
@@ -39,7 +39,7 @@ const configureStore = (initialState: Course) => {
       const newCourseState = { ...curCourseState, courseSections: [...curCourseState.courseSections, newSection] };
       return { course: newCourseState };
     },
-    [CourseStoreAction.DeleteCourseSection]: (curState: any, sectionId: string) => {
+    [CourseEditorStoreAction.DeleteCourseSection]: (curState: any, sectionId: string) => {
       const updatedSections = curState.course.courseSections.filter(section => section.id !== sectionId);
       // Update order
       updatedSections.forEach((section, index) => section.order = index);
