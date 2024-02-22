@@ -1,4 +1,6 @@
 class CoursesController < ApplicationController
+  include Paginatable
+
   layout 'courses'
   
   before_action :authenticate_user!
@@ -8,9 +10,11 @@ class CoursesController < ApplicationController
   
   # GET /course/1
   def show
-    # TODO order by default
-    course_questions = current_user.course_questions.where(course: @course).order(:created_at).last(5)
-    @course_data = @course.as_json.merge(course_questions: course_questions)
+    course_questions = current_user.course_questions.where(course: @course).order(created_at: :desc)
+    paginated_questions, total_count = paginate(course_questions)
+
+    @course_data = @course.as_json.merge(course_questions: paginated_questions)
+    @course_questions_count = total_count
     @current_user_is_author = @course.authored_by?(current_user)
   end
 

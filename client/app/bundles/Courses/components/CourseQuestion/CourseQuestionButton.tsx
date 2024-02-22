@@ -1,39 +1,31 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import DropdownButton from "../../../../common/components/DropdownButton/DropdownButton";
 import CourseQuestionForm from "./CourseQuestionForm";
 import { convertToFormData } from "../../../../helpers/formDataHelper";
-import { createCourseQuestion } from "../../../../services/courseService";
+import { createCourseQuestion, getCourseQuestions } from "../../../../services/courseService";
 import { serverFormatToClientFormat } from "../../../../helpers/dataMapper";
 import { Course, CourseQuestion, CourseSection } from "../../../../types/course";
 import Question from "./Question";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-const CourseQuestionButton: React.FC<{ course: Course }> = ({ course }) => {
+const CourseQuestionButton: React.FC<{ course: Course, courseQuestionsCount: number }> = ({ course, courseQuestionsCount }) => {
   const [questions, setQuestions] = React.useState<CourseQuestion[]>(course.courseQuestions || []);
-  const questionsContainer = useRef<HTMLDivElement>(null);
-
-  const scrollToBottom = () => {
-    if (questionsContainer.current) {
-      questionsContainer.current.scrollTop = questionsContainer.current.scrollHeight;
-    }
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [questions]);
+  const [totalQuestionsCount, setTotalQuestionsCount] = React.useState<number>(courseQuestionsCount);
 
   const handleAskQuestion = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const formData = new FormData(e.currentTarget);
     const question = formData.get('question') as string;
 
     const tempQuestion = { body: question, answer: '', id: Date.now().toString() } as CourseQuestion;
-    setQuestions(prevQuestions => [...prevQuestions, tempQuestion]);
+    setQuestions(prevQuestions => [tempQuestion, ...prevQuestions]);
 
     const payload = convertToFormData({ course_question: { body: question, course_id: course.id } });
     const response = await createCourseQuestion(payload);
 
     const questionData = serverFormatToClientFormat(response);
-    setQuestions(prevQuestions => [...prevQuestions.filter(q => q.id !== tempQuestion.id), { ...questionData, answer: '' }]);
+    setQuestions(prevQuestions => [{ ...questionData, answer: '' }, ...prevQuestions.filter(q => q.id !== tempQuestion.id)]);
 
     const updateAnswer = (newAnswerChunk: string) => {
       setQuestions(prevQuestions => {
@@ -86,8 +78,18 @@ const CourseQuestionButton: React.FC<{ course: Course }> = ({ course }) => {
     }
   };
 
+  const fetchNextQuestions = async () => {
+    try {
+      const nextQuestions = await getCourseQuestions(course.id, questions.length);
+      const nextQuestionsData = serverFormatToClientFormat(nextQuestions);
+  
+      setTotalQuestionsCount(nextQuestionsData.totalCount);
+      setQuestions(prevQuestions => [...prevQuestions, ...nextQuestionsData.questions]);
+    } catch (e) {}
+  };
+
   return (<div className="ask-question-button">
-    <DropdownButton onOpen={() => setTimeout(scrollToBottom)}>
+    <DropdownButton>
       <DropdownButton.Button buttonClass="primary">
         <span className="icon icon-plus-circle"></span>
         <span className="content">Ask a question</span>
@@ -95,10 +97,25 @@ const CourseQuestionButton: React.FC<{ course: Course }> = ({ course }) => {
       <DropdownButton.Dropdown placement="right" closable={true} expandable={true}>
         <div className="course-question-box">
           {questions.length === 0 && <h4>You have no questions for this course yet.</h4>}
-          {questions.length > 0 && <div ref={questionsContainer}>
-            {questions?.map(question => (
-              <Question key={question.id} question={question} course={course} />
-            ))}
+          {questions.length > 0 && <div id="questionsContainer">
+            <InfiniteScroll
+              dataLength={questions.length}
+              next={fetchNextQuestions}
+              className="questions-container"
+              inverse={true}
+              hasMore={questions.length < totalQuestionsCount}
+              loader={<h4>Loading...</h4>}
+              scrollableTarget="questionsContainer"
+              endMessage={
+                <p style={{ textAlign: 'center' }}>
+                  <b>Beginning of conversation</b>
+                </p>
+              }
+            >
+              {questions?.map(question => (
+                <Question key={question.id} question={question} course={course} />
+              ))}
+            </InfiniteScroll>
           </div>}
           <CourseQuestionForm onAskQuestion={handleAskQuestion} />
         </div>
