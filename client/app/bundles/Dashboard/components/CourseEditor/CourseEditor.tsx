@@ -2,8 +2,8 @@ import React from 'react';
 import { Course } from '../../../../types/course';
 import { Tab, TabList, TabPanel, Tabs } from '../../../../common/components/Tabs/Tabs';
 import useTranslation from '../../../../libs/i18n/useTranslation';
-import CourseEditorCourseDetails from './CourseEditorCourseDetails/CourseEditorCourseDetails';
-import CourseEditorCourseContent from './CourseEditorCourseContent/CourseEditorCourseContent';
+import CourseEditorDetails from './CourseEditorDetails';
+import CourseEditorContent from './CourseEditorContent';
 import { useStore } from '../../../../hooks-store/store';
 import { publishCourse, unpublishCourse, updateCourse } from '../../../../services/courseService';
 import { clientFormatToServerFormat, serverFormatToClientFormat } from '../../../../helpers/dataMapper';
@@ -76,10 +76,10 @@ const CourseEditor: React.FC = () => {
     </header >
     <main className="content course-editor">
       <TabPanel tabId="courseTab">
-        <CourseEditorCourseDetails />
+        <CourseEditorDetails />
       </TabPanel>
       <TabPanel tabId="contentTab">
-        <CourseEditorCourseContent />
+        <CourseEditorContent />
       </TabPanel>
     </main>
   </Tabs>;

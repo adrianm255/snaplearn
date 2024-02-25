@@ -22,6 +22,7 @@ export type CourseSection = {
   order: number;
   courseId: string;
   isNew?: boolean;
+  file?: File;
   fileData?: {
     contentType: string;
     filename: string;

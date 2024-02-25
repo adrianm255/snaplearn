@@ -312,3 +312,13 @@ main.course-editor .course-section form > .input-group:first-of-type {
 .drawer:focus {
   outline: 0.0625rem solid rgb(var(--accent));
 }
+
+.file-input {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .5rem 1rem;
+}
+
+.file-input > *:last-child {
+  grid-column: 1 / -1;
+}

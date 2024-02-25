@@ -50,6 +50,7 @@ en:
     add_section_label: "Add section"
     unpublish_label: "Unpublish"
     publish_label: "Publish"
+    add_section_from_file_label: "From file(s)"
   course:  
     title_label: "Title"
     description_label: "Description"
@@ -62,6 +63,8 @@ en:
     description_label: "Description"
     content_label: "Content"
     new_section_title: "New section"
+    pdf_file_description: "Accepted file types: PDF."
+    video_file_description: "Accepted file types: MP4, WebM, Ogg."
   user_courses:
     new_course_label: "New course"
     create_course_title: "Create course"
