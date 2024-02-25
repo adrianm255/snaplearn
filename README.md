@@ -111,3 +111,4 @@ A `ProcessCourseJob` works in the following way:
  4. Batching jobs to minimize OpenAI API calls and database updates. The batching mechanism is currently pretty simple and limited, but it can be significantly improved.
  5. Storing the embedding vectors in the postgreSQL databse in JSON columns. This works well for the purpose of this POC and in most cases, but a specialized vector database might be more suitable for very large amounts of data.
  6. File storage is handled by Rails Active Storage, but a better approach would be to use a third-party service like AWS or similar.
+ 7. Client-side state management is handled with simple *hooks-store*s which were implemented from scratch and offer redux-like functionality.
