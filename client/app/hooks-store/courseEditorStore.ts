@@ -1,4 +1,4 @@
-import { Course, CourseSectionType } from "../types/course";
+import { Course, CourseSection, CourseSectionType } from "../types/course";
 import { initStore } from "./store";
 
 export enum CourseEditorStoreAction {
@@ -25,16 +25,17 @@ const configureStore = (initialState: Course) => {
       const newCourseState = { ...curState.course, courseSections: updatedSections };
       return { course: newCourseState };
     },
-    [CourseEditorStoreAction.AddCourseSection]: (curState: any, sectionType: CourseSectionType = CourseSectionType.RichText, title: string) => {
+    [CourseEditorStoreAction.AddCourseSection]: (curState: any, sectionAttrs: Partial<CourseSection> = {}) => {
       const curCourseState = curState.course;
       const newSection = {
-        title: title || '',
+        title: '',
         content: '',
-        sectionType: sectionType,
+        sectionType: CourseSectionType.RichText,
         order: curCourseState.courseSections.length,
         courseId: curCourseState.id,
         id: Date.now(), // Temp ID
-        isNew: true
+        isNew: true,
+        ...sectionAttrs
       };
       const newCourseState = { ...curCourseState, courseSections: [...curCourseState.courseSections, newSection] };
       return { course: newCourseState };

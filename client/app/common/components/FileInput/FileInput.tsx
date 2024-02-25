@@ -1,7 +1,7 @@
 import React, { useRef, useState, forwardRef, useImperativeHandle } from 'react';
 
 type FileInputProps = {
-  onFileSelect: (file: File) => void;
+  onFileSelect: (files: FileList) => void;
   fileName?: string;
   label?: string;
   description?: string;
@@ -10,16 +10,23 @@ type FileInputProps = {
 
 export type FileInputHandle = {
   openFileDialog: () => void;
+  clear: () => void;
 };
 
 const FileInput = forwardRef<FileInputHandle, FileInputProps>(({ onFileSelect, fileName = '', label, description, ...inputProps }, ref) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFileName, setSelectedFileName] = useState<string>(fileName);
-  const { name } = inputProps;
+  const { name, style } = inputProps;
 
   useImperativeHandle(ref, () => ({
     openFileDialog: () => {
       fileInputRef.current?.click();
+    },
+    clear: () => {
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+        setSelectedFileName('');
+      }
     },
   }));
 
@@ -28,7 +35,7 @@ const FileInput = forwardRef<FileInputHandle, FileInputProps>(({ onFileSelect, f
     if (files && files.length > 0) {
       const file = files[0];
       setSelectedFileName(file.name);
-      onFileSelect(file);
+      onFileSelect(files);
     }
   };
 
@@ -37,7 +44,7 @@ const FileInput = forwardRef<FileInputHandle, FileInputProps>(({ onFileSelect, f
   };
 
   return (
-    <fieldset>
+    <fieldset style={style}>
       {label && <legend>
         <label className="top-level-label" htmlFor={name}>{label}</label>
       </legend>}

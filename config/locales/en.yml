@@ -50,6 +50,7 @@ en:
     add_section_label: "Add section"
     unpublish_label: "Unpublish"
     publish_label: "Publish"
+    add_section_from_file_label: "From file(s)"
   course:  
     title_label: "Title"
     description_label: "Description"

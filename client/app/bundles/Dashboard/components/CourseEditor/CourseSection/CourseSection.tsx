@@ -95,7 +95,8 @@ const CourseSection: React.FC<{ courseSectionId: string, expanded?: boolean }> =
                 label={t('course_section.content_label')}
                 accept={getFileInputAcceptTypes()}
                 fileName={courseSection.fileData?.filename}
-                onFileSelect={file => {
+                onFileSelect={files => {
+                  const file = files[0];
                   const fileName = file.name.replace(/\.[^/.]+$/, '');
                   handleSectionAttributeChange('file', file);
                   handleSectionAttributeChange('title', fileName.replace(/[-_]/g, ' '));
@@ -104,7 +105,7 @@ const CourseSection: React.FC<{ courseSectionId: string, expanded?: boolean }> =
               />
             }
 
-            {courseSection.sectionType !== CourseSectionType.RichText && courseSection.fileData && (<>
+            {courseSection.sectionType !== CourseSectionType.RichText && courseSection.fileData && !courseSection.isNew && (<>
               <label htmlFor="course_section_type">{t('course_section.content_label')}</label>
               <div className="content">
                 <span className={"icon " + courseSectionIconClass}></span>
