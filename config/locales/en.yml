@@ -62,6 +62,8 @@ en:
     description_label: "Description"
     content_label: "Content"
     new_section_title: "New section"
+    pdf_file_description: "Accepted file types: PDF."
+    video_file_description: "Accepted file types: MP4, WebM, Ogg."
   user_courses:
     new_course_label: "New course"
     create_course_title: "Create course"

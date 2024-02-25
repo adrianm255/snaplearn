@@ -16,7 +16,6 @@ export enum FieldType {
   Email = 'email',
   Password = 'password',
   Textarea = 'textarea',
-  File = 'file',
   RichText = 'rich_text'
 };
 
@@ -24,7 +23,7 @@ const ReactQuill = lazy(() => import('../../components/RichText/RichText'));
 
 const Field: React.FC<FieldProps> = ({ type, name, label, placeholder, value, onChange, ...inputProps }) => {
   const isInputField = (): boolean => {
-    return [FieldType.Text, FieldType.Number, FieldType.Email, FieldType.Password, FieldType.File].includes(type);
+    return [FieldType.Text, FieldType.Number, FieldType.Email, FieldType.Password].includes(type);
   };
 
   const commonProps = {
@@ -48,7 +47,7 @@ const Field: React.FC<FieldProps> = ({ type, name, label, placeholder, value, on
       {type === FieldType.Textarea && <textarea { ...commonProps }></textarea>}
 
       {type === FieldType.RichText &&
-        <Suspense fallback={<></>}>
+        <Suspense fallback={<div>Loading text editor...</div>}>
           <ReactQuill value={value} onChange={onChange} />
         </Suspense>
       }
