@@ -5,6 +5,8 @@ class Course < ApplicationRecord
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
   accepts_nested_attributes_for :course_sections, allow_destroy: true
 
+  validates :title, presence: true, length: { minimum: 3, maximum: 100 }
+
   # Check if a given user is the author of the course
   def authored_by?(user)
     self.author_id == user.id
