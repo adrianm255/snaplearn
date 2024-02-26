@@ -22,7 +22,7 @@ class Api::V1::CoursesController < ApplicationController
     if @course.save
       render json: @course.as_json, status: :created
     else
-      render json: @course.errors, status: :unprocessable_entity
+      render_errors(@course)
     end
   end
 
@@ -33,7 +33,7 @@ class Api::V1::CoursesController < ApplicationController
     if @course.update(course_params)
       render json: @course.as_json
     else
-      render json: @course.errors, status: :unprocessable_entity
+      render_errors(@course)
     end
   end
 
@@ -47,7 +47,7 @@ class Api::V1::CoursesController < ApplicationController
     if @course.save
       render json: @course.as_json
     else
-      render json: @course.errors, status: :unprocessable_entity
+      render_errors(@course)
     end
   end
 
@@ -56,7 +56,7 @@ class Api::V1::CoursesController < ApplicationController
     if @course.save
       render json: @course.as_json
     else
-      render json: @course.errors, status: :unprocessable_entity
+      render_errors(@course)
     end
   end
 
@@ -70,6 +70,10 @@ class Api::V1::CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:title, :description, course_sections_attributes: [:id, :title, :description, :content, :section_type, :order, :file, :_destroy])
+  end
+
+  def render_errors(object)
+    render json: { errors: object.errors }, status: :unprocessable_entity
   end
 
   def authorize_user!
