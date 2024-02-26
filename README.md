@@ -45,12 +45,12 @@ Course editor:\
 
 The hosted app is fairly slow because of limitations with the hosting provider (the database was set up in a different region from the other services).
 
-The app is nowhere near being completely polished - I rushed development over the last few days so I could get it ready in time. There are some minor (and bigger) things that could and should be improved and there are some UX and functional features missing that I initially planned to include, but didn't get around to implementing them yet - I will continue working on these over the next few days so by the time you see this some of them might have been fixed/implemented. These include:
+The app is nowhere near being completely polished. There are some minor (and bigger) things that could and should be improved and there are some UX and functional features missing that I initially planned to include, but didn't get around to implementing them yet - I will continue working on these over the next few days so by the time you see this some of them might have been fixed/implemented. These include:
 
- - Server-side validation and data sanitization
+ - :white_check_mark: <del>Server-side validation</del> and data sanitization
  - Proper error-handling
  - Optimization of React code to avoid unnecessary re-renders
- - UX stuff like toaster success/error messages, user profile page, pagination, :white_check_mark: <del>infinite scroll</del>, sorting of course sections etc.
+ - UX stuff like :white_check_mark: <del>toaster success/error messages</del>, user profile page, pagination, :white_check_mark: <del>infinite scroll</del>, sorting of course sections etc.
 
 Also, since this was built as a POC, accessibility (especially around ARIA attributes) and proper usage of HTML semantic elements were not focused on. The code itself is not as clean as it could be and the Typescript code is not typed everywhere. Some bigger React components could also benefit from better encapsulation.
 
