@@ -10,6 +10,7 @@ import { clientFormatToServerFormat, serverFormatToClientFormat } from '../../..
 import { convertToFormData } from '../../../../helpers/formDataHelper';
 import { CourseEditorStoreAction } from '../../../../hooks-store/courseEditorStore';
 import Button from '../../../../common/components/Button/Button';
+import { ToastStoreAction } from '../../../../hooks-store/toastStore';
 
 const CourseEditor: React.FC = () => {
   const { t } = useTranslation();
@@ -17,6 +18,26 @@ const CourseEditor: React.FC = () => {
   const [isSaveButtonLoading, setIsSaveButtonLoading] = React.useState(false);
   const [isPublishButtonLoading, setIsPublishButtonLoading] = React.useState(false);
   const course: Course = state.course;
+
+  const handleSuccess = (message: string) => {
+    dispatch(ToastStoreAction.ShowToast, { message, type: 'success' });
+  };
+
+  const handleError = (errors: any) => {
+    let errorToDisplay = '';
+    if (errors?.title?.length > 0) {
+      errorToDisplay = `Title ${errors.title[0]}`;
+    } else if (errors?.['course_sections.title']?.length > 0) {
+      errorToDisplay = `Section title ${errors['course_sections.title'][0]}`;
+    } else if (errors?.['course_sections.file']?.length > 0) {
+      errorToDisplay = `File ${errors['course_sections.file'][0]}`;
+    } else if (errors?.['course_sections.content']?.length > 0) {
+      errorToDisplay = `Content ${errors['course_sections.content'][0]}`;
+    }
+    if (errorToDisplay !== '') {
+      dispatch(ToastStoreAction.ShowToast, { message: errorToDisplay, type: 'danger' });
+    }
+  };
 
   const saveCourseChanges = async () => {
     try {
@@ -28,9 +49,11 @@ const CourseEditor: React.FC = () => {
 
       setIsSaveButtonLoading(true);
       const response = await updateCourse(course.id, payload);
+
+      handleSuccess('Changes saved');
       await dispatch(CourseEditorStoreAction.UpdateCourse, serverFormatToClientFormat(response));
     } catch (e) {
-      // TODO
+      handleError(e.errors);
     } finally {
       setIsSaveButtonLoading(false);
     }
@@ -40,9 +63,10 @@ const CourseEditor: React.FC = () => {
     try {
       setIsPublishButtonLoading(true);
       const response = await publishCourse(course.id);
+      handleSuccess('Course published');
       await dispatch(CourseEditorStoreAction.UpdateCourse, serverFormatToClientFormat(response));
     } catch (e) {
-      // TODO
+      handleError(e.errors);
     } finally {
       setIsPublishButtonLoading(false);
     }
@@ -52,9 +76,10 @@ const CourseEditor: React.FC = () => {
     try {
       setIsPublishButtonLoading(true);
       const response = await unpublishCourse(course.id);
+      handleSuccess('Course unpublished');
       await dispatch(CourseEditorStoreAction.UpdateCourse, serverFormatToClientFormat(response));
     } catch (e) {
-      // TODO
+      handleError(e.errors);
     } finally {
       setIsPublishButtonLoading(false);
     }

@@ -4,44 +4,22 @@ import { getHeaders } from "./sessionService";
 const COURSES_API_URL = `${API_URL}/courses`;
 const COURSE_QUESTIONS_API_URL = `${API_URL}/questions`;
 
-const fetchAllCourses = async (page = 1) => {
-  const response = await fetch(`${COURSES_API_URL}?page=${page}`);
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-  return response.json();
-}
-
 const fetchCourse = async (id) => {
-  const response = await fetch(`${COURSES_API_URL}/${id}`);
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-  return response.json();
+  return performFetch(`${COURSES_API_URL}/${id}`);
 }
 
 const createCourse = async (postData) => {
-  const response = await fetch(`${COURSES_API_URL}`, {
+  return performFetch(`${COURSES_API_URL}`, {
     method: "POST",
     body: postData,
   });
-
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-
-  return response.json();
 }
 
 const updateCourse = async (id, postData) => {
-  const response = await fetch(`${COURSES_API_URL}/${id}`, {
+  return performFetch(`${COURSES_API_URL}/${id}`, {
     method: "PUT",
     body: postData,
   });
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-  return response.json();
 }
 
 const deleteCourse = async (id) => {
@@ -58,56 +36,46 @@ const deleteCourse = async (id) => {
 }
 
 const publishCourse = async (id) => {
-  const response = await fetch(`${API_URL}/course/${id}/publish`, {
+  return performFetch(`${API_URL}/course/${id}/publish`, {
     method: "POST",
     headers: getHeaders()
   } as any);
-
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-
-  return response.json();
 };
 
 const unpublishCourse = async (id) => {
-  const response = await fetch(`${API_URL}/course/${id}/unpublish`, {
+  return performFetch(`${API_URL}/course/${id}/unpublish`, {
     method: "POST",
     headers: getHeaders()
   } as any);
-
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-
-  return response.json();
 };
 
 const createCourseQuestion = async (postData) => {
-  const response = await fetch(`${COURSE_QUESTIONS_API_URL}`, {
+  return performFetch(`${COURSE_QUESTIONS_API_URL}`, {
     method: "POST",
     body: postData,
   });
-
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-
-  return response.json();
 };
 
 const getCourseQuestions = async (courseId, start) => {
-  const response = await fetch(`/api/v1/questions?course_id=${courseId}&start=${start}&limit=5`);
+  return performFetch(`/api/v1/questions?course_id=${courseId}&start=${start}&limit=5`);
+};
+
+const performFetch = async (url, options = {}) => {
+  const response = await fetch(url, options);
+  const data = await response.json();
   if (!response.ok) {
-    throw new Error(response.statusText);
+    const error = {status: response.status} as any;
+    if (data.errors) {
+      error.errors = data.errors;
+    }
+    throw error;
   }
-  return response.json();
+  return data;
 };
 
 export {
   createCourse,
   deleteCourse,
-  fetchAllCourses,
   fetchCourse,
   updateCourse,
   createCourseQuestion,
