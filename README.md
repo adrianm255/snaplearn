@@ -25,20 +25,35 @@ but feel free to create any new accounts.
 
 **Screenshots**
 <br />
-Discover page:\
+Question asking:
+<img width="1080" alt="Screenshot 2024-02-22 at 18 33 00" src="https://github.com/adrianm255/snaplearn/assets/95966222/88537c21-8c19-4afb-935f-902e0a583026">
+<br />
+
+<br />
+Course creator:
+<img width="1080" alt="Screenshot 2024-02-22 at 18 33 00" src="https://github.com/adrianm255/snaplearn/assets/95966222/cced24e2-3b86-49c8-b70e-cca95d255dfc">
+<br />
+
+<br />
+Discover page:
 <img width="1196" alt="Screenshot 2024-02-22 at 18 33 00" src="https://github.com/adrianm255/snaplearn/assets/95966222/5d376f15-c67c-4dc5-bf58-04bf8bc8579f">
 <br />
 
-Course page:\
+<br />
+Course page:
 <img width="1221" alt="Screenshot 2024-02-22 at 18 24 19" src="https://github.com/adrianm255/snaplearn/assets/95966222/ed9b385f-4278-4f8b-a6e4-15e179b1c988">
 <br />
 
-Questions box:\
+<br />
+Questions box:
 <img width="893" alt="Screenshot 2024-02-22 at 18 24 49" src="https://github.com/adrianm255/snaplearn/assets/95966222/f096ab22-cf12-47f1-b633-7d881fdccb22">
 <br />
 
-Course editor:\
+<br />
+Course editor:
 <img width="1437" alt="Screenshot 2024-02-22 at 18 25 37" src="https://github.com/adrianm255/snaplearn/assets/95966222/1a4b208e-6109-4fd1-92ea-9d2b2e88fbd5">
+<br />
+
 <br />
 
 **Notes**
