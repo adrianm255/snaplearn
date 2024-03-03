@@ -70,3 +70,5 @@ gem "ruby-openai", "~> 6.3"
 gem "nokogiri", "~> 1.16"
 
 gem "pdf-reader", "~> 2.12"
+
+gem "sass-rails", "~> 6.0"

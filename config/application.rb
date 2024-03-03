@@ -27,5 +27,7 @@ module Snaplearn
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.sass.preferred_syntax = :scss
   end
 end
