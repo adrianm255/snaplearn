@@ -12,14 +12,14 @@ const CourseDetail: React.FC = () => {
   const currentUserIsAuthor = state.currentUserIsAuthor;
   
   return (
-    <main className="product-content">
+    <main className="course-content">
       <CourseQuestionButton />
-      <div className="product-detail-nav">
+      {/* <div className="product-detail-nav">
         <a href="/discover" title="Back">
           <span className="icon icon-arrow-left-short"></span>
           Back
         </a>
-      </div>
+      </div> */}
       <header>
         {!course.published && <div role="status" className="warning">This course is not currently published. Only you can see this page until the course is published.</div>}
         <h1>{course.title}</h1>
@@ -29,14 +29,14 @@ const CourseDetail: React.FC = () => {
           </a>
         </div>}
       </header>
-      <div className="has-sidebar">
-        <div className="paragraphs">
+      <div>
+        {/* <div className="paragraphs">
             <div className="stack">
               <div>{course.title}</div>
               <div><span>By <a href="" target="_blank" rel="noreferrer">{course.author.email}</a></span>
               </div>
             </div>
-        </div>
+        </div> */}
 
         <div className="paragraphs">
           <p>{course.description}</p>

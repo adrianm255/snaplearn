@@ -1,18 +1,142 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+*= require_tree ./partials
+*= require_self
+*/
+
+:root {
+  --spacer-1: 0.25rem;
+  --spacer-2: 0.5rem;
+  --spacer-3: 0.75rem;
+  --spacer-4: 1rem;
+  --spacer-5: 1.5rem;
+  --spacer-6: 2rem;
+  --spacer-7: 3rem;
+  --spacer-8: 4rem;
+  --border-radius-1: 0.25rem;
+  --border-radius-2: 0.5rem;
+  --border-radius-3: 10rem;
+  --box-shadow-1: 0.25rem 0.25rem 0rem var(--color);
+  --box-shadow-2: 0.5rem 0.5rem 0rem var(--color);
+  --z-index-base: 0;
+  --z-index-overlay: 1;
+  --z-index-above-overlay: 2;
+  --z-index-header: 3;
+  --z-index-menubar: 10;
+  --z-index-modal: 20;
+  --z-index-tooltip: 30;
+  --pink: #ff90e8;
+  --purple: #90a8ed;
+  --green: #23a094;
+  --orange: #ffc900;
+  --red: #dc341e;
+  --yellow: #f1f333;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 1024px;
+  --success: 35 160 148;
+  --contrast-success: 0 0 0;
+  --warning: 255 201 0;
+  --contrast-warning: 0 0 0;
+  --danger: 220 52 30;
+  --contrast-danger: 255 255 255;
+  --info: 144 168 237;
+  --contrast-info: 0 0 0;
+  --accent: 255 144 232;
+  --contrast-accent: 0 0 0;
+  --primary: 0 0 0;
+  --contrast-primary: 255 255 255;
+  --secondary: 0 0 0;
+  --contrast-secondary: 255 255 255;
+  --filled: 255 255 255;
+  --contrast-filled: 0 0 0;
+  --color: 0 0 0;
+  --body-bg: #f4f4f0;
+  --border-alpha: 1;
+  --font-family: Mabry Pro, Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, sans-serif;
+  --border-width: 0.0625rem;
+  --big-icon-size: 1.5em;
+  --active-bg: rgb(var(--filled));
+  --main-stack-width: 28rem;
+  --dynamic-grid: min(100%, calc((31.25rem - 100%) * 1000));
+  --disabled-opacity: 0.3;
+  --form-element-height: 3.125rem;
+  --transition-duration: 0.14s;
+  color-scheme: light dark;
+
+  /* ADDED BY ME */
+  --regular-color: rgb(var(--color));
+  --primary-color: rgb(var(--primary));
+  --secondary-color: rgb(var(--secondary));
+  --accent-color: rgb(var(--accent));
+  --border-color: rgb(var(--color)/var(--border-alpha));
+
+  --contrast-success-color: rgb(var(--contrast-success));
+  --contrast-warning-color: rgb(var(--contrast-warning));
+  --contrast-danger-color: rgb(var(--contrast-danger));
+  --contrast-info-color: rgb(var(--contrast-info));
+  --contrast-accent-color: rgb(var(--contrast-accent));
+  --contrast-primary-color: rgb(var(--contrast-primary));
+  --contrast-secondary-color: rgb(var(--contrast-secondary));
+  --contrast-filled-color: rgb(var(--contrast-filled));
+}
+
+@media(prefers-color-scheme: dark) {
+  :root {
+      --body-bg: #242423;
+      --primary: 221 221 221;
+      --contrast-primary: 0 0 0;
+      --color: 221 221 221;
+      --filled: 0 0 0;
+      --contrast-filled: 221 221 221;
+      --contrast-secondary: 221 221 221;
+      --border-alpha: 0.35;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  vertical-align: bottom;
+  background-clip: padding-box;
+  scrollbar-color: rgb(var(--color)/0.5) rgb(var(--color)/0.1);
+  --border: solid 0.0625rem rgb(var(--color)/var(--border-alpha));
+  --outline: 0.125rem solid rgb(var(--accent));
+  --gray-1: 0.1;
+  --gray-2: 0.2;
+  --gray-3: 0.5
+}
+
+html,body {
+  height: 100%;
+  width: 100%;
+  overflow-wrap: break-word;
+  overflow-wrap: anywhere
+}
+
+body {
+  font-size: .875rem;
+  line-height: 1.3;
+  --line-height: 1.1375rem;
+  font-family: var(--font-family);
+  background-color: var(--body-bg);
+  -webkit-font-smoothing: antialiased;
+  color: rgb(var(--color));
+}
+
+body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr
+}
+
+a {
+  color: var(--regular-color);
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  cursor: pointer
+}
 
 .icon-expand {
   mask-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPg0KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xNCAxMEwyMSAzTTIxIDNIMTYuNU0yMSAzVjcuNU0xMCAxNEwzIDIxTTMgMjFINy41TTMgMjFMMyAxNi41IiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+DQo8L3N2Zz4=);

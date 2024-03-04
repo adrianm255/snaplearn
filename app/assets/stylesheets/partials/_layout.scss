@@ -1,0 +1,44 @@
+body > * > header,
+header.sticky,
+main > header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1rem .75rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  &.sticky {
+    border-bottom: solid .0625rem var(--border-color);
+    grid-column: 1 / span 2;
+    grid-row: -3;
+  }
+}
+
+main {
+  overflow: auto;
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  & > * {
+    padding: 4rem;
+  }
+}
+
+@media(min-width: 1024px) {
+  body> * > header, header.sticky, main > * {
+      padding: 4rem #{'max((100% - 71.25rem) / 2, 4rem)'};
+  }
+  body> * > header:where(.sidebar-nav *), header.sticky:where(.sidebar-nav *), main > *:where(.sidebar-nav *) {
+      padding-left: 4rem;
+      padding-right: #{'max((100% - 71.25rem - 4rem), 4rem)'};
+  }
+}
+
+@media print {
+  main {
+      overflow: initial;
+  }
+}
+
