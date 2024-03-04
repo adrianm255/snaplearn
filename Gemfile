@@ -72,3 +72,5 @@ gem "nokogiri", "~> 1.16"
 gem "pdf-reader", "~> 2.12"
 
 gem "sass-rails", "~> 6.0"
+
+gem "tailwindcss-rails", "~> 2.3"
