@@ -32,7 +32,7 @@
   --yellow: #f1f333;
   --breakpoint-sm: 640px;
   --breakpoint-md: 1024px;
-  --success: 35 160 148;
+  /* --success: 35 160 148;
   --contrast-success: 0 0 0;
   --warning: 255 201 0;
   --contrast-warning: 0 0 0;
@@ -49,7 +49,7 @@
   --filled: 255 255 255;
   --contrast-filled: 0 0 0;
   --color: 0 0 0;
-  --body-bg: #f4f4f0;
+  --body-bg: #f4f4f0; */
   --border-alpha: 1;
   --font-family: Mabry Pro, Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, sans-serif;
   --border-width: 0.0625rem;
@@ -81,14 +81,14 @@
 
 @media(prefers-color-scheme: dark) {
   :root {
-      --body-bg: #242423;
+      /* --body-bg: #242423;
       --primary: 221 221 221;
       --contrast-primary: 0 0 0;
       --color: 221 221 221;
       --filled: 0 0 0;
       --contrast-filled: 221 221 221;
       --contrast-secondary: 221 221 221;
-      --border-alpha: 0.35;
+      --border-alpha: 0.35; */
   }
 }
 
@@ -101,8 +101,8 @@
   vertical-align: bottom;
   background-clip: padding-box;
   scrollbar-color: rgb(var(--color)/0.5) rgb(var(--color)/0.1);
-  --border: solid 0.0625rem rgb(var(--color)/var(--border-alpha));
-  --outline: 0.125rem solid rgb(var(--accent));
+  /* --border: solid 0.0625rem rgb(var(--color)/var(--border-alpha)); */
+  /* --outline: 0.125rem solid rgb(var(--accent)); */
   --gray-1: 0.1;
   --gray-2: 0.2;
   --gray-3: 0.5;
@@ -132,9 +132,9 @@ body {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   line-height: 1.2;
-  --line-height: 3rem;
+  --line-height: 2.5rem;
   font-weight: 400;
 }
 

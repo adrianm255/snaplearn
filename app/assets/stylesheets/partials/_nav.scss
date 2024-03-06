@@ -2,17 +2,18 @@ nav {
   grid-row: -4;
   display: flex;
   flex-direction: column;
-  background-color: var(--secondary-color);
-  color: var(--contrast-secondary-color);
-  --active-bg: var(--body-bg);
+  // @apply .bg-secondary;
+  // background-color: theme('colors.secondary');
+  // color: hsl(var(--secondary-foreground));
+  // --active-bg: var(--body-bg);
   overflow-y: auto;
   font-size: 1rem;
   line-height: 1.5;
   --line-height: 1.5rem;
 
-  &>* {
-    --color: var(--contrast-secondary);
-  }
+  // &>* {
+  //   --color: var(--contrast-secondary);
+  // }
 
   .navbar {
     display: grid;
@@ -79,7 +80,7 @@ nav {
   section>a:hover,
   footer>a[aria-current=page],
   footer>a:hover {
-    color: var(--accent-color);
+    color: var(--highlight-color);
   }
 
   footer {

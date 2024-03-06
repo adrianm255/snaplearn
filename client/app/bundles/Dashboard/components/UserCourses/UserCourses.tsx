@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
-import { Course } from '../../../../types/course';
-import AddCourseButton from './AddCourseButton/AddCourseButton';
-import { createCourse, deleteCourse } from '../../../../services/courseService';
-import useTranslation from '../../../../libs/i18n/useTranslation';
-import { convertToFormData } from '../../../../helpers/formDataHelper';
-import Dialog from '../../../../common/components/Dialog/Dialog';
+import { Course } from '@/types/course';
+import AddCourseButton from './AddCourseButton';
+import { createCourse, deleteCourse } from '@/services/courseService';
+import useTranslation from '@/libs/i18n/useTranslation';
+import { convertToFormData } from '@/helpers/formDataHelper';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/common/components/ui/table";
+import { Eye, Pencil, Trash2, Image } from 'lucide-react';
+import { Button } from '@/common/components/ui/button';
+import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/common/components/ui/alert-dialog';
 
 const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
   const { t } = useTranslation();
@@ -46,52 +56,68 @@ const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
     </header >
     <main className="content">
       {userCourses.length === 0 && <h3>You have no courses yet.</h3>}
-      {userCourses.length > 0 && <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th title={t('user_courses.table.title_header')}>{t('user_courses.table.title_header')}</th>
-            <th title={t('user_courses.table.published_header')}>{t('user_courses.table.published_header')}</th>
-            <th title={t('user_courses.table.embedded_header')}>{t('user_courses.table.embedded_header')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {userCourses.map(course => (
-            <tr key={course.id}>
-              <td className="icon-cell"><span className="icon icon-card-image-fill"></span></td>
-              <td>{course.title}</td>
-              <td>{course.published ? 'Published' : 'Unpublished'}</td>
-              <td>{course.embeddedStatus === 'processing' ? 'Processing' : 'Embedded'}</td>
 
-              <td>
-                <div className="actions">
-                  <a className="button" role="button" href={`/course/${course.id}`} title={t('view')}>
-                    <span className="icon icon-eye-fill"></span>
-                  </a>
-                  <a className="button" role="button" href={`/course/${course.id}/edit`} title={t('edit')}>
-                    <span className="icon icon-pencil"></span>
-                  </a>
-                  <button className="outline-danger" type="button" title={t('delete')} onClick={() => openDeleteDialog(course)}>
-                    <span className="icon icon-trash2"></span>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>}
+      {userCourses.length > 0 &&
+        <Table className="rounded-sm border">
+          <TableHeader>
+            <TableRow>
+              <TableHead></TableHead>
+              <TableHead title={t('user_courses.table.title_header')}>{t('user_courses.table.title_header')}</TableHead>
+              <TableHead title={t('user_courses.table.published_header')}>{t('user_courses.table.published_header')}</TableHead>
+              <TableHead title={t('user_courses.table.embedded_header')}>{t('user_courses.table.embedded_header')}</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {userCourses.map(course => (
+              <TableRow key={course.id}>
+                <TableCell className="icon-cell"><Image /></TableCell>
+                <TableCell>{course.title}</TableCell>
+                <TableCell>{course.published ? 'Published' : 'Unpublished'}</TableCell>
+                <TableCell>{course.embeddedStatus === 'processing' ? 'Processing' : 'Embedded'}</TableCell>
 
-      {courseToDelete && <div><Dialog isOpen={true} onClose={closeDeleteDialog}>
-        <header>
-          <h2>{t('user_courses.delete_course_title')}</h2>
-          <div role="button" className="close" aria-label="Close" onClick={closeDeleteDialog}></div>
-        </header>
-        <h4>{t('delete_warning', { name: courseToDelete.title })}</h4>
-        <footer>
-          <button type="button" onClick={closeDeleteDialog}>{t('cancel')}</button>
-          <button className="danger" onClick={() => handleCourseDelete(courseToDelete.id)}>{t('confirm')}</button>
-        </footer>
-      </Dialog></div>}
+                <TableCell>
+                  <div className="actions">
+                    <Button variant="outline" size="icon" asChild>
+                      <a className="button" role="button" href={`/course/${course.id}`} title={t('view')}>
+                        <Eye className="h-4 w-4" />
+                      </a>
+                    </Button>
+                    <Button variant="outline" size="icon" asChild>
+                      <a className="button" role="button" href={`/course/${course.id}/edit`} title={t('edit')}>
+                        <Pencil className="h-4 w-4" />
+                      </a>
+                    </Button>
+                    <Button variant="destructive" size="icon" title={t('delete')} onClick={() => openDeleteDialog(course)}>
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      }
+
+      <AlertDialog open={!!courseToDelete} onOpenChange={(isOpen) => {!isOpen && closeDeleteDialog()}}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle><h2>{t('user_courses.delete_course_title')}</h2></AlertDialogTitle>
+            <AlertDialogDescription>
+              <h4>{t('delete_warning', { name: courseToDelete?.title || '' })}</h4>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel asChild>
+              <Button type="button" variant="secondary">
+                {t('cancel')}
+              </Button>
+            </AlertDialogCancel>
+            <Button variant="destructive" onClick={() => handleCourseDelete(courseToDelete!.id)}>
+              {t('confirm')}
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </main>
   </>;
 };

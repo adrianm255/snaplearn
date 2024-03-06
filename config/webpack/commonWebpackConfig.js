@@ -3,12 +3,16 @@
 
 // Common configuration applying to client and server configuration
 const { generateWebpackConfig, merge } = require('shakapacker');
+const path = require('path');
 
 const baseClientWebpackConfig = generateWebpackConfig();
 
 const commonOptions = {
   resolve: {
     extensions: ['.css', '.ts', '.tsx'],
+    alias: {
+      '@': path.resolve(__dirname, '../../client/app/'),
+    },
   },
 };
 

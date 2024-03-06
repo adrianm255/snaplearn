@@ -29,7 +29,7 @@ const SidebarNav: React.FC<{ items: SidebarNavItem[], title: string, userInfo: a
 
   const sections = getSections();
 
-  return <nav className={isNavbarOpen ? 'open' : ''}>
+  return <nav className={`bg-secondary text-secondary-foreground ${isNavbarOpen ? 'open' : ''}`}>
     <div className="navbar">
       <a href="/">
         <span>Snaplearn</span>
