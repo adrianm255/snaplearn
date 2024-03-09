@@ -5,7 +5,9 @@ import { serverFormatToClientFormat } from '../../../helpers/dataMapper';
 
 const UserCoursesPage: React.FC<{ courses: Course[] }> = ({ courses }) => {
 
-  return <UserCourses courses={serverFormatToClientFormat(courses)} />
+  return(
+    <UserCourses courses={serverFormatToClientFormat(courses)} />
+  );
 };
 
 export default UserCoursesPage;

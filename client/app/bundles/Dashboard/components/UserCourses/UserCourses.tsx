@@ -15,6 +15,7 @@ import {
 import { Eye, Pencil, Trash2, Image } from 'lucide-react';
 import { Button } from '@/common/components/ui/button';
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/common/components/ui/alert-dialog';
+import DashboardHeader from '../DashboardHeader/DashboardHeader';
 
 const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
   const { t } = useTranslation();
@@ -48,12 +49,13 @@ const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
   const closeDeleteDialog = () => setCourseToDelete(null);
 
   return <>
-    <header className='sticky'>
+    <DashboardHeader>
       <h1>{t('courses.title')}</h1>
       <div className="actions">
         <AddCourseButton onAddCourse={handleNewCourseFormSubmit} />
       </div>
-    </header >
+    </DashboardHeader>
+    
     <main className="content">
       {userCourses.length === 0 && <h3>You have no courses yet.</h3>}
 

@@ -10,10 +10,12 @@ const CourseEditorPage: React.FC<{ course: CourseRaw }> = ({ course }) => {
   configureCourseEditorStore(serverFormatToClientFormat(course));
   configureToastStore({ toast: { message: '', type: 'success', visible: false }});
 
-  return (<>
-    <CourseEditorNotifications />
-    <CourseEditor />
-  </>);
+  return (
+    <>
+      <CourseEditorNotifications />
+      <CourseEditor />
+    </>
+  );
 };
 
 export default CourseEditorPage;

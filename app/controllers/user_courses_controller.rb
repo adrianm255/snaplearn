@@ -43,5 +43,6 @@ class UserCoursesController < ApplicationController
 
   def set_navbar_course_title
     @navbar_title = @course.title
+    @use_course_title = true;
   end
 end

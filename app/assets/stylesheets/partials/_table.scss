@@ -1,3 +1,5 @@
+@import 'variables';
+
 table {
   tbody {
     font-size: 1rem;
@@ -8,7 +10,7 @@ table {
       grid-auto-columns: max-content;
       gap: 0.75rem;
 
-      @media (min-width: 1024px) {
+      @media (min-width: $screen-lg) {
         justify-content: end;
       }
     }

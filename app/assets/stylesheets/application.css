@@ -4,6 +4,12 @@
 */
 
 :root {
+  --screen-sm: 640px;
+  --screen-md: 768px;
+  --screen-lg: 1024px;
+  --screen-xl: 1280px;
+  --screen-xl: 1536px;
+
   --spacer-1: 0.25rem;
   --spacer-2: 0.5rem;
   --spacer-3: 0.75rem;
@@ -30,26 +36,7 @@
   --orange: #ffc900;
   --red: #dc341e;
   --yellow: #f1f333;
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 1024px;
-  /* --success: 35 160 148;
-  --contrast-success: 0 0 0;
-  --warning: 255 201 0;
-  --contrast-warning: 0 0 0;
-  --danger: 220 52 30;
-  --contrast-danger: 255 255 255;
-  --info: 144 168 237;
-  --contrast-info: 0 0 0;
-  --accent: 255 144 232;
-  --contrast-accent: 0 0 0;
-  --primary: 0 0 0;
-  --contrast-primary: 255 255 255;
-  --secondary: 0 0 0;
-  --contrast-secondary: 255 255 255;
-  --filled: 255 255 255;
-  --contrast-filled: 0 0 0;
-  --color: 0 0 0;
-  --body-bg: #f4f4f0; */
+  
   --border-alpha: 1;
   --font-family: Mabry Pro, Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, sans-serif;
   --border-width: 0.0625rem;
@@ -62,47 +49,14 @@
   --transition-duration: 0.14s;
   color-scheme: light dark;
 
-  /* ADDED BY ME */
-  --regular-color: rgb(var(--color));
-  --primary-color: rgb(var(--primary));
-  --secondary-color: rgb(var(--secondary));
-  --accent-color: rgb(var(--accent));
-  --border-color: rgb(var(--color)/var(--border-alpha));
-
-  --contrast-success-color: rgb(var(--contrast-success));
-  --contrast-warning-color: rgb(var(--contrast-warning));
-  --contrast-danger-color: rgb(var(--contrast-danger));
-  --contrast-info-color: rgb(var(--contrast-info));
-  --contrast-accent-color: rgb(var(--contrast-accent));
-  --contrast-primary-color: rgb(var(--contrast-primary));
-  --contrast-secondary-color: rgb(var(--contrast-secondary));
-  --contrast-filled-color: rgb(var(--contrast-filled));
-}
-
-@media(prefers-color-scheme: dark) {
-  :root {
-      /* --body-bg: #242423;
-      --primary: 221 221 221;
-      --contrast-primary: 0 0 0;
-      --color: 221 221 221;
-      --filled: 0 0 0;
-      --contrast-filled: 221 221 221;
-      --contrast-secondary: 221 221 221;
-      --border-alpha: 0.35; */
-  }
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  min-width: 0;
-  max-width: 100%;
-  vertical-align: bottom;
   background-clip: padding-box;
   scrollbar-color: rgb(var(--color)/0.5) rgb(var(--color)/0.1);
-  /* --border: solid 0.0625rem rgb(var(--color)/var(--border-alpha)); */
-  /* --outline: 0.125rem solid rgb(var(--accent)); */
   --gray-1: 0.1;
   --gray-2: 0.2;
   --gray-3: 0.5;
@@ -122,13 +76,13 @@ body {
   font-family: var(--font-family);
   background-color: var(--body-bg);
   -webkit-font-smoothing: antialiased;
-  color: rgb(var(--color));
 }
 
 body {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
+  overflow: hidden;
 }
 
 h1 {
@@ -194,40 +148,6 @@ a {
   display: contents;
 }
 
-button > .loading-overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
-button > .loading-overlay > .spinner {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  border-top: 4px solid #3498db;
-  width: 24px;
-  height: 24px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 2s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 nav .logo {
   font-size: 2rem;
   width: 100%;
@@ -252,67 +172,6 @@ main.login-form form {
 }
 
 
-main.course-editor .course-sections {
-  display: grid;
-  padding-bottom: 2rem;
-  height: 100%;
-  font-size: 1rem;
-  line-height: 1.5;
-  --line-height: 1.5rem;
-}
-
-main.course-editor .course-section {
-  border: solid .0625rem rgb(var(--color)/var(--border-alpha));
-  border-radius: .25rem;
-  background-color: rgb(var(--filled));
-  color: rgb(var(--contrast-filled));
-  --active-bg: var(--body-bg);
-  font-size: .875rem;
-  line-height: 1.3;
-  --line-height: 1.1375rem;
-}
-
-main.course-editor .course-section {
-  display: grid;
-  padding: 1rem;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-@media (min-width: 640px) {
-  main.course-editor .course-section {
-    grid-template-columns: minmax(30%,1fr) auto;
-  }
-}
-
-main.course-editor .course-section>* {
-  --color: var(--contrast-filled)
-}
-
-main.course-editor .course-section .content {
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-}
-
-main.course-editor .course-section .actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.5rem;
-}
-
-main.course-editor .course-section form > .input-group {
-  gap: 1rem;
-  padding: 2rem 0;
-}
-
-main.course-editor .course-section form > .input-group:first-of-type {
-  padding-top: 0;
-}
-
 .section-type-icon {
   font-size: 1.5rem;
   line-height: 1.3;
@@ -321,55 +180,6 @@ main.course-editor .course-section form > .input-group:first-of-type {
 
 .quill > * {
   font-size: 1rem !important;
-}
-
-.ql-toolbar.ql-snow {
-  position: sticky;
-  top: 0;
-  background-color: rgb(var(--primary));
-  color: rgb(var(--contrast-primary));
-  --active-bg: var(--body-bg);
-  display: flex;
-  gap: 0.25rem;
-  flex-wrap: wrap;
-  padding: 0.5rem 0.25rem;
-  z-index: 1;
-  font-size: 1rem;
-  line-height: 1.5;
-  --line-height: 1.5rem;
-  border: solid 0.0625rem rgb(var(--color)/var(--border-alpha)) !important;
-  border-bottom: none;
-  border-radius: 0.25rem 0.25rem 0 0;
-}
-
-.ql-toolbar > *,
-.ql-container > * {
-  --color: var(--contrast-primary);
-}
-
-.ql-toolbar button:hover {
-  transform: none !important;
-  box-shadow: none !important;
-  background-color: rgb(var(--color)/0.1) !important;
-}
-
-.ql-toolbar button:hover .ql-stroke {
-  stroke: rgb(var(--contrast-primary)) !important;
-}
-
-.ql-toolbar .ql-picker-label:hover,
-.ql-toolbar .ql-picker-label.ql-active,
-.ql-toolbar .ql-picker-options .ql-picker-item.ql-selected,
-.ql-toolbar .ql-picker-options .ql-picker-item:hover {
-  color: rgb(var(--contrast-primary)) !important;
-}
-
-
-.ql-container.ql-snow {
-  border-top: none;
-  border: solid 0.0625rem rgb(var(--color)/var(--border-alpha)) !important;
-  border-radius: 0 0 0.25rem 0.25rem;
-  min-height: 80px;
 }
 
 .product-detail-nav {

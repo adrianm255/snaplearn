@@ -14,28 +14,28 @@ module NavbarSetup
         url: dashboard_path,
         active: request.path == dashboard_path,
         section: 'home-section',
-        iconClass: 'icon-shop-window-fill'
+        iconClass: 'home'
       },
       {
         title: t('courses.title'),
         url: courses_path,
         active: request.path == courses_path || request.path.start_with?('/course'),
         section: 'home-section',
-        iconClass: 'icon-archive-fill'
+        iconClass: 'courses'
       },
       {
         title: t('discover.title'),
         url: discover_path,
         active: request.path == discover_path,
         section: 'discover-section',
-        iconClass: 'icon-solid-search'
+        iconClass: 'discover'
       },
       {
         title: t('library.title'),
         url: library_path,
         active: request.path == library_path,
         section: 'discover-section',
-        iconClass: 'icon-bookmark-heart-fill'
+        iconClass: 'library'
       },
     ]
 
