@@ -1,5 +1,45 @@
 .course-section {
   .content {
-    
+
+  }
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+article.course-card {
+  position: relative;
+  border: 1px solid var(--border-color);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  header {
+    padding: 1rem;
+    display: grid;
+    grid-template-rows: 1fr;
+    gap: 0.5rem;
+
+    a {
+      position: relative;
+    }
+  }
+}
+
+.course-detail {
+  .course-detail-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.5rem;
+    a {
+      text-decoration: none;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: .25rem;
+    }
   }
 }

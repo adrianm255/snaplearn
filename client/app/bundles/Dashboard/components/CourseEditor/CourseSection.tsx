@@ -43,7 +43,7 @@ const CourseSection: React.FC<{ courseSectionId: string, expanded?: boolean }> =
       <Collapsible
         open={isExpanded}
         onOpenChange={setIsExpanded}
-        className="flex flex-col p-4 rounded-md border"
+        className="collapsible with-actions flex flex-col p-4 rounded-md border"
       >
         <div className="flex flex-row items-center justify-between gap-3">
           <CollapsibleTrigger asChild>

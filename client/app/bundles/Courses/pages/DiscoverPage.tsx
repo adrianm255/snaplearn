@@ -6,21 +6,21 @@ import CourseCard from "../components/CourseCard/CourseCard";
 const DiscoverPage: React.FC<{ courses: CourseRaw[] }> = ({ courses }) => {
   const allCourses: Course[] = serverFormatToClientFormat(courses);
   return (
-    <main>
-      <header>
-        <h1>Snaplearn</h1>
-        <div className="actions">
-          <a className="button" href="/courses">Dashboard</a>
+    <main className="explore">
+      <header className="bg-secondary text-secondary-foreground">
+        <div>
+          <h1>Snaplearn</h1>
+          <div className="actions">
+            <a className="button" href="/courses">Dashboard</a>
+          </div>
         </div>
       </header>
       <div style={{ display: 'grid', gap: 'var(--spacer-6)' }}>
-        <div className="paragraphs">
-          <h2>All courses</h2>
-          <div className="product-card-grid narrow">
-            {allCourses.map(course => (
-              <CourseCard course={course} key={course.id} referrer="discover" />
-            ))}
-          </div>
+        <h2>All courses</h2>
+        <div className="courses-grid">
+          {allCourses.map(course => (
+            <CourseCard course={course} key={course.id} referrer="discover" />
+          ))}
         </div>
       </div>
     </main>

@@ -6,29 +6,23 @@ main > header {
   grid-template-columns: 1fr auto;
   align-items: center;
   padding: 2rem;
+  border-bottom: 1px solid var(--border-color);
+
+  & > * {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr auto;
+    gap: 1rem .75rem;
+  }
 
   &.sticky {
-    border-bottom: 1px solid var(--border-color);
     grid-column: 1 / span 2;
     grid-row: -3;
     & > * {
-      display: grid;
-      align-items: center;
-      grid-template-columns: 1fr auto;
-      gap: 1rem .75rem;
       & > h1 {
         display: none;
       }
     }
-  }
-}
-
-header {
-  .actions {
-    gap: var(--spacer-4);
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   }
 }
 
@@ -54,9 +48,63 @@ ul {
   }
 }
 
+.actions {
+  gap: .5rem;
+}
+
+header .actions {
+  gap: var(--spacer-4);
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+
+  @media(min-width: $screen-lg) {
+    display: flex;
+    flex-direction: row;
+    grid-column: unset;
+  }
+}
+
+.collapsible {
+  &.with-actions {
+    & > * {
+      flex-wrap: wrap;
+      .content {
+        flex-basis: min-content;
+        & > *:first-child {
+          flex-shrink: 0;
+        }
+      }
+      .actions {
+        flex-basis: 100%;
+        display: grid;
+        justify-content: flex-end;
+        &:not(:where(.course-editor *)) {
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+
+        @media(min-width: $screen-md) {
+          justify-content: flex-end;
+          display: flex;
+        }
+        @media(min-width: $screen-lg) {
+          flex-basis: unset;
+          display: flex;
+        }
+      }
+    }
+  }
+}
+
 @media(min-width: $screen-lg) {
-  body> * > header, header.sticky, main > * {
+  body > * > header, header.sticky, main > * {
       padding: 2rem #{'max((100% - 66rem) / 2, 4rem)'};
+  }
+  main.explore > * {
+    padding: 2rem #{'max((100% - 74rem) / 2, 4rem)'};
+  }
+  main.course-detail > * {
+    padding: 2rem #{'max((100% - 56rem) / 2, 4rem)'};
   }
   body > * > header,
   main > header {
@@ -65,11 +113,6 @@ ul {
         display: initial;
       }
     }
-  }
-  header .actions {
-    display: flex;
-    flex-direction: row;
-    grid-column: unset;
   }
 }
 

@@ -1,10 +1,10 @@
 import React from "react"; 
-import { Course } from "../../../../types/course";
-import courseAvatarPlaceholder from "../../../../assets/images/course-avatar-placeholder.webp";
+import { Course } from "@/types/course";
+import courseAvatarPlaceholder from "@/assets/images/course-avatar-placeholder.webp";
 
 const CourseCard: React.FC<{ course: Course, referrer?: string }> = ({ course, referrer = '' }) => {
   return (
-    <article key={course.id} className="product-card">
+    <article key={course.id} className="course-card">
       <a href={`/course/${course.id}?referrer=${referrer}`} className="stretched-link">
         <div className="carousel">
           <div className="items"><img src={courseAvatarPlaceholder} /></div>
