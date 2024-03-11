@@ -1,17 +1,21 @@
-import React from "react";
-import { Course } from "@/types/course";
+import React, { useState } from "react";
+import { Course, CourseSection } from "@/types/course";
 import useTranslation from "@/libs/i18n/useTranslation";
 import CourseQuestionButton from "../CourseQuestion/CourseQuestionButton";
-import CourseSectionSummary from "../CourseSectionSummary/CourseSectionSummary";
+import CourseSectionSummary from "./CourseSectionSummary";
 import { useStore } from "@/hooks-store/store";
-import { buttonVariants } from "@/common/components/ui/button";
+import { Button, buttonVariants } from "@/common/components/ui/button";
 import { ArrowLeft, Pencil } from "lucide-react";
+import { Dialog, DialogContent } from "@/common/components/ui/dialog";
+import CourseSectionPage from "./CourseSectionPage";
 
 const CourseDetail: React.FC = () => {
   const { t } = useTranslation();
   const [ state, dispatch ] = useStore();
   const course: Course = state.course;
   const currentUserIsAuthor = state.currentUserIsAuthor;
+
+  const [fullScreenSection, setFullScreenSection] = useState<CourseSection | null>(null);
   
   return (
     <main className="course-detail">
@@ -45,10 +49,17 @@ const CourseDetail: React.FC = () => {
               courseSection={courseSection}
               expanded={courseSection.isExpanded}
               highlighted={courseSection.isHighlighted}
+              onCourseSectionFullScreen={courseSectionId => setFullScreenSection(course.courseSections?.find(cs => cs.id === courseSectionId) || null)}
             />
           ))}
         </div>
       </div>
+
+      {fullScreenSection && <Dialog defaultOpen={true} onOpenChange={isOpen => !isOpen && setFullScreenSection(null)}>
+        <DialogContent className="course-section-full-screen" onOpenAutoFocus={e => e.preventDefault()}>
+          <CourseSectionPage course={course} initialCourseSection={fullScreenSection} />
+        </DialogContent>
+      </Dialog>}
     </main>
   );
 };

@@ -60,27 +60,6 @@ const CourseEditorContent: React.FC = () => {
       <CourseSection key={section.id} courseSectionId={section.id} expanded={section.isNew}/>
     ))}
 
-    {/* <DropdownButton key={course.courseSections?.length}>
-      <DropdownButton.Button>
-        <span className="icon icon-plus-circle"></span>
-        <span className="content">{t('course_editor.add_section_label')}</span>
-      </DropdownButton.Button>
-      <DropdownButton.Dropdown>
-        <div className="tab-buttons small" role="tablist">
-          {Object.values(CourseSectionType).map(csType => (
-            <button key={csType} role="tab" onClick={() => handleAddSection(csType)}>
-              <span className={"icon " + getSectionIconClass(csType)}></span>
-              {t(`course_section.type.${csType}_label`)}
-            </button>
-          ))}
-          <button role="tab" onClick={() => openFileUploadDialog()}>
-            <span className="icon icon-upload"></span>
-            {t('course_editor.add_section_from_file_label')}
-          </button>
-        </div>
-      </DropdownButton.Dropdown>
-    </DropdownButton> */}
-
     <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
       <PopoverTrigger asChild>
         <Button className="w-fit" variant="outline">

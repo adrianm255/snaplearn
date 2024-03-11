@@ -1,6 +1,6 @@
 import React from "react";
 import { Course, CourseQuestion, CourseSection } from "../../../../types/course";
-import CourseSectionSummary from "../CourseSectionSummary/CourseSectionSummary";
+import CourseSectionSummary from "../CourseDetail/CourseSectionSummary";
 import { useStore } from "../../../../hooks-store/store";
 import { CourseDetailStoreAction } from "../../../../hooks-store/courseDetailStore";
 import { useDropdownButtonContext } from "../../../../common/components/DropdownButton/DropdownButton";

@@ -1,3 +1,5 @@
+@import "variables";
+
 .course-section {
   .content {
 
@@ -41,5 +43,31 @@ article.course-card {
       align-items: center;
       gap: .25rem;
     }
+  }
+}
+
+.course-section-full-screen {
+  --dialog-height: 100vh;
+  --dialog-width: 100vw;
+  height: var(--dialog-height);
+  width: var(--dialog-width);
+  max-width: unset;
+  padding: 0;
+  max-width: 1200px;
+
+  @media (min-width: $screen-lg) {
+    --dialog-height: calc(100vh - 2rem);
+    --dialog-width: calc(100vw - 2rem);
+  }
+
+  .course-section-page {
+    height: calc(var(--dialog-height) - 2px);
+  }
+}
+
+.course-section-descriptions {
+  &.expanded {
+    overflow-y: auto;
+    max-height: 14rem;
   }
 }
