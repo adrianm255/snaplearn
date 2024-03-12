@@ -27,7 +27,7 @@ const CourseSectionContent: React.FC<{ courseSection: CourseSection, isFullScree
   return (<>
       {courseSection.description && courseSection.sectionType !== CourseSectionType.Video && sectionDescription('border-t')}
       {courseSection.content &&
-        <div style={{ fontSize: '1rem' }} className="px-6 py-4 overflow-y-auto border-t" dangerouslySetInnerHTML={{ __html: courseSection.content }} />
+        <div style={{ fontSize: '1rem' }} className="prose dark:prose-invert max-w-none px-6 py-4 overflow-y-auto border-t" dangerouslySetInnerHTML={{ __html: courseSection.content }} />
       }
       {courseSection.sectionType !== CourseSectionType.RichText &&
         <div className="grow border-t">

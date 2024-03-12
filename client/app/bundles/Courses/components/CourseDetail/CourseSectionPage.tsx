@@ -1,9 +1,10 @@
 import { Button } from "@/common/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/common/components/ui/tooltip";
 import { Course, CourseSection } from "@/types/course";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import React, { useState } from "react";
+import { ArrowLeft, ArrowRight, Menu } from "lucide-react";
+import React, { useRef, useState } from "react";
 import CourseSectionContent from "./CourseSectionContent";
+import { Sheet, SheetContent, SheetPortal, SheetTrigger } from "@/common/components/ui/sheet";
 
 type CourseSectionPageProps = {
   course: Course;
@@ -12,6 +13,8 @@ type CourseSectionPageProps = {
 
 const CourseSectionPage: React.FC<CourseSectionPageProps> = ({ course, initialCourseSection = null }) => {
   const [courseSection, setCourseSection] = useState<CourseSection | null>(initialCourseSection || course.courseSections?.[0] || null);
+  const [container, setContainer] = useState(null);
+  const [isSectionListOpen, setIsSectionListOpen] = useState(false);
 
   const courseSectionIndex = course.courseSections?.findIndex(cs => cs.id === courseSection?.id);
   const prevSection = courseSectionIndex !== undefined ? (course.courseSections?.[courseSectionIndex - 1] ?? null) : null;
@@ -38,8 +41,35 @@ const CourseSectionPage: React.FC<CourseSectionPageProps> = ({ course, initialCo
   }
 
   return (
-    <div className="course-section-page flex flex-col">
+    <div ref={setContainer} className="course-section-page flex flex-col">
       <header className="bg-secondary text-secondary-foreground px-16 py-6">
+        <Sheet modal={false} open={isSectionListOpen} onOpenChange={setIsSectionListOpen}>
+          <SheetTrigger className="absolute top-4 left-0" asChild>
+            <Button variant="ghost" size="icon" onClick={() => setIsSectionListOpen(!isSectionListOpen)}>
+              <Menu />
+            </Button>
+          </SheetTrigger>
+          <SheetPortal container={container}>
+            <SheetContent side="left" className="w-72 pt-8">
+              <ol className="border-t">
+                {course.courseSections?.map(cs => (
+                  <li key={cs.id} className="w-full border-b">
+                    <Button
+                      variant="ghost"
+                      className={`w-full justify-start ${cs.id === courseSection?.id ? 'bg-accent text-accent-foreground' : ''}`}
+                      onClick={() => {
+                        setCourseSection(cs);
+                        setIsSectionListOpen(false);
+                      }}
+                    >
+                      <span className="truncate">{cs.title}</span>
+                    </Button>
+                  </li>
+                ))}
+              </ol>
+            </SheetContent>
+          </SheetPortal>
+        </Sheet>
         <div className="flex flex-row items-center gap-4 px-4">
           <h2 className="flex grow justify-center">{course?.title}</h2>
         </div>

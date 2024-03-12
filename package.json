@@ -25,6 +25,7 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-tooltip": "^1.0.7",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/babel__core": "7",
     "@types/webpack": "5",
     "babel-loader": "8",
