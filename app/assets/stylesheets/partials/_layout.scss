@@ -68,6 +68,9 @@ header .actions {
 .collapsible {
   &.with-actions {
     & > * {
+      &:first-child {
+        flex-wrap: wrap;
+      }
       .content {
         flex-basis: min-content;
         & > *:first-child {
