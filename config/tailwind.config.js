@@ -27,7 +27,6 @@ module.exports = {
     extend: {
       colors: {
         border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -63,6 +62,11 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // this is inverted
+        input: {
+          DEFAULT: "hsl(var(--input))",
+          background: "hsl(var(--input-bg))",
+        }
       },
       borderRadius: {
         lg: "var(--radius)",

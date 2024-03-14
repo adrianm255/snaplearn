@@ -5,9 +5,8 @@ import CourseQuestionButton from "../CourseQuestion/CourseQuestionButton";
 import CourseSectionSummary from "./CourseSectionSummary";
 import { useStore } from "@/hooks-store/store";
 import { Button, buttonVariants } from "@/common/components/ui/button";
-import { ArrowLeft, Pencil } from "lucide-react";
-import { Dialog, DialogContent } from "@/common/components/ui/dialog";
-import CourseSectionPage from "./CourseSectionPage";
+import { ArrowLeft, Book, FileQuestion, Home, NotebookPen, Pencil, Search } from "lucide-react";
+import { CourseDetailStoreAction } from "@/hooks-store/courseDetailStore";
 
 const CourseDetail: React.FC = () => {
   const { t } = useTranslation();
@@ -15,18 +14,14 @@ const CourseDetail: React.FC = () => {
   const course: Course = state.course;
   const currentUserIsAuthor = state.currentUserIsAuthor;
 
-  const [fullScreenSection, setFullScreenSection] = useState<CourseSection | null>(null);
-  
+  const setSectionExpanded = (courseSectionId: string | null) => {
+    if (!courseSectionId) return;
+    dispatch(CourseDetailStoreAction.ExpandAndHighlight, courseSectionId, true, false);
+  };
+
   return (
     <main className="course-detail">
-      {/* <CourseQuestionButton /> */}
-      <header className="bg-secondary text-secondary-foreground relative">
-        <div className="course-detail-nav">
-          <a href="/discover" title="Back">
-            <ArrowLeft className="h-4 w-4" />
-            Back
-          </a>
-        </div>
+      <header className="sticky bg-secondary text-secondary-foreground">
         <div className="gap-y-0">
           {!course.published && <div role="status" className="warning">This course is not currently published. Only you can see this page until the course is published.</div>}
           <h1>{course.title}</h1>
@@ -40,26 +35,54 @@ const CourseDetail: React.FC = () => {
           </div>
         </div>
       </header>
-      <div className="course-content flex flex-col gap-4">
-        <p className="text-base">{course.description}</p>
-        <div className="flex flex-col gap-4">
-          {course.courseSections?.map(courseSection => (
-            <CourseSectionSummary
-              key={courseSection.id}
-              courseSection={courseSection}
-              expanded={courseSection.isExpanded}
-              highlighted={courseSection.isHighlighted}
-              onCourseSectionFullScreen={courseSectionId => setFullScreenSection(course.courseSections?.find(cs => cs.id === courseSectionId) || null)}
-            />
-          ))}
+
+      <div>
+        <nav className="course-nav border-r">
+          <section className="mt-8">
+            <Button variant="ghost" className="w-full font-md text-secondary-foreground justify-start" onClick={() => {}}>
+              <Book className="mr-2 w-4 h-4" />
+              Course
+            </Button>
+            <Button variant="ghost" className="w-full text-muted-foreground font-normal justify-start" onClick={() => {}}>
+              <NotebookPen className="mr-2 w-4 h-4" />
+              Notes
+            </Button>
+          </section>
+          <section>
+            <CourseQuestionButton />
+            <Button variant="ghost" className="w-full text-muted-foreground font-normal justify-start" onClick={() => {}}>
+              <FileQuestion className="mr-2 w-4 h-4" />
+              Questions
+            </Button>
+          </section>
+          <section>
+            <a className={`${buttonVariants({ variant: "ghost" })} w-full text-muted-foreground font-normal gap-0`} href="/dashboard">
+              <Home className="mr-2 w-4 h-4" />
+              Dashboard
+            </a>
+            <a className={`${buttonVariants({ variant: "ghost" })} w-full text-muted-foreground font-normal gap-0`} href="/discover">
+              <Search className="mr-2 w-4 h-4" />
+              Explore
+            </a>
+          </section>
+        </nav>
+
+        <div className="course-content flex flex-col gap-4">
+          {course.description && <p className="text-base">{course.description}</p>}
+          <div className="flex flex-col gap-4">
+            {course.courseSections?.map(courseSection => (
+              <CourseSectionSummary
+                key={courseSection.id}
+                course={course}
+                courseSection={courseSection}
+                expanded={courseSection.isExpanded}
+                highlighted={courseSection.isHighlighted}
+                onCourseSectionFullScreen={courseSectionId => setSectionExpanded(courseSectionId)}
+              />
+            ))}
+          </div>
         </div>
       </div>
-
-      {fullScreenSection && <Dialog defaultOpen={true} onOpenChange={isOpen => !isOpen && setFullScreenSection(null)}>
-        <DialogContent className="course-section-full-screen" onOpenAutoFocus={e => e.preventDefault()}>
-          <CourseSectionPage course={course} initialCourseSection={fullScreenSection} />
-        </DialogContent>
-      </Dialog>}
     </main>
   );
 };

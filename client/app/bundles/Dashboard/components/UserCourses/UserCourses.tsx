@@ -60,7 +60,7 @@ const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
       {userCourses.length === 0 && <h3>You have no courses yet.</h3>}
 
       {userCourses.length > 0 &&
-        <Table className="rounded-sm border">
+        <Table className="rounded-sm">
           <TableHeader>
             <TableRow>
               <TableHead></TableHead>

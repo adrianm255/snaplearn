@@ -9,9 +9,10 @@ import { Sheet, SheetContent, SheetPortal, SheetTrigger } from "@/common/compone
 type CourseSectionPageProps = {
   course: Course;
   initialCourseSection: CourseSection;
+  onCourseSectionFullScreen?: (courseSectionId: string | undefined) => void;
 };
 
-const CourseSectionPage: React.FC<CourseSectionPageProps> = ({ course, initialCourseSection = null }) => {
+const CourseSectionPage: React.FC<CourseSectionPageProps> = ({ course, initialCourseSection = null, onCourseSectionFullScreen }) => {
   const [courseSection, setCourseSection] = useState<CourseSection | null>(initialCourseSection || course.courseSections?.[0] || null);
   const [container, setContainer] = useState(null);
   const [isSectionListOpen, setIsSectionListOpen] = useState(false);
@@ -25,7 +26,7 @@ const CourseSectionPage: React.FC<CourseSectionPageProps> = ({ course, initialCo
       <TooltipProvider delayDuration={0}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="base" className={`h-full w-full ${type === 'prev' ? 'border-r' : 'border-l'}`} onClick={() => setCourseSection(section)}>
+            <Button variant="base" className={`h-full w-full ${type === 'prev' ? 'border-r' : 'border-l'}`} onClick={() => {setCourseSection(section); onCourseSectionFullScreen?.(section.id)}}>
               {type === 'prev' ? <ArrowLeft className="h-5 w-5" /> : <ArrowRight className="h-5 w-5" />}
             </Button>
           </TooltipTrigger>
@@ -59,6 +60,7 @@ const CourseSectionPage: React.FC<CourseSectionPageProps> = ({ course, initialCo
                       className={`w-full justify-start ${cs.id === courseSection?.id ? 'bg-accent text-accent-foreground' : ''}`}
                       onClick={() => {
                         setCourseSection(cs);
+                        onCourseSectionFullScreen?.(cs.id);
                         setIsSectionListOpen(false);
                       }}
                     >

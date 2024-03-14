@@ -1,8 +1,31 @@
 @import 'variables';
 
 table {
-  tbody {
+  display: grid;
+  gap: 1rem;
+  border: none;
+
+  & > thead {
+    display: none;
+  }
+
+  & > tbody {
     font-size: 1rem;
+    display: contents;
+
+    & > tr {
+      display: block;
+      border: 1px solid var(--border-color);
+      & > td {
+        display: block;
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--border-color);
+        }
+        &.icon-cell {
+          text-align: center;
+        }
+      }
+    }
     
     .actions {
       display: grid;
@@ -12,6 +35,33 @@ table {
 
       @media (min-width: $screen-lg) {
         justify-content: end;
+      }
+    }
+  }
+
+  @media (min-width: $screen-lg) {
+    display: revert;
+    & > thead {
+      display: revert;
+      border: none;
+    }
+    & > tbody {
+      border: 1px solid var(--border-color);
+      display: revert;
+      & > tr {
+        display: revert;
+        border: none;
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--border-color);
+        }
+        &:first-child {
+          border-top: none;
+        }
+        & > td {
+          display: revert;
+          border: none;
+          border-bottom: none !important;
+        }
       }
     }
   }

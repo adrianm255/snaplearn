@@ -27,12 +27,12 @@ const CourseSectionContent: React.FC<{ courseSection: CourseSection, isFullScree
   return (<>
       {courseSection.description && courseSection.sectionType !== CourseSectionType.Video && sectionDescription('border-t')}
       {courseSection.content &&
-        <div style={{ fontSize: '1rem' }} className="prose dark:prose-invert max-w-none px-6 py-4 overflow-y-auto border-t" dangerouslySetInnerHTML={{ __html: courseSection.content }} />
+        <div className="text-base prose dark:prose-invert max-w-none px-6 py-4 overflow-y-auto border-t" dangerouslySetInnerHTML={{ __html: courseSection.content }} />
       }
       {courseSection.sectionType !== CourseSectionType.RichText &&
         <div className="grow border-t">
           {courseSection.sectionType === CourseSectionType.Video && (
-            <video key={courseSection.id} width="100%" height="auto" controls className={isFullScreen && !courseSection.description ? 'border-b' : ''}>
+            <video key={courseSection.id} controls className={`w-full h-auto ${isFullScreen && !courseSection.description ? 'border-b' : ''}`}>
               <source src={courseSection.fileData?.url} type={courseSection.fileData?.contentType} />
               Your browser cannot display the video.
             </video>)

@@ -1,10 +1,5 @@
 @import "variables";
-
-.course-section {
-  .content {
-
-  }
-}
+@import "mixins";
 
 .courses-grid {
   display: grid;
@@ -30,7 +25,33 @@ article.course-card {
   }
 }
 
-.course-detail {
+main.course-detail {
+  @extend .grid-container;
+
+  & > header {
+    & > * {
+      & > h1 {
+        display: initial !important;
+      }
+      & > .actions {
+        display: flex;
+        grid-column: initial;
+      }
+    }
+  }
+
+  nav.course-nav {
+    width: var(--course-nav-width);
+    a {
+      justify-content: start;
+    }
+  }
+
+  & > *:not(:first-child) {
+    padding: 0;
+    @extend .grid-container;
+  }
+
   .course-detail-nav {
     position: absolute;
     top: 0;
@@ -43,6 +64,10 @@ article.course-card {
       align-items: center;
       gap: .25rem;
     }
+  }
+
+  .course-content {
+    overflow: auto;
   }
 }
 

@@ -8,7 +8,7 @@ import { useDropdownButtonContext } from "../../../../common/components/Dropdown
 const Question: React.FC<{ question: CourseQuestion, course: Course }> = ({ question, course }) => {
   const dispatch = useStore()[1];
 
-  const { close } = useDropdownButtonContext();
+  // const { close } = useDropdownButtonContext();
   
   const getCourseSection = (courseSectionId: string): CourseSection | undefined => {
     return course.courseSections?.find(section => section.id === courseSectionId);
@@ -17,24 +17,26 @@ const Question: React.FC<{ question: CourseQuestion, course: Course }> = ({ ques
   return (
     <div key={question.id} className="question">
       <div className="question-body">
-        <div>Q:</div>
-        <div>{question.body}</div>
+        <div className="leading-7">Q:</div>
+        <div className="prose dark:prose-invert max-w-none">{question.body}</div>
       </div>
       <div className="question-answer">
-        <div>A:</div>
+        <div className="leading-7">A:</div>
         <div>
-          <div dangerouslySetInnerHTML={{ __html: question.answer }}></div>
+          <div className="prose dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: question.answer }}></div>
           {(question.relevantSections || []).length > 0 && (
-            <div style={{ marginTop: '0.5rem' }}>
-              <h4 style={{ marginBottom: '0.5rem' }}><strong>Relevant course material</strong></h4>
+            <div className="mt-2">
+              <h4 className="mb-2">Relevant course material</h4>
               <div role="tree">
                 {question.relevantSections?.map(relevantSectionId => (
                   <div key={relevantSectionId} className="relevant-section" role="treeitem" style={{ fontSize: '0.875rem' }}>
                     {getCourseSection(relevantSectionId) && (
                       <CourseSectionSummary
+                        course={course}
                         courseSection={getCourseSection(relevantSectionId)!}
                         allowExpand={false}
-                        onCourseSectionAction={() => {close(); dispatch(CourseDetailStoreAction.ExpandAndHighlight, relevantSectionId)}}
+                        allowDownload={false}
+                        onCourseSectionAction={() => {dispatch(CourseDetailStoreAction.ExpandAndHighlight, relevantSectionId)}}
                       />
                     )}
                   </div>

@@ -68,7 +68,6 @@ header .actions {
 .collapsible {
   &.with-actions {
     & > * {
-      flex-wrap: wrap;
       .content {
         flex-basis: min-content;
         & > *:first-child {
@@ -81,6 +80,9 @@ header .actions {
         justify-content: flex-end;
         &:not(:where(.course-editor *)) {
           grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+        & .icon-button {
+          grid-column: none;
         }
 
         @media(min-width: $screen-md) {
@@ -96,6 +98,10 @@ header .actions {
   }
 }
 
+main.course-detail .course-content {
+  padding: 2rem;
+}
+
 @media(min-width: $screen-lg) {
   body > * > header, header.sticky, main > * {
       padding: 2rem #{'max((100% - 66rem) / 2, 4rem)'};
@@ -103,8 +109,13 @@ header .actions {
   main.explore > * {
     padding: 2rem #{'max((100% - 74rem) / 2, 4rem)'};
   }
-  main.course-detail > * {
-    padding: 2rem #{'max((100% - 56rem) / 2, 4rem)'};
+  main.course-detail > header {
+    padding: 2rem var(--course-detail-padding);
+    padding-left: #{'max(calc(var(--course-detail-padding) + 6rem), calc(var(--course-nav-width) + 4rem))'};
+  }
+  main.course-detail .course-content {
+    padding: 2rem var(--course-detail-padding);
+    padding-left: #{'max(calc(var(--course-detail-padding) + 6rem - var(--course-nav-width)), 4rem)'};
   }
   body > * > header,
   main > header {

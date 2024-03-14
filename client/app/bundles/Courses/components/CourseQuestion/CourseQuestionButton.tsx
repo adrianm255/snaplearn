@@ -1,13 +1,15 @@
 import React from "react";
-import DropdownButton from "../../../../common/components/DropdownButton/DropdownButton";
 import CourseQuestionForm from "./CourseQuestionForm";
-import { convertToFormData } from "../../../../helpers/formDataHelper";
-import { createCourseQuestion, getCourseQuestions } from "../../../../services/courseService";
-import { serverFormatToClientFormat } from "../../../../helpers/dataMapper";
-import { Course, CourseQuestion } from "../../../../types/course";
+import { convertToFormData } from "@/helpers/formDataHelper";
+import { createCourseQuestion, getCourseQuestions } from "@/services/courseService";
+import { serverFormatToClientFormat } from "@/helpers/dataMapper";
+import { Course, CourseQuestion } from "@/types/course";
 import Question from "./Question";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useStore } from "../../../../hooks-store/store";
+import { useStore } from "@/hooks-store/store";
+import { Button } from "@/common/components/ui/button";
+import { ArrowDownRightFromSquare, MessageCircleQuestion, X } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/common/components/ui/popover";
 
 const CourseQuestionButton: React.FC = () => {
   const state = useStore()[0];
@@ -16,6 +18,7 @@ const CourseQuestionButton: React.FC = () => {
 
   const [questions, setQuestions] = React.useState<CourseQuestion[]>(course.courseQuestions || []);
   const [totalQuestionsCount, setTotalQuestionsCount] = React.useState<number>(courseQuestionsCount);
+  const [isQuestionBoxOpen, setIsQuestionBoxOpen] = React.useState<boolean>(false);
 
   const handleAskQuestion = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -93,13 +96,23 @@ const CourseQuestionButton: React.FC = () => {
     } catch (e) {}
   };
 
-  return (<div className="ask-question-button">
-    <DropdownButton>
-      <DropdownButton.Button buttonClass="primary">
-        <span className="icon icon-plus-circle"></span>
-        <span className="content">Ask a question</span>
-      </DropdownButton.Button>
-      <DropdownButton.Dropdown placement="right" closable={true} expandable={true}>
+  return (<>
+    <Popover open={isQuestionBoxOpen} onOpenChange={setIsQuestionBoxOpen}>
+      <PopoverTrigger asChild>
+        <Button variant="ghost" className="w-full text-muted-foreground font-normal justify-start" >
+          <MessageCircleQuestion className="mr-2 w-4 h-4" />
+          Quick question
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent align="start" side="left" onPointerDownOutside={e => e.preventDefault()}>
+        <div className="flex flex-row justify-end gap-3 pb-2">
+          <Button variant="base" size="icon" className="h-4 w-4 opacity-70">
+            <ArrowDownRightFromSquare className="h-4 w-4" />
+          </Button>
+          <Button variant="base" size="icon" className="h-4 w-4 opacity-70" onClick={() => setIsQuestionBoxOpen(false)}>
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
         <div className="course-question-box">
           {questions.length === 0 && <h4>You have no questions for this course yet.</h4>}
           {questions.length > 0 && <div id="questionsContainer">
@@ -109,13 +122,9 @@ const CourseQuestionButton: React.FC = () => {
               className="questions-container"
               inverse={true}
               hasMore={questions.length < totalQuestionsCount}
-              loader={<h4>Loading...</h4>}
+              loader={<p className="text-center text-sm text-muted-foreground">Loading...</p>}
               scrollableTarget="questionsContainer"
-              endMessage={
-                <p style={{ textAlign: 'center' }}>
-                  <b>Beginning of conversation</b>
-                </p>
-              }
+              endMessage={<p className="text-center text-sm text-muted-foreground">Beginning of conversation</p>}
             >
               {questions?.map(question => (
                 <Question key={question.id} question={question} course={course} />
@@ -124,9 +133,9 @@ const CourseQuestionButton: React.FC = () => {
           </div>}
           <CourseQuestionForm onAskQuestion={handleAskQuestion} />
         </div>
-      </DropdownButton.Dropdown>
-    </DropdownButton>
-  </div>);
+      </PopoverContent>
+    </Popover>
+  </>);
 };
 
 export default CourseQuestionButton;
