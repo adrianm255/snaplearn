@@ -1,7 +1,8 @@
 class Api::V1::CoursesController < ApplicationController
-  before_action :set_course, only: %i[ show update destroy publish unpublish ]
+  before_action :set_course, only: %i[ show update destroy publish unpublish download_file serve_file ]
   before_action :authenticate_user!
   before_action :authorize_user!, only: [:update, :destroy, :publish, :unpublish]
+  before_action :authorize_download!, only: [:download_file, :serve_file]
 
   # GET /courses
   def index
@@ -60,6 +61,34 @@ class Api::V1::CoursesController < ApplicationController
     end
   end
 
+  # GET /course/1/1/download
+  def download_file
+    course_section = @course.course_sections.find(params[:course_section_id])
+    
+    if course_section.file.attached?
+      redirect_to rails_blob_path(course_section.file, disposition: "attachment")
+    else
+      head :not_found
+    end
+  end
+
+  def serve_file
+    course_section = @course.course_sections.find(params[:course_section_id])
+    file = course_section.file
+  
+    if file.attached?
+      response.headers['Content-Type'] = file.blob.content_type
+      response.headers['Content-Disposition'] = 'inline'
+      file.blob.download do |chunk|
+        response.stream.write(chunk)
+      end
+    else
+      head :not_found
+    end
+  ensure
+    response.stream.close
+  end
+
   private
 
   def set_course
@@ -78,6 +107,12 @@ class Api::V1::CoursesController < ApplicationController
 
   def authorize_user!
     unless @course.authored_by?(current_user)
+      render json: {error: "Not authorized to perform this action"}, status: :forbidden
+    end
+  end
+
+  def authorize_download!
+    unless @course.authored_by?(current_user) || @course.published
       render json: {error: "Not authorized to perform this action"}, status: :forbidden
     end
   end

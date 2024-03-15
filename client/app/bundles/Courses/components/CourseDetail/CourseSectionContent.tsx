@@ -33,14 +33,12 @@ const CourseSectionContent: React.FC<{ courseSection: CourseSection, isFullScree
         <div className="grow border-t">
           {courseSection.sectionType === CourseSectionType.Video && (
             <video key={courseSection.id} controls className={`w-full h-auto ${isFullScreen && !courseSection.description ? 'border-b' : ''}`}>
-              <source src={courseSection.fileData?.url} type={courseSection.fileData?.contentType} />
+              <source src={courseSection.fileData?.downloadUrl} type={courseSection.fileData?.contentType} />
               Your browser cannot display the video.
             </video>)
           }
           {courseSection.sectionType === CourseSectionType.Pdf &&
-            <object data={courseSection.fileData?.url} type="application/pdf" style={{ width: '100%', height: isFullScreen ? '100%' : '800px' }}>
-              Your browser cannot display the PDF.
-            </object>
+            <iframe src={courseSection.fileData?.fileUrl} style={{ width: '100%', height: isFullScreen ? '100%' : '800px' }} />
           }
           {courseSection.description && courseSection.sectionType === CourseSectionType.Video && sectionDescription('border-t')}
         </div>

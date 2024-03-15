@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   
   namespace :api do
     namespace :v1 do
+      get 'course/:id/:course_section_id/download', to: 'courses#download_file', as: 'download_course_section_file'
+      get 'course/:id/:course_section_id/:file_name', to: 'courses#serve_file', as: 'serve_course_section_file'
+
       post 'course/:id/publish', to: 'courses#publish', as: :publish_course
       post 'course/:id/unpublish', to: 'courses#unpublish', as: :unpublish_course
 

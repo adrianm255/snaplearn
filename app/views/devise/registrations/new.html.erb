@@ -1,38 +1,38 @@
 <main class="login-form">
-  <header class="header">
+  <header>
     <h2>Snaplearn</h2>
   </header>
-  <div class="input-group">
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <h1 style="margin-bottom:2rem">Sign up</h1>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <h1 class="mb-8">Sign up</h1>
 
-      <%= render "devise/shared/error_messages", resource: resource %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-      <div class="field" style="margin-bottom:2rem">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <section class="input-group">
+      <div class="flex flex-col gap-3">
+        <%= f.label :email, class: "text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "flex h-12 w-full rounded-md border border-input bg-input-background px-4 py-3 text-base ring-offset-background file:border-0 file:bg-transparent file:text-base file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 top-level-input" %>
       </div>
 
-      <div class="field" style="margin-bottom:2rem">
-        <%= f.label :password %>
+      <div class="flex flex-col gap-3">
+        <%= f.label :password, class: "text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" %>
         <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
-        <% end %><br />
-        <%= f.password_field :password, autocomplete: "new-password" %>
+          <em class="text-sm text-muted-foreground -mt-2">(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "flex h-12 w-full rounded-md border border-input bg-input-background px-4 py-3 text-base ring-offset-background file:border-0 file:bg-transparent file:text-base file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 top-level-input" %>
       </div>
 
-      <div class="field" style="margin-bottom:2rem">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      <div class="flex flex-col gap-3">
+        <%= f.label :password_confirmation, class: "text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "flex h-12 w-full rounded-md border border-input bg-input-background px-4 py-3 text-base ring-offset-background file:border-0 file:bg-transparent file:text-base file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 top-level-input" %>
       </div>
+    </section>
 
-      <%= button_tag(type: 'submit', class: "primary", style: "width:100%") do %>
-        Sign up
-      <% end %>
+    <%= button_tag(type: 'submit', class: "mt-8 w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-base font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-4 py-3") do %>
+      Sign up
     <% end %>
-  </div>
+  <% end %>
 
-  <div><%= render "devise/shared/links" %></div>
+  <div class="flex justify-center items-center"><%= render "devise/shared/links" %></div>
   
 </main>
 

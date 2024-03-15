@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Course, CourseSection } from "@/types/course";
+import React from "react";
+import { Course } from "@/types/course";
 import useTranslation from "@/libs/i18n/useTranslation";
 import CourseQuestionButton from "../CourseQuestion/CourseQuestionButton";
 import CourseSectionSummary from "./CourseSectionSummary";
 import { useStore } from "@/hooks-store/store";
 import { Button, buttonVariants } from "@/common/components/ui/button";
-import { ArrowLeft, Book, FileQuestion, Home, NotebookPen, Pencil, Search } from "lucide-react";
+import { Book, FileQuestion, Home, NotebookPen, Pencil, Search } from "lucide-react";
 import { CourseDetailStoreAction } from "@/hooks-store/courseDetailStore";
 
 const CourseDetail: React.FC = () => {
@@ -14,7 +14,7 @@ const CourseDetail: React.FC = () => {
   const course: Course = state.course;
   const currentUserIsAuthor = state.currentUserIsAuthor;
 
-  const setSectionExpanded = (courseSectionId: string | null) => {
+  const setSectionExpanded = (courseSectionId: string | undefined) => {
     if (!courseSectionId) return;
     dispatch(CourseDetailStoreAction.ExpandAndHighlight, courseSectionId, true, false);
   };

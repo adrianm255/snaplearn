@@ -15,8 +15,10 @@ class CourseSection < ApplicationRecord
   def file_data
     if file.attached?
       file_blob = file.blob
+      url_helper = Rails.application.routes.url_helpers
       {
-        url: Rails.application.routes.url_helpers.rails_blob_url(file, only_path: true),
+        downloadUrl: url_helper.api_v1_download_course_section_file_path(id: self.course.id, course_section_id: self.id, only_path: true),
+        fileUrl: url_helper.api_v1_serve_course_section_file_path(id: self.course.id, course_section_id: self.id, file_name: file_blob.filename.to_s, only_path: true),
         size: number_to_human_size(file_blob.byte_size),
         content_type: file_blob.content_type,
         filename: file_blob.filename.to_s

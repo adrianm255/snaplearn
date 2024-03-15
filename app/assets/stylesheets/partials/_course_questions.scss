@@ -2,43 +2,6 @@
   max-width: 100%;
   width: max-content;
   padding: 0;
-  
-  .course-question-box {
-    width: 38rem;
-    height: 44rem;
-    max-width: calc(100vw - 2rem);
-    max-height: calc(100vh - 2rem);
-
-    display: flex;
-    flex-direction: column;
-    font-size: 1rem;
-
-    & > *:first-child {
-      display: flex;
-      flex-direction: column-reverse;
-      flex-grow: 1;
-      overflow-y: auto;
-    }
-    
-    & > h4:first-child {
-      flex-direction: column;
-    }
-    & > form {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 1rem;
-      align-items: flex-start;
-      padding-top: 1rem;
-      padding: 1rem;
-    }
-  }
-
-  .questions-container {
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 2rem;
-    padding: 1rem;
-  }
 }
 
 .course-question-box .question {
@@ -63,7 +26,7 @@
   flex-direction: column;
   font-size: 1rem;
 
-  & > #questionsContainer {
+  & > *:first-child {
     display: flex;
     flex-direction: column-reverse;
     flex-grow: 1;

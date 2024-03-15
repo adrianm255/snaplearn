@@ -89,7 +89,7 @@ const CourseSectionSummary: React.FC<{
           </div>
         </div>
         <div className="actions">
-          {allowDownload && isFileSection && <a role="button" className={buttonVariants({ variant: "outline" })} href={courseSection.fileData?.url}>Download</a>}
+          {allowDownload && isFileSection && <a role="button" className={buttonVariants({ variant: "outline" })} href={courseSection.fileData?.downloadUrl}>Download</a>}
           {!isExpanded && <Button role="button" variant="secondary" onClick={handleAction}>
             {(courseSection.sectionType === CourseSectionType.Video) ? "Watch" : "Read"}
           </Button>}
