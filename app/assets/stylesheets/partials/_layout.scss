@@ -110,15 +110,15 @@ main.course-detail .course-content {
       padding: 2rem #{'calc(max((100% - 66rem) / 2, 4rem))'};
   }
   main.explore > * {
-    padding: 2rem #{'max((100% - 74rem) / 2, 4rem)'};
+    padding: 2rem #{'calc(max((100% - 74rem) / 2, 4rem))'};
   }
   main.course-detail > header {
     padding: 2rem var(--course-detail-padding);
-    padding-left: #{'max(calc(var(--course-detail-padding) + 6rem), calc(var(--course-nav-width) + 4rem))'};
+    padding-left: #{'calc(max(calc(var(--course-detail-padding) + 6rem), calc(var(--course-nav-width) + 4rem)))'};
   }
   main.course-detail .course-content {
     padding: 2rem var(--course-detail-padding);
-    padding-left: #{'max(calc(var(--course-detail-padding) + 6rem - var(--course-nav-width)), 4rem)'};
+    padding-left: #{'calc(max(calc(var(--course-detail-padding) + 6rem - var(--course-nav-width)), 4rem))'};
   }
   body > * > header,
   main > header {
