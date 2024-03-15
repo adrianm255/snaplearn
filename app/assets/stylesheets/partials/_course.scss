@@ -40,13 +40,6 @@ main.course-detail {
     }
   }
 
-  nav.course-nav {
-    width: var(--course-nav-width);
-    a {
-      justify-content: start;
-    }
-  }
-
   & > *:not(:first-child) {
     padding: 0;
     @extend .grid-container;

@@ -20,6 +20,12 @@ nav {
     padding: 1rem;
     line-height: 1;
 
+    &.footer-navbar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(2rem, 1fr));
+      border-top: 1px solid var(--border-color);
+    }
+
     h1 {
       font-size: 1.25rem;
       line-height: 1.2;
@@ -92,26 +98,38 @@ nav {
       display: grid;
     }
   }
+}
 
+nav.course-nav {
+  grid-row: 4;
+  width: 100vw;
+  a {
+    justify-content: start;
+  }
 }
 
 @media(min-width: $screen-lg) {
-  nav {
-      grid-row:span 2;
-      grid-column: -3;
+  nav,
+  nav.course-nav {
+    grid-row: span 2;
+    grid-column: -3;
 
-      &.open {
-        position: static;
-        width: 12.8125rem;
-      }
+    &.open {
+      position: static;
+      width: 12.8125rem;
+    }
 
-      .navbar {
-        display: none;
-      }
+    .navbar {
+      display: none;
+    }
 
-      header, section, footer {
-        display: grid;
-      }
+    header, section, footer {
+      display: grid;
+    }
+  }
+
+  nav.course-nav {
+    width: var(--course-nav-width);
   }
 }
 

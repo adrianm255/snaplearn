@@ -10,8 +10,9 @@ import { useStore } from "@/hooks-store/store";
 import { Button } from "@/common/components/ui/button";
 import { ArrowDownRightFromSquare, MessageCircleQuestion, X } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/common/components/ui/popover";
+import { useMediaQuery } from "react-responsive";
 
-const CourseQuestionButton: React.FC = () => {
+const CourseQuestionButton: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const state = useStore()[0];
   const course: Course = state.course;
   const courseQuestionsCount: number = state.courseQuestionsCount;
@@ -96,15 +97,26 @@ const CourseQuestionButton: React.FC = () => {
     } catch (e) {}
   };
 
+  const isDesktop = useMediaQuery({
+    query: '(min-width: 1024px)'
+  })
+  const popoverContentProps: any = isDesktop
+    ? {
+      align: "start",
+      side: "left"
+    }
+    : {
+      align: "center",
+      sideOffset: 16,
+      side: "top"
+    };
+
   return (<>
     <Popover open={isQuestionBoxOpen} onOpenChange={setIsQuestionBoxOpen}>
       <PopoverTrigger asChild>
-        <Button variant="ghost" className="w-full text-muted-foreground font-normal justify-start" >
-          <MessageCircleQuestion className="mr-2 w-4 h-4" />
-          Quick question
-        </Button>
+        {children}
       </PopoverTrigger>
-      <PopoverContent align="start" side="left" onPointerDownOutside={e => e.preventDefault()}>
+      <PopoverContent {...popoverContentProps} onPointerDownOutside={e => e.preventDefault()}>
         <div className="flex flex-row justify-end gap-3 pb-2">
           <Button variant="base" size="icon" className="h-4 w-4 opacity-70">
             <ArrowDownRightFromSquare className="h-4 w-4" />

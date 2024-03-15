@@ -5,7 +5,7 @@ import CourseQuestionButton from "../CourseQuestion/CourseQuestionButton";
 import CourseSectionSummary from "./CourseSectionSummary";
 import { useStore } from "@/hooks-store/store";
 import { Button, buttonVariants } from "@/common/components/ui/button";
-import { Book, FileQuestion, Home, NotebookPen, Pencil, Search } from "lucide-react";
+import { Book, FileQuestion, Home, MessageCircleQuestion, NotebookPen, Pencil, Search } from "lucide-react";
 import { CourseDetailStoreAction } from "@/hooks-store/courseDetailStore";
 
 const CourseDetail: React.FC = () => {
@@ -38,7 +38,39 @@ const CourseDetail: React.FC = () => {
 
       <div>
         <nav className="course-nav border-r">
+          <div className="navbar footer-navbar text-muted-foreground">
+            {/* TODO this is hardcoded as active for now */}
+            <div className="w-full flex items-center justify-center text-secondary-foreground">
+              <Button variant="ghost" size="icon" onClick={() => {}}>
+                <Book className="w-8 h-8" />
+              </Button>
+            </div>
+            <div className="w-full flex items-center justify-center">
+              <Button variant="ghost" size="icon" onClick={() => {}}>
+                <NotebookPen className="w-8 h-8" />
+              </Button>
+            </div>
+            <div className="w-full flex items-center justify-center">
+              <CourseQuestionButton>
+                <Button variant="ghost" size="icon">
+                  <MessageCircleQuestion className="w-8 h-8" />
+                </Button>
+              </CourseQuestionButton>
+            </div>
+            <div className="w-full flex items-center justify-center">
+              <Button variant="ghost" size="icon" onClick={() => {}}>
+                <FileQuestion className="w-8 h-8" />
+              </Button>
+            </div>
+            <div className="w-full flex items-center justify-center">
+              <a className={`${buttonVariants({ variant: "ghost" })}`} href="/dashboard">
+                <Home className="w-8 h-8" />
+              </a>
+            </div>
+          </div>
+
           <section className="mt-8">
+            {/* TODO this is hardcoded as active for now */}
             <Button variant="ghost" className="w-full font-md text-secondary-foreground justify-start" onClick={() => {}}>
               <Book className="mr-2 w-4 h-4" />
               Course
@@ -49,7 +81,12 @@ const CourseDetail: React.FC = () => {
             </Button>
           </section>
           <section>
-            <CourseQuestionButton />
+            <CourseQuestionButton>
+              <Button variant="ghost" className="w-full text-muted-foreground font-normal justify-start" >
+                <MessageCircleQuestion className="mr-2 w-4 h-4" />
+                Quick question
+              </Button>
+            </CourseQuestionButton>
             <Button variant="ghost" className="w-full text-muted-foreground font-normal justify-start" onClick={() => {}}>
               <FileQuestion className="mr-2 w-4 h-4" />
               Questions
