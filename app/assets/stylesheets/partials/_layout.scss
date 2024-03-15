@@ -107,10 +107,10 @@ main.course-detail .course-content {
 
 @media(min-width: $screen-lg) {
   body > * > header, header.sticky, main > * {
-      padding: 2rem #{'max((100% - 66rem) / 2, 4rem)'};
+      padding: 2rem unquote("max((100% - 66rem) / 2, 4rem)");
   }
   main.explore > * {
-    padding: 2rem #{'max((100% - 74rem) / 2, 4rem)'};
+    padding: 2rem #{'calc(max((100% - 74rem) / 2, 4rem))'};
   }
   main.course-detail > header {
     padding: 2rem var(--course-detail-padding);
