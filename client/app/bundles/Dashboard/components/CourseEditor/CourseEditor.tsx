@@ -1,6 +1,5 @@
 import React from 'react';
 import { Course } from '../../../../types/course';
-import { Tab, TabList, TabPanel, Tabs } from '../../../../common/components/Tabs/Tabs';
 import useTranslation from '../../../../libs/i18n/useTranslation';
 import CourseEditorDetails from './CourseEditorDetails';
 import CourseEditorContent from './CourseEditorContent';
@@ -9,8 +8,11 @@ import { publishCourse, unpublishCourse, updateCourse } from '../../../../servic
 import { clientFormatToServerFormat, serverFormatToClientFormat } from '../../../../helpers/dataMapper';
 import { convertToFormData } from '../../../../helpers/formDataHelper';
 import { CourseEditorStoreAction } from '../../../../hooks-store/courseEditorStore';
-import Button from '../../../../common/components/Button/Button';
 import { ToastStoreAction } from '../../../../hooks-store/toastStore';
+import { Button } from '@/common/components/ui/button';
+import { Loader2 } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/common/components/ui/tabs';
+import DashboardHeader from '../DashboardHeader/DashboardHeader';
 
 const CourseEditor: React.FC = () => {
   const { t } = useTranslation();
@@ -85,29 +87,31 @@ const CourseEditor: React.FC = () => {
     }
   };
   
-  return <Tabs>
-    <header className="dashboard-header sticky">
+  return <>
+    <DashboardHeader>
       <h1>{course.title}</h1>
       <div className="actions">
-        <Button type="button" isLoading={isSaveButtonLoading} disabled={isSaveButtonLoading || isPublishButtonLoading} onClick={saveCourseChanges}>{t('course_editor.save_changes_label')}</Button>
-        <Button type="button" isLoading={isPublishButtonLoading} disabled={isSaveButtonLoading || isPublishButtonLoading} buttonClass="accent" onClick={course.published ? handleCourseUnpublish : handleCoursePublish}>
+        <Button variant="secondary" type="button" disabled={isSaveButtonLoading || isPublishButtonLoading} onClick={saveCourseChanges}>
+          {isSaveButtonLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {t('course_editor.save_changes_label')}
+        </Button>
+        <Button variant="highlight" type="button" disabled={isSaveButtonLoading || isPublishButtonLoading} onClick={course.published ? handleCourseUnpublish : handleCoursePublish}>
+          {isPublishButtonLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {course.published ? t('course_editor.unpublish_label') : t('course_editor.publish_label')}
         </Button>
       </div>
-      <TabList>
-        <Tab tabId="courseTab">{t('course_editor.course_tab_label')}</Tab>
-        <Tab tabId="contentTab">{t('course_editor.content_tab_label')}</Tab>
-      </TabList>
-    </header >
+    </DashboardHeader>
+    
     <main className="content course-editor">
-      <TabPanel tabId="courseTab">
-        <CourseEditorDetails />
-      </TabPanel>
-      <TabPanel tabId="contentTab">
-        <CourseEditorContent />
-      </TabPanel>
+      <Tabs defaultValue="courseTab">
+        <TabsList>
+          <TabsTrigger value="courseTab">{t('course_editor.course_tab_label')}</TabsTrigger>
+          <TabsTrigger value="contentTab">{t('course_editor.content_tab_label')}</TabsTrigger>
+        </TabsList>
+        <TabsContent value="courseTab"><CourseEditorDetails /></TabsContent>
+        <TabsContent value="contentTab"><CourseEditorContent /></TabsContent>
+      </Tabs>
     </main>
-  </Tabs>;
-};
+</>};
 
 export default CourseEditor;

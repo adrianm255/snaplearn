@@ -1,9 +1,13 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, forwardRef, lazy, useImperativeHandle, useRef } from 'react';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import { Textarea } from '../ui/textarea';
 
 interface FieldProps {
   type: FieldType;
   name: string;
   label?: string;
+  description?: string;
   placeholder?: string;
   value?: string | number;
   onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -16,17 +20,38 @@ export enum FieldType {
   Email = 'email',
   Password = 'password',
   Textarea = 'textarea',
-  RichText = 'rich_text'
+  RichText = 'rich_text',
+  File = 'file',
 };
 
+export type FieldHandle = {
+  openFileDialog: () => void;
+  clear: () => void;
+};
+
+// TODO use helper
 const ReactQuill = lazy(() => import('../../components/RichText/RichText'));
 
-const Field: React.FC<FieldProps> = ({ type, name, label, placeholder, value, onChange, ...inputProps }) => {
+const Field = forwardRef<FieldHandle, FieldProps>(({ type, name, label, description, placeholder, value, onChange, ...inputProps }, ref) => {
+  const inputRef = useRef<any>(null);
+
+  useImperativeHandle(ref, () => ({
+    openFileDialog: () => {
+      inputRef.current?.click();
+    },
+    clear: () => {
+      if (inputRef.current) {
+        inputRef.current.value = '';
+      }
+    },
+  }));
+  
   const isInputField = (): boolean => {
-    return [FieldType.Text, FieldType.Number, FieldType.Email, FieldType.Password].includes(type);
+    return [FieldType.Text, FieldType.Number, FieldType.Email, FieldType.Password, FieldType.File].includes(type);
   };
 
   const commonProps = {
+    ref: inputRef,
     name,
     id: name,
     placeholder,
@@ -37,22 +62,22 @@ const Field: React.FC<FieldProps> = ({ type, name, label, placeholder, value, on
   };
 
   return (
-    <fieldset>
-      {label && <legend>
-        <label className="top-level-label" htmlFor={name}>{label}</label>
-      </legend>}
+    <div className="flex flex-col gap-3">
+      {label && <Label htmlFor={name}>{label}</Label>}
 
-      {isInputField() && <input type={type} { ...commonProps } />}
+      {isInputField() && <Input type={type} { ...commonProps } />}
 
-      {type === FieldType.Textarea && <textarea { ...commonProps }></textarea>}
+      {type === FieldType.Textarea && <Textarea { ...commonProps }></Textarea>}
 
       {type === FieldType.RichText &&
         <Suspense fallback={<div>Loading text editor...</div>}>
           <ReactQuill value={value} onChange={onChange} />
         </Suspense>
       }
-    </fieldset>
+
+      {description && <p className="text-sm text-muted-foreground">{description}</p>}
+    </div>
   );
-};
+});
 
 export default Field;

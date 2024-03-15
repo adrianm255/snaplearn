@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --body-bg: 0 0% 100%;
+
+    --background: 20 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 51, 100%, 42%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+
+    --input: 214.3 31.8% 91.4%;
+    --input-bg: 0 0% 100%;
+
+    --ring: 222.2 84% 4.9%;
+
+    --highlight: 177 50% 46%;
+    --highlight-foreground: 222.2 84% 4.9%;
+ 
+    --radius: 0.25rem;
+
+    
+    /* FOR USE IN SCSS */
+    --body-bg-color: hsl(var(--body-bg));
+
+    --background-color: hsl(var(--background));
+    --foreground-color: hsl(var(--foreground));
+
+    --card-color: hsl(var(--card));
+    --card-foreground-color: hsl(var(--card-foreground));
+
+    --popover-color: hsl(var(--popover));
+    --popover-foreground-color: hsl(var(--popover-foreground));
+
+    --primary-color: hsl(var(--primary));
+    --primary-foreground-color: hsl(var(--primary-foreground));
+
+    --secondary-color: hsl(var(--secondary));
+    --secondary-foreground-color: hsl(var(--secondary-foreground));
+
+    --muted-color: hsl(var(--muted));
+    --muted-foreground-color: hsl(var(--muted-foreground));
+
+    --accent-color: hsl(var(--accent));
+    --accent-foreground-color: hsl(var(--accent-foreground));
+
+    --destructive-color: hsl(var(--destructive));
+    --destructive-foreground-color: hsl(var(--destructive-foreground));
+
+    --border-color: hsl(var(--border));
+
+    --input-color: hsl(var(--input));
+    --input-bg-color: hsl(var(--input-bg));
+
+    --ring-color: hsl(var(--ring));
+
+    --highlight-color: hsl(var(--highlight));
+    --highlight-foreground-color: hsl(var(--highlight-foreground));
+  }
+
+  @media(prefers-color-scheme: dark) {
+    :root {
+      --body-bg: 0 0% 7%;
+
+      --background: 0 0% 7%;
+      --foreground: 0 0% 98%;
+
+      --card: 240 10% 3.9%;
+      --card-foreground: 0 0% 98%;
+
+      --popover: 240 10% 3.9%;
+      --popover-foreground: 0 0% 98%;
+
+      --primary: 0 0% 98%;
+      --primary-foreground: 240 5.9% 10%;
+
+      --secondary: 240 3.7% 15.9%;
+      --secondary-foreground: 0 0% 98%;
+
+      --muted: 240 3.7% 15.9%;
+      --muted-foreground: 240 5% 64.9%;
+
+      --accent: 240 3.7% 15.9%;
+      --accent-foreground: 0 0% 98%;
+
+      --destructive: 0 62.8% 30.6%;
+      --destructive-foreground: 0 85.7% 97.3%;
+
+      --border: 240 3.7% 20.9%;
+
+      --input: 240 3.7% 20.9%;
+      --input-bg: 228 19% 5%;
+      
+      --ring: 240 4.9% 83.9%;
+    }
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

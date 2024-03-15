@@ -1,3 +1,4 @@
+import { FileText, FileVideo, NotepadText } from "lucide-react";
 import { CourseSectionType } from "../types/course";
 
 export const getSectionIconClass = (courseSectionType: CourseSectionType): string => {
@@ -10,5 +11,18 @@ export const getSectionIconClass = (courseSectionType: CourseSectionType): strin
       return 'icon-camera-video-fill';
     default:
       return '';
+  }
+};
+
+export const getSectionIcon = (courseSectionType: CourseSectionType): any => {
+  switch (courseSectionType) {
+    case CourseSectionType.RichText:
+      return NotepadText;
+    case CourseSectionType.Pdf:
+      return FileText;
+    case CourseSectionType.Video:
+      return FileVideo;
+    default:
+      return null;
   }
 };

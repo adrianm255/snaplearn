@@ -1,0 +1,138 @@
+@import "variables";
+
+body > * > header,
+main > header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 2rem;
+  border-bottom: 1px solid var(--border-color);
+
+  & > * {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr auto;
+    gap: 1rem .75rem;
+  }
+
+  &.sticky {
+    grid-column: 1 / span 2;
+    grid-row: -3;
+    & > * {
+      & > h1 {
+        display: none;
+      }
+    }
+  }
+}
+
+main {
+  overflow: auto;
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  & > * {
+    padding: 2rem;
+  }
+}
+
+ul {
+  &.inline {
+    & > li {
+      display: inline;
+      &:not(:last-child)::after {
+        content: " \b7  ";
+      }
+    }
+  }
+}
+
+.actions {
+  gap: .5rem;
+}
+
+header .actions {
+  gap: var(--spacer-4);
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+
+  @media(min-width: $screen-lg) {
+    display: flex;
+    flex-direction: row;
+    grid-column: unset;
+  }
+}
+
+.collapsible {
+  &.with-actions {
+    & > * {
+      &:first-child {
+        flex-wrap: wrap;
+      }
+      .content {
+        flex-basis: min-content;
+        & > *:first-child {
+          flex-shrink: 0;
+        }
+      }
+      .actions {
+        flex-basis: 100%;
+        display: grid;
+        justify-content: flex-end;
+        &:not(:where(.course-editor *)) {
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+        & .icon-button {
+          grid-column: none;
+        }
+
+        @media(min-width: $screen-md) {
+          justify-content: flex-end;
+          display: flex;
+        }
+        @media(min-width: $screen-lg) {
+          flex-basis: unset;
+          display: flex;
+        }
+      }
+    }
+  }
+}
+
+main.course-detail .course-content {
+  padding: 2rem;
+}
+
+@media(min-width: $screen-lg) {
+  body > * > header, header.sticky, main > * {
+      padding: 2rem #{'max((100% - 66rem) / 2, 4rem)'};
+  }
+  main.explore > * {
+    padding: 2rem #{'max((100% - 74rem) / 2, 4rem)'};
+  }
+  main.course-detail > header {
+    padding: 2rem var(--course-detail-padding);
+    padding-left: #{'max(calc(var(--course-detail-padding) + 6rem), calc(var(--course-nav-width) + 4rem))'};
+  }
+  main.course-detail .course-content {
+    padding: 2rem var(--course-detail-padding);
+    padding-left: #{'max(calc(var(--course-detail-padding) + 6rem - var(--course-nav-width)), 4rem)'};
+  }
+  body > * > header,
+  main > header {
+    &.sticky {
+      & > * > h1 {
+        display: initial;
+      }
+    }
+  }
+}
+
+@media print {
+  main {
+      overflow: initial;
+  }
+}
+

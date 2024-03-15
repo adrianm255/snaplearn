@@ -1,0 +1,171 @@
+@import "variables";
+
+nav {
+  grid-row: -4;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  font-size: 1rem;
+  line-height: 1.5;
+  --line-height: 1.5rem;
+
+  .navbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: .75rem;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    --line-height: 2rem;
+    padding: 1rem;
+    line-height: 1;
+
+    &.footer-navbar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(2rem, 1fr));
+      border-top: 1px solid var(--border-color);
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      line-height: 1.2;
+      width: 100%;
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .logo-full {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    --line-height: 3rem;
+    width: 100%;
+  }
+
+  a {
+    -webkit-text-decoration: none;
+    text-decoration: none;
+  }
+  
+  header {
+    display: none;
+    padding: 2rem 1.5rem;
+  }
+  
+  section, footer {
+    display: none;
+  }
+
+  section {
+    margin-bottom: 2rem;
+  }
+
+  section > a, footer > a {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+
+    .icon {
+      margin-right: 1rem;
+    }
+  }
+
+  section>a[aria-current=page],
+  section>a:hover,
+  footer>a[aria-current=page],
+  footer>a:hover {
+    color: var(--highlight-color);
+  }
+
+  footer {
+    margin-top: auto;
+  }
+
+  &.open {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+
+    & section, & footer {
+      display: grid;
+    }
+  }
+}
+
+nav.course-nav {
+  grid-row: 4;
+  width: 100vw;
+  a {
+    justify-content: start;
+  }
+}
+
+@media(min-width: $screen-lg) {
+  nav,
+  nav.course-nav {
+    grid-row: span 2;
+    grid-column: -3;
+
+    &.open {
+      position: static;
+      width: 12.8125rem;
+    }
+
+    .navbar {
+      display: none;
+    }
+
+    header, section, footer {
+      display: grid;
+    }
+  }
+
+  nav.course-nav {
+    width: var(--course-nav-width);
+  }
+}
+
+@media print {
+  nav {
+      display: none
+  }
+}
+
+/* TEMPORARY */
+
+nav.open {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 10
+}
+
+nav.open section,nav.open footer {
+  display: grid
+}
+
+nav > footer .user-info {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.5rem;
+  // border-top: 1px solid var(--border-color);
+}
+
+nav > footer .user-info > * {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+nav .logo {
+  font-size: 2rem;
+  width: 100%;
+}

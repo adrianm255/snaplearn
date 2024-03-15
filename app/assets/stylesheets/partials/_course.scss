@@ -1,0 +1,91 @@
+@import "variables";
+@import "mixins";
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+article.course-card {
+  position: relative;
+  border: 1px solid var(--border-color);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  header {
+    padding: 1rem;
+    display: grid;
+    grid-template-rows: 1fr;
+    gap: 0.5rem;
+
+    a {
+      position: relative;
+    }
+  }
+}
+
+main.course-detail {
+  @extend .grid-container;
+
+  & > header {
+    & > * {
+      & > h1 {
+        display: initial !important;
+      }
+      & > .actions {
+        display: flex;
+        grid-column: initial;
+      }
+    }
+  }
+
+  & > *:not(:first-child) {
+    padding: 0;
+    @extend .grid-container;
+  }
+
+  .course-detail-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.5rem;
+    a {
+      text-decoration: none;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: .25rem;
+    }
+  }
+
+  .course-content {
+    overflow: auto;
+  }
+}
+
+.course-section-full-screen {
+  --dialog-height: 100vh;
+  --dialog-width: 100vw;
+  height: var(--dialog-height);
+  width: var(--dialog-width);
+  max-width: unset;
+  padding: 0;
+  max-width: 1200px;
+
+  @media (min-width: $screen-lg) {
+    --dialog-height: calc(100vh - 2rem);
+    --dialog-width: calc(100vw - 2rem);
+  }
+
+  .course-section-page {
+    height: calc(var(--dialog-height) - 2px);
+  }
+}
+
+.course-section-descriptions {
+  &.expanded {
+    overflow-y: auto;
+    max-height: 14rem;
+  }
+}

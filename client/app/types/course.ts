@@ -27,7 +27,8 @@ export type CourseSection = {
     contentType: string;
     filename: string;
     size: number;
-    url: string;
+    downloadUrl: string;
+    fileUrl: string;
   };
   isExpanded?: boolean;
   isHighlighted?: boolean;

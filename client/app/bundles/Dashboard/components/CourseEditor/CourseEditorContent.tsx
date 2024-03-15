@@ -1,15 +1,18 @@
 import React, { useRef, useState } from 'react';
 import { useStore } from '../../../../hooks-store/store';
 import { CourseEditorStoreAction } from '../../../../hooks-store/courseEditorStore';
-import CourseSection from './CourseSection/CourseSection';
-import DropdownButton from '../../../../common/components/DropdownButton/DropdownButton'
+import CourseSection from './CourseSection';
 import { CourseSectionType } from '../../../../types/course';
-import { getSectionIconClass } from '../../../../helpers/courseHelper';
+import { getSectionIcon } from '../../../../helpers/courseHelper';
 import useTranslation from '../../../../libs/i18n/useTranslation';
 import FileInput, { FileInputHandle } from '../../../../common/components/FileInput/FileInput';
+import { Popover, PopoverContent, PopoverTrigger } from '@/common/components/ui/popover';
+import { Button } from '@/common/components/ui/button';
+import { PlusCircle, Upload } from 'lucide-react';
 
 const CourseEditorContent: React.FC = () => {
   const [ state, dispatch ] = useStore();
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const { t } = useTranslation();
   const fileInputRef = useRef<FileInputHandle>(null);
   
@@ -25,6 +28,7 @@ const CourseEditorContent: React.FC = () => {
   };
 
   const handleAddSection = (sectionType: CourseSectionType) => {
+    setIsPopoverOpen(false);
     dispatch(CourseEditorStoreAction.AddCourseSection, {
       sectionType,
       title: t('course_section.new_section_title'),
@@ -32,6 +36,7 @@ const CourseEditorContent: React.FC = () => {
   };
 
   const handleAddSectionFromFile = (files: FileList) => {
+    setIsPopoverOpen(false);
     Array.from(files).forEach((file, i) => {
       const sectionType = file.type.includes('pdf') ? CourseSectionType.Pdf : CourseSectionType.Video;
       const fileName = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
@@ -50,31 +55,38 @@ const CourseEditorContent: React.FC = () => {
     });
   };
 
-  return (<div className="course-sections">
+  return (<div className="course-sections flex flex-col gap-4">
     {course.courseSections.map(section => (
       <CourseSection key={section.id} courseSectionId={section.id} expanded={section.isNew}/>
     ))}
 
-    <DropdownButton key={course.courseSections?.length}>
-      <DropdownButton.Button>
-        <span className="icon icon-plus-circle"></span>
-        <span className="content">{t('course_editor.add_section_label')}</span>
-      </DropdownButton.Button>
-      <DropdownButton.Dropdown>
-        <div className="tab-buttons small" role="tablist">
-          {Object.values(CourseSectionType).map(csType => (
-            <button key={csType} role="tab" onClick={() => handleAddSection(csType)}>
-              <span className={"icon " + getSectionIconClass(csType)}></span>
-              {t(`course_section.type.${csType}_label`)}
-            </button>
-          ))}
-          <button role="tab" onClick={() => openFileUploadDialog()}>
-            <span className="icon icon-upload"></span>
-            {t('course_editor.add_section_from_file_label')}
-          </button>
+    <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+      <PopoverTrigger asChild>
+        <Button className="w-fit" variant="outline">
+          <PlusCircle className="mr-2 h-4 w-4" />
+          {t('course_editor.add_section_label')}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent align="start">
+        <div className="grid grid-cols-3 gap-3">
+          {Object.values(CourseSectionType).map(csType => {
+            const SectionIcon = getSectionIcon(csType)
+            return <Button className="h-auto" variant="outline" key={csType} onClick={() => handleAddSection(csType)}>
+              <div className="flex flex-col gap-2 items-center justify-center text-sm">
+                <SectionIcon />
+                {t(`course_section.type.${csType}_label`)}
+              </div>
+            </Button>
+          })}
+          <Button variant="outline" className="col-span-3 h-auto" onClick={() => openFileUploadDialog()}>
+            <div className="flex flex-col gap-2 items-center justify-center text-sm">
+              <Upload />
+              {t('course_editor.add_section_from_file_label')}
+            </div>
+          </Button>
         </div>
-      </DropdownButton.Dropdown>
-    </DropdownButton>
+      </PopoverContent>
+    </Popover>
 
     <FileInput
       ref={fileInputRef}
