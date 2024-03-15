@@ -138,6 +138,6 @@ a.stretched-link::before {
 }
 
 main.login-form form {
-  padding: 2rem max((100% - 44rem) / 2, 2rem);
+  padding: 2rem calc(max((100% - 44rem) / 2, 2rem));
   border-bottom: 1px solid var(--border-color);
 }
