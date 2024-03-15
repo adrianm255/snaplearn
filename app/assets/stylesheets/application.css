@@ -58,7 +58,7 @@ body {
   --line-height: 1.1375rem;
   /* TODO */
   /* font-family: var(--font-family); */
-  background-color: hsl(var(--body-bg));
+  background-color: var(--body-bg-color);
   -webkit-font-smoothing: antialiased;
 }
 
