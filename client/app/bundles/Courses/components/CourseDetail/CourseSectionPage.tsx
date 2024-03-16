@@ -43,9 +43,9 @@ const CourseSectionPage: React.FC<CourseSectionPageProps> = ({ course, initialCo
 
   return (
     <div ref={setContainer} className="course-section-page flex flex-col">
-      <header className="bg-secondary text-secondary-foreground px-16 py-6">
+      <header className="bg-secondary text-secondary-foreground px-16 py-4 lg:py-6">
         <Sheet modal={false} open={isSectionListOpen} onOpenChange={setIsSectionListOpen}>
-          <SheetTrigger className="absolute top-4 left-0" asChild>
+          <SheetTrigger className="absolute top-2 lg:top-4 left-0" asChild>
             <Button variant="ghost" size="icon" onClick={() => setIsSectionListOpen(!isSectionListOpen)}>
               <Menu />
             </Button>
@@ -78,7 +78,7 @@ const CourseSectionPage: React.FC<CourseSectionPageProps> = ({ course, initialCo
       </header>
       <div className="flex flex-row border-t">
         <div className="h-full w-20">{prevSection && getNavButton('prev', prevSection)}</div>
-        <h3 className="flex grow justify-center p-4">{courseSection?.title}</h3>
+        <h3 className="flex grow justify-center p-2 lg:p-4">{courseSection?.title}</h3>
         <div className="h-full w-20">{nextSection && getNavButton('next', nextSection)}</div>
       </div>
       <div className="flex flex-col grow overflow-hidden">

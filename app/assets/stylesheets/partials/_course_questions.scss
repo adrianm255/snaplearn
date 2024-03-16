@@ -19,8 +19,8 @@
 .course-question-box {
   width: 38rem;
   height: 44rem;
-  max-width: calc(100vw - 2rem);
-  max-height: calc(100vh - 2rem);
+  max-width: calc(var(--popover-available-width) - 2rem);
+  max-height: calc(var(--popover-available-height) - 3.5rem);
 
   display: flex;
   flex-direction: column;
