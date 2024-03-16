@@ -126,7 +126,7 @@ const CourseQuestionButton: React.FC<{ children: React.ReactNode }> = ({ childre
           </Button>
         </div>
         <div className="course-question-box">
-          {questions.length === 0 && <h4>You have no questions for this course yet.</h4>}
+          {questions.length === 0 && <h4 className="px-4 text-muted-foreground">You have no questions for this course yet.</h4>}
           {questions.length > 0 && <div id="questionsContainer">
             <InfiniteScroll
               dataLength={questions.length}
