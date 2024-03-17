@@ -1,14 +1,14 @@
 import React from 'react';
-import { Course } from '../../../../types/course';
-import useTranslation from '../../../../libs/i18n/useTranslation';
+import { Course } from '@/types/course';
+import useTranslation from '@/libs/i18n/useTranslation';
 import CourseEditorDetails from './CourseEditorDetails';
 import CourseEditorContent from './CourseEditorContent';
-import { useStore } from '../../../../hooks-store/store';
-import { publishCourse, unpublishCourse, updateCourse } from '../../../../services/courseService';
-import { clientFormatToServerFormat, serverFormatToClientFormat } from '../../../../helpers/dataMapper';
-import { convertToFormData } from '../../../../helpers/formDataHelper';
-import { CourseEditorStoreAction } from '../../../../hooks-store/courseEditorStore';
-import { ToastStoreAction } from '../../../../hooks-store/toastStore';
+import { useStore } from '@/hooks-store/store';
+import { publishCourse, unpublishCourse, updateCourse } from '@/services/courseService';
+import { clientFormatToServerFormat, serverFormatToClientFormat } from '@/helpers/dataMapper';
+import { convertToFormData } from '@/helpers/formDataHelper';
+import { CourseEditorStoreAction } from '@/hooks-store/courseEditorStore';
+import { ToastStoreAction } from '@/hooks-store/toastStore';
 import { Button } from '@/common/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/common/components/ui/tabs';
@@ -37,7 +37,7 @@ const CourseEditor: React.FC = () => {
       errorToDisplay = `Content ${errors['course_sections.content'][0]}`;
     }
     if (errorToDisplay !== '') {
-      dispatch(ToastStoreAction.ShowToast, { message: errorToDisplay, type: 'danger' });
+      dispatch(ToastStoreAction.ShowToast, { message: errorToDisplay, type: 'destructive' });
     }
   };
 

@@ -103,7 +103,7 @@ const CourseQuestionButton: React.FC<{ children: React.ReactNode }> = ({ childre
   const popoverContentProps: any = isDesktop
     ? {
       align: "start",
-      side: "left"
+      side: "right"
     }
     : {
       align: "center",

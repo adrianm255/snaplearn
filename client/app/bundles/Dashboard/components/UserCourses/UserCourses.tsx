@@ -16,11 +16,17 @@ import { Eye, Pencil, Trash2, Image } from 'lucide-react';
 import { Button } from '@/common/components/ui/button';
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/common/components/ui/alert-dialog';
 import DashboardHeader from '../DashboardHeader/DashboardHeader';
+import { useStore } from '@/hooks-store/store';
+import { ToastStoreAction } from '@/hooks-store/toastStore';
 
 const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
   const { t } = useTranslation();
+  const dispatch = useStore()[1];
   const [userCourses, setUserCourses] = useState<Course[]>(courses);
   const [courseToDelete, setCourseToDelete] = useState<Course | null>(null);
+
+  const handleError = (message: string) => dispatch(ToastStoreAction.ShowToast, { message: message, type: 'destructive' });
+  const handleSuccess = (message: string) => dispatch(ToastStoreAction.ShowToast, { message: message, type: 'success' });
 
   const handleNewCourseFormSubmit = async (title: string) => {
     try {
@@ -28,8 +34,10 @@ const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
       const response = await createCourse(payload);
 
       window.location.href = `/course/${response.id}/edit`;
-    } catch (e) {
       // TODO
+      // handleSuccess('Course was successfully created');
+    } catch (e) {
+      handleError('Failed to create course');
     }
   };
 
@@ -40,8 +48,9 @@ const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
       setUserCourses(prevUserCourses => {
         return prevUserCourses.filter(course => course.id !== courseId);
       });
+      handleSuccess('Course was successfully deleted');
     } catch (e) {
-      // TODO
+      handleError('Failed to delete course');
     }
   };
 
@@ -103,9 +112,9 @@ const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
       <AlertDialog open={!!courseToDelete} onOpenChange={(isOpen) => {!isOpen && closeDeleteDialog()}}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle><h2>{t('user_courses.delete_course_title')}</h2></AlertDialogTitle>
+            <AlertDialogTitle>{t('user_courses.delete_course_title')}</AlertDialogTitle>
             <AlertDialogDescription>
-              <h4>{t('delete_warning', { name: courseToDelete?.title || '' })}</h4>
+              {t('delete_warning', { name: courseToDelete?.title || '' })}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

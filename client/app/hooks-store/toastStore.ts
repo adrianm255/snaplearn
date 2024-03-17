@@ -18,7 +18,7 @@ type ToastOptions = {
 const configureStore = (initialState: ToastStore) => {
   const actions = {
     [ToastStoreAction.ShowToast]: (curState: any, toastOptions: Partial<ToastOptions>) => {
-      return { toast: {...curState.toast, visible: true, timeout: toastOptions?.timeout || (toastOptions?.type === 'danger' ? 5000 : 3000), ...toastOptions} };
+      return { toast: {...curState.toast, visible: true, timeout: toastOptions?.timeout || (toastOptions?.type === 'destructive' ? 5000 : 3000), ...toastOptions} };
     },
   };
   initStore(actions, { ...initialState });

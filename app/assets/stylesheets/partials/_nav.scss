@@ -62,7 +62,7 @@ nav {
     margin-bottom: 2rem;
   }
 
-  section > a, footer > a {
+  section > a, footer > a, footer > button {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -156,7 +156,6 @@ nav > footer .user-info {
   display: flex;
   flex-direction: column;
   padding: 1rem 1.5rem;
-  // border-top: 1px solid var(--border-color);
 }
 
 nav > footer .user-info > * {

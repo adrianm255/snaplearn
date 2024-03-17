@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { logout } from '../../../../services/sessionService';
-import { Bookmark, Circle, Home, LibraryBig, Menu, Search, X } from 'lucide-react';
+import { Bookmark, Circle, Home, LibraryBig, LogOut, Menu, Search, Settings, User, X } from 'lucide-react';
 import { useStore } from '../../../../hooks-store/store';
-import { Separator } from '../../../../common/components/ui/separator';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/common/components/ui/dropdown-menu';
+import UserAvatar from '@/common/components/UserAvatar';
+import { Button } from '@/common/components/ui/button';
+import { useMediaQuery } from 'react-responsive';
 
 type SidebarNavItem = {
   title: string;
@@ -55,6 +58,20 @@ const SidebarNav: React.FC<{ items: SidebarNavItem[], title?: string, useCourseT
   };
 
   const sections = getSections();
+  const isDesktop = useMediaQuery({
+    query: '(min-width: 1024px)'
+  })
+  const dropdownContentProps: any = isDesktop
+    ? {
+      align: "end",
+      side: "right",
+      className: "w-56"
+    }
+    : {
+      align: "center",
+      side: "top",
+      className: "w-screen"
+    };
 
   return <nav className={`bg-secondary text-secondary-foreground ${isNavbarOpen ? 'open' : ''}`}>
     <div className="navbar">
@@ -83,10 +100,34 @@ const SidebarNav: React.FC<{ items: SidebarNavItem[], title?: string, useCourseT
       </section>
     ))}
     {userInfo && <footer>
-      <div className="user-info">
-        <span>{userInfo.email}</span>
-        <a role="button" onClick={() => logout()}>Logout</a>
-      </div>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="w-full md:text-sm">
+            <UserAvatar user={{ name: userInfo.email }} />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent {...dropdownContentProps}>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <DropdownMenuItem>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Settings className="mr-2 h-4 w-4" />
+              <span>Settings</span>
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <DropdownMenuItem onClick={() => logout()}>
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Logout</span>
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </footer>}
   </nav>;
 };

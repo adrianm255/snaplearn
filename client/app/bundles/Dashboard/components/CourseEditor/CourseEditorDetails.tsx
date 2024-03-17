@@ -1,5 +1,5 @@
 import React from 'react';
-import Field, { FieldType } from '../../../../common/components/Field/Field';
+import Field, { FieldType } from '../../../../common/components/Field';
 import { useStore } from '../../../../hooks-store/store';
 import { CourseEditorStoreAction } from '../../../../hooks-store/courseEditorStore';
 import useTranslation from '../../../../libs/i18n/useTranslation';

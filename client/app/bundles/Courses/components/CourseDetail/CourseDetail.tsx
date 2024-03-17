@@ -7,6 +7,8 @@ import { useStore } from "@/hooks-store/store";
 import { Button, buttonVariants } from "@/common/components/ui/button";
 import { Book, FileQuestion, Home, MessageCircleQuestion, NotebookPen, Pencil, Search } from "lucide-react";
 import { CourseDetailStoreAction } from "@/hooks-store/courseDetailStore";
+import { Alert, AlertDescription, AlertTitle } from "@/common/components/ui/alert";
+import UserAvatar from "@/common/components/UserAvatar";
 
 const CourseDetail: React.FC = () => {
   const { t } = useTranslation();
@@ -23,7 +25,6 @@ const CourseDetail: React.FC = () => {
     <main className="course-detail">
       <header className="sticky bg-secondary text-secondary-foreground">
         <div className="gap-y-0">
-          {!course.published && <div role="status" className="warning">This course is not currently published. Only you can see this page until the course is published.</div>}
           <h1>{course.title}</h1>
           <div className="actions">
             {currentUserIsAuthor && <a role="button" className={buttonVariants({ variant: "outline", size: "icon" })} href={`/course/${course.id}/edit`}>
@@ -31,7 +32,7 @@ const CourseDetail: React.FC = () => {
             </a>}
           </div>
           <div>
-            <span>By <a href="" target="_blank" rel="noreferrer">{course.author.email}</a></span>
+            <UserAvatar user={{ name: course.author.email }} />
           </div>
         </div>
       </header>
@@ -63,7 +64,7 @@ const CourseDetail: React.FC = () => {
               </Button>
             </div>
             <div className="w-full flex items-center justify-center">
-              <a className={`${buttonVariants({ variant: "ghost" })}`} href="/dashboard">
+              <a className={`${buttonVariants({ variant: "ghost" })}`} href="/courses">
                 <Home className="w-8 h-8" />
               </a>
             </div>
@@ -93,7 +94,7 @@ const CourseDetail: React.FC = () => {
             </Button>
           </section>
           <section>
-            <a className={`${buttonVariants({ variant: "ghost" })} w-full text-muted-foreground font-normal gap-0`} href="/dashboard">
+            <a className={`${buttonVariants({ variant: "ghost" })} w-full text-muted-foreground font-normal gap-0`} href="/courses">
               <Home className="mr-2 w-4 h-4" />
               Dashboard
             </a>
@@ -105,6 +106,14 @@ const CourseDetail: React.FC = () => {
         </nav>
 
         <div className="course-content flex flex-col gap-4">
+          {!course.published &&
+            <Alert variant="warning">
+              <AlertTitle>Course not published</AlertTitle>
+              <AlertDescription>
+                This course is not currently published. Only you can see this page until the course is published
+              </AlertDescription>
+            </Alert>
+          }
           {course.description && <p className="text-base">{course.description}</p>}
           <div className="flex flex-col gap-4">
             {course.courseSections?.map(courseSection => (
