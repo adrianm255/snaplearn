@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import Field, { FieldType } from "@/common/components/Field/Field";
+import Field, { FieldType } from "@/common/components/Field";
 import { useStore } from "@/hooks-store/store";
 import { CourseEditorStoreAction } from "@/hooks-store/courseEditorStore";
 import { CourseSectionType } from "@/types/course";
 import { getSectionIcon } from "@/helpers/courseHelper";
 import useTranslation from "@/libs/i18n/useTranslation";
-import { FileInputHandle } from "@/common/components/FileInput/FileInput";
+import { FileInputHandle } from "@/common/components/FileInput";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/common/components/ui/collapsible";
 import { Button } from "@/common/components/ui/button";
 import { ChevronDown, ChevronUp, Trash2 } from "lucide-react";

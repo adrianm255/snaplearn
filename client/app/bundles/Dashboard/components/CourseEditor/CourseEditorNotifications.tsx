@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import ToastMessage, { ToastMessageHandle } from "../../../../common/components/ToastMessage/ToastMessage";
+import ToastMessage, { ToastMessageHandle } from "../../../../common/components/ToastMessage";
 import { useStore } from "../../../../hooks-store/store";
 
 const CourseEditorNotifications: React.FC = () => {

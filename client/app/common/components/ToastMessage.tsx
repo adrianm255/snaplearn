@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle } from 'react';
-import { Alert, AlertTitle } from '../ui/alert';
+import { Alert, AlertTitle } from './ui/alert';
 
 type ToastMessageProps = {
   message: string;

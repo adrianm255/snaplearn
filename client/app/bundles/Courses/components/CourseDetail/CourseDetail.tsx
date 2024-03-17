@@ -8,6 +8,7 @@ import { Button, buttonVariants } from "@/common/components/ui/button";
 import { Book, FileQuestion, Home, MessageCircleQuestion, NotebookPen, Pencil, Search } from "lucide-react";
 import { CourseDetailStoreAction } from "@/hooks-store/courseDetailStore";
 import { Alert, AlertDescription, AlertTitle } from "@/common/components/ui/alert";
+import UserAvatar from "@/common/components/UserAvatar";
 
 const CourseDetail: React.FC = () => {
   const { t } = useTranslation();
@@ -31,7 +32,7 @@ const CourseDetail: React.FC = () => {
             </a>}
           </div>
           <div>
-            <span>By <a href="" target="_blank" rel="noreferrer">{course.author.email}</a></span>
+            <UserAvatar user={{ name: course.author.email }} />
           </div>
         </div>
       </header>

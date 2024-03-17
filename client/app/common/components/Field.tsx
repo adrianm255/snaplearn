@@ -1,7 +1,7 @@
 import React, { Suspense, forwardRef, lazy, useImperativeHandle, useRef } from 'react';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { Textarea } from '../ui/textarea';
+import { Label } from './ui/label';
+import { Input } from './ui/input';
+import { Textarea } from './ui/textarea';
 
 interface FieldProps {
   type: FieldType;
@@ -30,7 +30,7 @@ export type FieldHandle = {
 };
 
 // TODO use helper
-const ReactQuill = lazy(() => import('../../components/RichText/RichText'));
+const ReactQuill = lazy(() => import('./RichText'));
 
 const Field = forwardRef<FieldHandle, FieldProps>(({ type, name, label, description, placeholder, value, onChange, ...inputProps }, ref) => {
   const inputRef = useRef<any>(null);

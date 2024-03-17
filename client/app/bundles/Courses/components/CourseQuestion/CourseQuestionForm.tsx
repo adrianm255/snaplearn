@@ -1,5 +1,5 @@
 import React from "react";
-import Field, { FieldType } from "../../../../common/components/Field/Field";
+import Field, { FieldType } from "../../../../common/components/Field";
 import { Button } from "@/common/components/ui/button";
 
 const CourseQuestionForm: React.FC<{ onAskQuestion: (e: React.FormEvent<HTMLFormElement>) => void }> = ({ onAskQuestion }) => {
