@@ -1,4 +1,5 @@
 import React, { useRef, useState, forwardRef, useImperativeHandle } from 'react';
+import { Label } from './ui/label';
 
 type FileInputProps = {
   onFileSelect: (files: FileList) => void;
@@ -44,27 +45,22 @@ const FileInput = forwardRef<FileInputHandle, FileInputProps>(({ onFileSelect, f
   };
 
   return (
-    <fieldset style={style}>
-      {label && <legend>
-        <label className="top-level-label" htmlFor={name}>{label}</label>
-      </legend>}
+    <div style={style} className="flex flex-col gap-3">
+      {label && <Label htmlFor={name}>{label}</Label>}
 
-      <div className="file-input">
-        <input
-          type="file"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-          style={{ display: 'none' }}
-          { ...inputProps }
-        />
-        <button type="button" className="primary" onClick={handleButtonClick}>
-          <span className="icon icon-upload-fill"></span>
-          {selectedFileName ? 'Change File' : 'Upload File'}
-        </button>
-        <div>{description}</div>
-        <div>Selected file: {selectedFileName || 'No file selected'}</div>
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        style={{ display: 'none' }}
+        { ...inputProps }
+      />
+
+      <div onClick={handleButtonClick} className="cursor-pointer flex h-12 w-full rounded-md border border-input bg-input-background px-4 py-3 text-base ring-offset-background file:border-0 file:bg-transparent file:text-base file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 top-level-input">
+        <div className="truncate">Choose file: {selectedFileName || 'No file chosen'}</div>
       </div>
-    </fieldset>
+      {description && <p className="text-sm text-muted-foreground">{description}</p>}
+    </div>
   );
 });
 

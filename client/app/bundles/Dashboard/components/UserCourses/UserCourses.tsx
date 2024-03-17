@@ -66,7 +66,7 @@ const UserCourses: React.FC<{ courses: Course[] }> = ({ courses }) => {
     </DashboardHeader>
     
     <main className="content">
-      {userCourses.length === 0 && <h3>You have no courses yet.</h3>}
+      {userCourses.length === 0 && <span className="text-base text-muted-foreground">You have no courses yet.</span>}
 
       {userCourses.length > 0 &&
         <Table className="rounded-sm">
