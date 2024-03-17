@@ -7,6 +7,7 @@ import { useStore } from "@/hooks-store/store";
 import { Button, buttonVariants } from "@/common/components/ui/button";
 import { Book, FileQuestion, Home, MessageCircleQuestion, NotebookPen, Pencil, Search } from "lucide-react";
 import { CourseDetailStoreAction } from "@/hooks-store/courseDetailStore";
+import { Alert, AlertDescription, AlertTitle } from "@/common/components/ui/alert";
 
 const CourseDetail: React.FC = () => {
   const { t } = useTranslation();
@@ -23,7 +24,6 @@ const CourseDetail: React.FC = () => {
     <main className="course-detail">
       <header className="sticky bg-secondary text-secondary-foreground">
         <div className="gap-y-0">
-          {!course.published && <div role="status" className="warning">This course is not currently published. Only you can see this page until the course is published.</div>}
           <h1>{course.title}</h1>
           <div className="actions">
             {currentUserIsAuthor && <a role="button" className={buttonVariants({ variant: "outline", size: "icon" })} href={`/course/${course.id}/edit`}>
@@ -105,6 +105,14 @@ const CourseDetail: React.FC = () => {
         </nav>
 
         <div className="course-content flex flex-col gap-4">
+          {!course.published &&
+            <Alert variant="warning">
+              <AlertTitle>Course not published</AlertTitle>
+              <AlertDescription>
+                This course is not currently published. Only you can see this page until the course is published
+              </AlertDescription>
+            </Alert>
+          }
           {course.description && <p className="text-base">{course.description}</p>}
           <div className="flex flex-col gap-4">
             {course.courseSections?.map(courseSection => (

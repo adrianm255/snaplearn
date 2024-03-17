@@ -1,8 +1,9 @@
 import React, { forwardRef, useEffect, useImperativeHandle } from 'react';
+import { Alert, AlertTitle } from '../ui/alert';
 
 type ToastMessageProps = {
   message: string;
-  type: 'success' | 'danger' | 'warning' | 'info';
+  type: 'success' | 'destructive' | 'warning';
   timeout?: number;
 }
 
@@ -51,15 +52,15 @@ const ToastMessage = forwardRef<ToastMessageHandle, ToastMessageProps>(({ messag
         padding: 'var(--spacer-4)',
         display: 'flex',
         justifyContent: 'center',
-        zIndex: 'var(--z-index-tooltip)',
+        zIndex: '30',
         pointerEvents: 'none',
         transition: 'all 0.3s ease-out 0.5s',
         ... (isVisible ? visibleStyles : hiddenStyles),
       }}
     >
-      <div className={`message bg-filled ${type}`} role="alert" style={{pointerEvents: 'auto'}}>
-        {message}
-      </div>
+      <Alert variant={type} className="w-auto bg-background py-3">
+        <AlertTitle>{message}</AlertTitle>
+      </Alert>
     </div>
   );
 });

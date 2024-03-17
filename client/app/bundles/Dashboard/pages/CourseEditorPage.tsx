@@ -1,9 +1,9 @@
 import React from 'react';
-import configureCourseEditorStore from '../../../hooks-store/courseEditorStore';
+import configureCourseEditorStore from '@/hooks-store/courseEditorStore';
 import CourseEditor from '../components/CourseEditor/CourseEditor';
-import { CourseRaw } from '../../../types/course';
-import { serverFormatToClientFormat } from '../../../helpers/dataMapper';
-import configureToastStore from '../../../hooks-store/toastStore';
+import { CourseRaw } from '@/types/course';
+import { serverFormatToClientFormat } from '@/helpers/dataMapper';
+import configureToastStore from '@/hooks-store/toastStore';
 import CourseEditorNotifications from '../components/CourseEditor/CourseEditorNotifications';
 
 const CourseEditorPage: React.FC<{ course: CourseRaw }> = ({ course }) => {
