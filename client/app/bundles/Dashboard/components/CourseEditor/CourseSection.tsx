@@ -5,7 +5,7 @@ import { CourseEditorStoreAction } from "@/hooks-store/courseEditorStore";
 import { CourseSectionType } from "@/types/course";
 import { getSectionIcon } from "@/helpers/courseHelper";
 import useTranslation from "@/libs/i18n/useTranslation";
-import { FileInputHandle } from "@/common/components/FileInput";
+import FileInput, { FileInputHandle } from "@/common/components/FileInput";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/common/components/ui/collapsible";
 import { Button } from "@/common/components/ui/button";
 import { ChevronDown, ChevronUp, Trash2 } from "lucide-react";
@@ -101,16 +101,16 @@ const CourseSection: React.FC<{ courseSectionId: string, expanded?: boolean }> =
             />}
 
             {courseSection.sectionType !== CourseSectionType.RichText && courseSection.isNew &&
-              <Field
+              <FileInput
                 type={FieldType.File}
                 ref={fileInputRef}
                 name="course_section_file"
                 id="course_section_file"
                 label={t('course_section.content_label')}
                 accept={getFileInputAcceptTypes()}
-                value={courseSection.fileData?.filename}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  const file = e.target?.files?.[0];
+                fileName={courseSection.fileData?.filename}
+                onFileSelect={(files: FileList) => {
+                  const file = files?.[0];
                   if (!file) return;
                   const fileName = file.name.replace(/\.[^/.]+$/, '');
                   handleSectionAttributeChange('file', file);

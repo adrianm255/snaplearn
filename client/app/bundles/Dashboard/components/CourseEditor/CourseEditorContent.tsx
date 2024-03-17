@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { useStore } from '../../../../hooks-store/store';
-import { CourseEditorStoreAction } from '../../../../hooks-store/courseEditorStore';
+import { useStore } from '@/hooks-store/store';
+import { CourseEditorStoreAction } from '@/hooks-store/courseEditorStore';
 import CourseSection from './CourseSection';
-import { CourseSectionType } from '../../../../types/course';
-import { getSectionIcon } from '../../../../helpers/courseHelper';
-import useTranslation from '../../../../libs/i18n/useTranslation';
-import FileInput, { FileInputHandle } from '../../../../common/components/FileInput';
+import { CourseSectionType } from '@/types/course';
+import { getSectionIcon } from '@/helpers/courseHelper';
+import useTranslation from '@/libs/i18n/useTranslation';
+import FileInput, { FileInputHandle } from '@/common/components/FileInput';
 import { Popover, PopoverContent, PopoverTrigger } from '@/common/components/ui/popover';
 import { Button } from '@/common/components/ui/button';
 import { PlusCircle, Upload } from 'lucide-react';
