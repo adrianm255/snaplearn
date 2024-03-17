@@ -64,7 +64,7 @@ const CourseDetail: React.FC = () => {
               </Button>
             </div>
             <div className="w-full flex items-center justify-center">
-              <a className={`${buttonVariants({ variant: "ghost" })}`} href="/dashboard">
+              <a className={`${buttonVariants({ variant: "ghost" })}`} href="/courses">
                 <Home className="w-8 h-8" />
               </a>
             </div>
@@ -94,7 +94,7 @@ const CourseDetail: React.FC = () => {
             </Button>
           </section>
           <section>
-            <a className={`${buttonVariants({ variant: "ghost" })} w-full text-muted-foreground font-normal gap-0`} href="/dashboard">
+            <a className={`${buttonVariants({ variant: "ghost" })} w-full text-muted-foreground font-normal gap-0`} href="/courses">
               <Home className="mr-2 w-4 h-4" />
               Dashboard
             </a>
