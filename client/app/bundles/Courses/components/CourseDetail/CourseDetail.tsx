@@ -24,7 +24,7 @@ const CourseDetail: React.FC = () => {
   return (
     <main className="course-detail">
       <header className="sticky bg-secondary text-secondary-foreground">
-        <div className="gap-y-0">
+        <div className="gap-y-1">
           <h1>{course.title}</h1>
           <div className="actions">
             {currentUserIsAuthor && <a role="button" className={buttonVariants({ variant: "outline", size: "icon" })} href={`/course/${course.id}/edit`}>
@@ -32,7 +32,7 @@ const CourseDetail: React.FC = () => {
             </a>}
           </div>
           <div>
-            <UserAvatar user={{ name: course.author.email }} />
+            <UserAvatar user={{ name: course.author.username }} />
           </div>
         </div>
       </header>

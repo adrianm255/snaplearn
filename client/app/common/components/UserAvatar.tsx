@@ -5,7 +5,7 @@ const UserAvatar: React.FC<{ user: { name: string; avatarUrl?: string }, asLink?
   // TODO hardcoding as icon for now
   const content = (
     <>
-      <CircleUserRound className="w-4 h-4" />
+      <CircleUserRound className="w-6 h-6" />
       <span>{user.name}</span>
     </>
   );
