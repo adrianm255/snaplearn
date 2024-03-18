@@ -4,10 +4,10 @@ export type Course = {
   description: string;
   courseSections: CourseSection[];
   published: boolean;
-  embeddedStatus: string; // TODO
+  embeddedStatus: string;
   author: {
     id: string;
-    name: string; // TODO
+    username: string;
     email: string;
   },
   courseQuestions: CourseQuestion[];

@@ -14,7 +14,7 @@ const CourseCard: React.FC<{ course: Course, referrer?: string }> = ({ course, r
 
       <header>
         <h3>{course.title}</h3>
-        <span><UserAvatar user={{ name: course.author.email }} /></span>
+        <span><UserAvatar user={{ name: course.author.username }} /></span>
       </header>
     </article>
   );

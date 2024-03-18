@@ -19,7 +19,7 @@ class Course < ApplicationRecord
           methods: :file_data
         },
         author: {
-          only: [:id, :email]
+          only: [:id, :email, :username]
         }
       }
     }

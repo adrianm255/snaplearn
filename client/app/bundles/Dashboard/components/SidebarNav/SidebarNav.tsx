@@ -102,8 +102,8 @@ const SidebarNav: React.FC<{ items: SidebarNavItem[], title?: string, useCourseT
     {userInfo && <footer>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="w-full md:text-sm">
-            <UserAvatar user={{ name: userInfo.email }} />
+          <Button variant="ghost" className="w-full justify-start px-6 py-4">
+            <UserAvatar user={{ name: userInfo.username }} />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent {...dropdownContentProps}>
