@@ -43,29 +43,29 @@ const CourseDetail: React.FC = () => {
             {/* TODO this is hardcoded as active for now */}
             <div className="w-full flex items-center justify-center text-secondary-foreground">
               <Button variant="ghost" size="icon" onClick={() => {}}>
-                <Book className="w-8 h-8" />
+                <Book className="w-7 h-7" />
               </Button>
             </div>
             <div className="w-full flex items-center justify-center">
               <Button variant="ghost" size="icon" onClick={() => {}}>
-                <NotebookPen className="w-8 h-8" />
+                <NotebookPen className="w-7 h-7" />
               </Button>
             </div>
             <div className="w-full flex items-center justify-center">
               <CourseQuestionButton>
                 <Button variant="ghost" size="icon">
-                  <MessageCircleQuestion className="w-8 h-8" />
+                  <MessageCircleQuestion className="w-7 h-7" />
                 </Button>
               </CourseQuestionButton>
             </div>
             <div className="w-full flex items-center justify-center">
               <Button variant="ghost" size="icon" onClick={() => {}}>
-                <FileQuestion className="w-8 h-8" />
+                <FileQuestion className="w-7 h-7" />
               </Button>
             </div>
             <div className="w-full flex items-center justify-center">
               <a className={`${buttonVariants({ variant: "ghost" })}`} href="/courses">
-                <Home className="w-8 h-8" />
+                <Home className="w-7 h-7" />
               </a>
             </div>
           </div>
