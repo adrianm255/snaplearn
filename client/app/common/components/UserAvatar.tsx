@@ -6,12 +6,12 @@ const UserAvatar: React.FC<{ user: { name: string; avatarUrl?: string }, asLink?
   const content = (
     <>
       <CircleUserRound className="w-6 h-6" />
-      <span>{user.name}</span>
+      <span className="truncate">{user.name}</span>
     </>
   );
   return (asLink
-    ? (<a href="" className="flex flex-row gap-2 items-center" {...props}>{content}</a>)
-    : (<div className="flex flex-row gap-2 items-center text-sm" {...props}>{content}</div>)
+    ? (<a href="" className="flex flex-row gap-2 items-center truncate" {...props}>{content}</a>)
+    : (<div className="flex flex-row gap-2 items-center truncate" {...props}>{content}</div>)
   );
 };
 

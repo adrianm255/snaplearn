@@ -7,7 +7,6 @@ nav {
   overflow-y: auto;
   font-size: 1rem;
   line-height: 1.5;
-  --line-height: 1.5rem;
 
   .navbar {
     display: grid;
@@ -15,8 +14,6 @@ nav {
     align-items: center;
     gap: .75rem;
     font-size: 1.25rem;
-    line-height: 1.6;
-    --line-height: 2rem;
     padding: 1rem;
     line-height: 1;
 
@@ -24,6 +21,7 @@ nav {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(2rem, 1fr));
       border-top: 1px solid var(--border-color);
+      padding: .25rem;
     }
 
     h1 {
@@ -126,6 +124,10 @@ nav.course-nav {
     header, section, footer {
       display: grid;
     }
+  }
+
+  nav {
+    width: 12rem;
   }
 
   nav.course-nav {

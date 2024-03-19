@@ -103,7 +103,7 @@ const SidebarNav: React.FC<{ items: SidebarNavItem[], title?: string, useCourseT
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="w-full justify-start px-6 py-4">
-            <UserAvatar user={{ name: userInfo.username }} />
+            <UserAvatar user={{ name: userInfo.username }} asLink={false}/>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent {...dropdownContentProps}>
