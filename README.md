@@ -1,23 +1,7 @@
 # Snaplearn
 Snaplearn is a dynamic platform designed to revolutionize the way educational content is created, published, and accessed. It empowers creators by providing them with the tools needed to build and publish comprehensive courses on a variety of subjects. For learners, Snaplearn offers an accessible library of these courses, enhanced by AI. This AI integration not only facilitates a personalized learning experience but also enables users to receive instant answers to their queries, directly based on the course content.
 
-⚠ The app is still in prototype phase so best coding practices and standards were not always used. There are several areas within the app that may still have issues, require further polishing, or lack proper error handling and full security measures. The current state of the app reflects a work in progress, where functionality has been prioritized to demonstrate the core features and potential of the project. Also, the live demo app may feel slow and hang at times, because it is hosted on a (mostly) free-tier plan.
-
-## Live demo
-https://snaplearn-web.onrender.com/
-
-For most pages you will be prompted to log-in. These are some predefined users with a small number of published courses:
-
- - test1@example.com / password
- - test2@example.com / password
-
-but feel free to create any new accounts.
-
-<br /> 
-
-**Main Pages**
-* [Explore](https://snaplearn-web.onrender.com/discover) - publicly accessible, displays all published courses available in the platform.
-* [Courses](https://snaplearn-web.onrender.com/courses) - lists all courses created by you, with options to view/edit/delete them.
+⚠ The app is still in prototype phase so best coding practices and standards were not always used. There are several areas within the app that may still have issues, require further polishing, or lack proper error handling and full security measures. The current state of the app reflects a work in progress, where functionality has been prioritized to demonstrate the core features and potential of the project.
 
 <br /> 
 
